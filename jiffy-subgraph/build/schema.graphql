@@ -1,0 +1,29 @@
+type Transfer @entity {
+  id:ID!
+  requestId: Bytes
+  type: String
+  value: BigInt
+  to: Bytes
+  from: Bytes
+}
+
+type Staking @entity {
+  id: ID!
+  requestId: Bytes
+  type: String
+  requestFrom: Bytes
+  value: BigInt
+}
+
+type UserOp @entity {
+  id: ID!
+  transactionHash: Bytes
+  requestId: Bytes
+  sender: Bytes
+  paymaster: Bytes
+  nonce: BigInt
+  actualGasCost: BigInt
+  actualGasPrice: BigInt
+  success: Boolean
+  revertReason: Bytes
+}
