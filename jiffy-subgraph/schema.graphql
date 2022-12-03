@@ -12,6 +12,7 @@ type Staking @entity {
   requestId: Bytes
   type: String
   requestFrom: Bytes
+  to: Bytes
   value: BigInt
 }
 
@@ -28,4 +29,5 @@ type UserOp @entity {
   revertReason: Bytes
   blockTime: BigInt
   blockNumber: BigInt
+  network: String
 }

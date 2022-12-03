@@ -210,6 +210,23 @@ export class Staking extends Entity {
     }
   }
 
+  get to(): Bytes | null {
+    let value = this.get("to");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set to(value: Bytes | null) {
+    if (!value) {
+      this.unset("to");
+    } else {
+      this.set("to", Value.fromBytes(<Bytes>value));
+    }
+  }
+
   get value(): BigInt | null {
     let value = this.get("value");
     if (!value || value.kind == ValueKind.NULL) {
@@ -435,6 +452,23 @@ export class UserOp extends Entity {
       this.unset("blockNumber");
     } else {
       this.set("blockNumber", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get network(): string | null {
+    let value = this.get("network");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toString();
+    }
+  }
+
+  set network(value: string | null) {
+    if (!value) {
+      this.unset("network");
+    } else {
+      this.set("network", Value.fromString(<string>value));
     }
   }
 }

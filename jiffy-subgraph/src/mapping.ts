@@ -40,11 +40,38 @@ export function handleDeposited(event: Deposited): void {
   transfer.save()
 }
 
-export function handleStakeLocked(event: StakeLocked): void {}
+export function handleStakeLocked(event: StakeLocked): void {
+  let stake = Staking.load(event.transaction.hash.toHex())
+  if (stake == null) {
+    stake = new Staking(event.transaction.hash.toHex())
+  }
 
-export function handleStakeUnlocked(event: StakeUnlocked): void {}
+  stake.type = "LOCKED"
+  stake.requestFrom = event.params.account
+  stake.value = event.params.totalStaked
+}
 
-export function handleStakeWithdrawn(event: StakeWithdrawn): void {}
+export function handleStakeUnlocked(event: StakeUnlocked): void {
+  let stake = Staking.load(event.transaction.hash.toHex())
+  if (stake == null) {
+    stake = new Staking(event.transaction.hash.toHex())
+  }
+
+  stake.type = "UNLOCKED"
+  stake.requestFrom = event.params.account
+}
+
+export function handleStakeWithdrawn(event: StakeWithdrawn): void {
+  let stake = Staking.load(event.transaction.hash.toHex())
+  if (stake == null) {
+    stake = new Staking(event.transaction.hash.toHex())
+  }
+
+  stake.type = "WITHDRAW"
+  stake.requestFrom = event.params.account
+  stake.value = event.params.amount
+  stake.to = event.params.withdrawAddress
+}
 
 export function handleUserOperationEvent(event: UserOperationEvent): void {
   let userOp = UserOp.load(event.params.requestId.toHex())

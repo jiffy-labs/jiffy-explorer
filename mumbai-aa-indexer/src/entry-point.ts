@@ -8,23 +8,57 @@ import {
   Withdrawn as WithdrawnEvent
 } from "../generated/EntryPoint/EntryPoint"
 import {
-  UserOp
+  UserOp,
+  Transfer,
+  Staking
 } from "../generated/schema"
 
 export function handleDeposited(event: DepositedEvent): void {
+  let transfer = Transfer.load(event.transaction.hash.toHex())
+  if (transfer == null) {
+    transfer = new Transfer(event.transaction.hash.toHex())
+  }
 
+  transfer
+  transfer.requestId = event.transaction.hash
+  transfer.type = "Deposited"
+  transfer.value = event.params.totalDeposit
+  transfer.to = event.transaction.to
+  transfer.from = event.params.account
+  transfer.save()
 }
 
 export function handleStakeLocked(event: StakeLockedEvent): void {
+  let stake = Staking.load(event.transaction.hash.toHex())
+  if (stake == null) {
+    stake = new Staking(event.transaction.hash.toHex())
+  }
 
+  stake.type = "LOCKED"
+  stake.requestFrom = event.params.account
+  stake.value = event.params.totalStaked
 }
 
 export function handleStakeUnlocked(event: StakeUnlockedEvent): void {
+  let stake = Staking.load(event.transaction.hash.toHex())
+  if (stake == null) {
+    stake = new Staking(event.transaction.hash.toHex())
+  }
 
+  stake.type = "UNLOCKED"
+  stake.requestFrom = event.params.account
 }
 
 export function handleStakeWithdrawn(event: StakeWithdrawnEvent): void {
+  let stake = Staking.load(event.transaction.hash.toHex())
+  if (stake == null) {
+    stake = new Staking(event.transaction.hash.toHex())
+  }
 
+  stake.type = "WITHDRAW"
+  stake.requestFrom = event.params.account
+  stake.value = event.params.amount
+  stake.to = event.params.withdrawAddress
 }
 
 export function handleUserOperationEvent(event: UserOperationEventEvent): void {
@@ -67,5 +101,15 @@ export function handleUserOperationRevertReason(
 }
 
 export function handleWithdrawn(event: WithdrawnEvent): void {
+  let transfer = Transfer.load(event.transaction.hash.toHex())
+  if (transfer == null) {
+    transfer = new Transfer(event.transaction.hash.toHex())
+  }
 
+  transfer.requestId = event.transaction.hash
+  transfer.type = "Withdraw"
+  transfer.value = event.params.amount
+  transfer.to = event.params.withdrawAddress
+  transfer.from = event.transaction.from
+  transfer.save()
 }

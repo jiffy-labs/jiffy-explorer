@@ -8,6 +8,7 @@ dataSources:
     source:
       address: "0x1D9a2CB3638C2FC8bF9C01D088B79E75CD188b17"
       abi: EntryPoint
+      startBlock: 29169400
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -46,6 +47,7 @@ dataSources:
     source:
       address: "0x119df1582e0dd7334595b8280180f336c959f3bb"
       abi: BEntryPoint
+      startBlock: 29169400
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7

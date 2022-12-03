@@ -12,6 +12,7 @@ type Staking @entity {
   requestId: Bytes
   type: String
   requestFrom: Bytes
+  to: Bytes
   value: BigInt
 }
 
