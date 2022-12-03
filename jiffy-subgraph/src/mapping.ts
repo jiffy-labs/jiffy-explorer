@@ -60,6 +60,8 @@ export function handleUserOperationEvent(event: UserOperationEvent): void {
   userOp.actualGasCost = event.params.actualGasCost
   userOp.actualGasPrice = event.params.actualGasPrice
   userOp.success = event.params.success
+  userOp.blockTime = event.block.timestamp
+  userOp.blockNumber = event.block.number
   // let transactionReceipt = event.receipt
   // if(transactionReceipt) {
   //   userOp.logLen = BigInt.fromI32(transactionReceipt.logs.length)

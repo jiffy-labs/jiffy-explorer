@@ -26,4 +26,6 @@ type UserOp @entity {
   actualGasPrice: BigInt
   success: Boolean
   revertReason: Bytes
+  blockTime: BigInt
+  blockNumber: BigInt
 }

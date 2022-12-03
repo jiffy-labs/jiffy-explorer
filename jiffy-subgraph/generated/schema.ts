@@ -403,4 +403,38 @@ export class UserOp extends Entity {
       this.set("revertReason", Value.fromBytes(<Bytes>value));
     }
   }
+
+  get blockTime(): BigInt | null {
+    let value = this.get("blockTime");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set blockTime(value: BigInt | null) {
+    if (!value) {
+      this.unset("blockTime");
+    } else {
+      this.set("blockTime", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
+  get blockNumber(): BigInt | null {
+    let value = this.get("blockNumber");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set blockNumber(value: BigInt | null) {
+    if (!value) {
+      this.unset("blockNumber");
+    } else {
+      this.set("blockNumber", Value.fromBigInt(<BigInt>value));
+    }
+  }
 }

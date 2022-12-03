@@ -1,0 +1,26 @@
+{
+  "name": "jiffy-server",
+  "version": "1.0.0",
+  "description": "An explorer for account abstraction",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd client && npm install --force && npm run build",
+    "quick-build": "cd client && npm run build",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lazycoder1/jiffy-explorer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lazycoder1/jiffy-explorer/issues"
+  },
+  "homepage": "https://github.com/lazycoder1/jiffy-explorer#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
