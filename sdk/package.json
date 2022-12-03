@@ -1,0 +1,12 @@
+{
+  "name": "jiffy-aa-fetcher",
+  "version": "1.0.0",
+  "description": "JS script to fetch address activity from EIP 4337 bundlers and relayers",
+  "main": "address.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gautam G Sabhahit (tl: @lazyc0der1)",
+  "license": "ISC",
+  "dependencies": {}
+}

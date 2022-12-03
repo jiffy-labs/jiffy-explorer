@@ -1,5 +1,5 @@
 import { Col, Container, Nav, Row } from "react-bootstrap";
-import Header from "../components/Header";
+import LinkLayout from "../components/LinkingLayout";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -49,7 +49,7 @@ const convertGraphDataToRows = (data) => {
         let userOp = data.userOps[idx];
         let timePassedInEpoch = new Date().getTime() - userOp.blockTime * 1000;
         let timePassed = moment.duration(timePassedInEpoch);
-        let requestLink = "/request/" + userOp.requestId;
+        let requestLink = "/requestId/" + userOp.requestId;
         let row = {
             requestId: <a href={requestLink}>{userOp.requestId.slice(0, 10) + "..."}</a>,
             blockTime: timePassed.humanize() + " ago",
@@ -85,16 +85,12 @@ const Block = () => {
 
     return (
         <>
-            <Header />
-            <div className="wrapp">
-                <div className="content">
-                    <Search />
-                </div>
-            </div>
+            <LinkLayout>
             <Container>
-                Address
+                Blocks
                 <BootstrapTable keyField='requestId' data={ rows } columns={ columns } pagination={ paginationFactory(options) } />
             </Container>
+            </LinkLayout>
         </>
     );
 };

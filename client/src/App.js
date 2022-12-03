@@ -4,6 +4,7 @@ import "./App.css";
 import Address from "./pages/Address";
 import Block from "./pages/Block";
 import Home from "./pages/Home";
+import RequestId from "./pages/RequestId";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/address/:address" element={<Address />} />
                     <Route path="/block/:block" element={<Block />}/>
+                    <Route path="/requestId/:reqId" element={<RequestId />}/>
                 </Routes>
             </Router>
         </>

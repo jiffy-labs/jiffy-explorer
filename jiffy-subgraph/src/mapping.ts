@@ -62,6 +62,7 @@ export function handleUserOperationEvent(event: UserOperationEvent): void {
   userOp.success = event.params.success
   userOp.blockTime = event.block.timestamp
   userOp.blockNumber = event.block.number
+  userOp.network = "georli"
   // let transactionReceipt = event.receipt
   // if(transactionReceipt) {
   //   userOp.logLen = BigInt.fromI32(transactionReceipt.logs.length)
