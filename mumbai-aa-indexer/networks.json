@@ -1,0 +1,10 @@
+{
+  "mumbai": {
+    "EntryPoint": {
+      "address": "0x1D9a2CB3638C2FC8bF9C01D088B79E75CD188b17"
+    },
+    "BEntryPoint": {
+      "address": "0x119df1582e0dd7334595b8280180f336c959f3bb"
+    }
+  }
+}
