@@ -15,7 +15,7 @@ import moment from "moment";
 import { Heading } from "@chakra-ui/react";
 
 const columns = [
-    { dataField: "requestId", text: "Request ID" },
+    { dataField: "requestId", text: "UserOpHash" },
     { dataField: "blockTime", text: "Age" },
     { dataField: "sender", text: "Sender" },
     { dataField: "blockNumber", text: "BlockNumber" },

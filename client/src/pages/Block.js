@@ -14,7 +14,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import moment from "moment";
 
 const columns = [
-    { dataField: "requestId", text: "Request ID" },
+    { dataField: "requestId", text: "userOpHash" },
     { dataField: "blockTime", text: "Age" },
     { dataField: "sender", text: "Sender" },
     { dataField: "blockNumber", text: "BlockNumber" },
