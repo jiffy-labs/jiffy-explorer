@@ -1,0 +1,10 @@
+query StakingQuery {
+  stakings(first: 10) {
+    id
+    requestFrom
+    requestId
+    to
+    type
+    value
+  }
+}

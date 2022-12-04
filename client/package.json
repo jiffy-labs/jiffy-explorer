@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^14.4.3",
     "bootstrap": "^5.2.3",
     "connected-react-router": "^6.9.3",
+    "ethereum-input-data-decoder": "^0.4.2",
     "framer-motion": "^7.6.18",
     "graphql": "^16.6.0",
     "history": "^5.3.0",

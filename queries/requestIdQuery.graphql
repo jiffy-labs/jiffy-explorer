@@ -1,0 +1,16 @@
+query RequestIdQuery($requestId: Bytes) {
+        userOps(where: { requestId: $requestId }, first: 1) {
+            paymaster
+            nonce
+            transactionHash
+            success
+            sender
+            revertReason
+            requestId
+            actualGasCost
+            actualGasPrice
+            blockTime
+            blockNumber
+        }
+    
+}

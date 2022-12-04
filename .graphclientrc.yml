@@ -1,0 +1,16 @@
+sources:
+  - name: georliIndex
+    handler:
+      graphql:
+        endpoint: https://api.thegraph.com/subgraphs/name/lazycoder1/aa-subgraphs-test
+  - name: mumbaiIndex
+    handler:
+      graphql:
+        endpoint: https://api.thegraph.com/subgraphs/name/lazycoder1/mumbai-aa-indexer
+
+documents:
+  - ./queries/blockNumberQuery.graphql
+  - ./queries/depositsQuery.graphql
+  - ./queries/requestIdQuery.graphql
+  - ./queries/senderAddressQuery.graphql
+  - ./queries/stakeQuery.graphql

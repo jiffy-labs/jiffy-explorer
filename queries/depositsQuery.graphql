@@ -1,0 +1,10 @@
+query DepositsQuery {
+  transfers {
+    from
+    id
+    requestId
+    to
+    type
+    value
+  }
+}

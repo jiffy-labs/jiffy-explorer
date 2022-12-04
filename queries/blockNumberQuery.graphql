@@ -1,0 +1,15 @@
+query BlockNumberQuery($blockNumber: BigInt) {
+        userOps(where: { blockNumber: $blockNumber }, orderBy: blockTime, orderDirection: desc) {
+            paymaster
+            nonce
+            transactionHash
+            success
+            sender
+            revertReason
+            requestId
+            actualGasCost
+            actualGasPrice
+            blockTime
+            blockNumber
+        }
+    }
