@@ -4,12 +4,17 @@ const port = 3000;
 const path = require("path");
 require('dotenv').config()
 // const { BlockNumberQuery, DepositsQuery, RequestIdQuery, SenderAddressQuery, StakingQuery, execute } = require('./.graphclient');
-const { ethers } = require("ethers");
+const ethers = require("ethers");
+const UserOpABI = require("./ABIs/UserOpsFunc.json");
+const ExecFromEntryPointABI = require("./ABIs/ExecFromEntryPoint.json");
+const { getUsersOperationDetails } = require("./utils/nodeQueries.js");
+const userOpInter = new ethers.utils.Interface(UserOpABI);
+const execFromEntryPointABI = new ethers.utils.Interface(ExecFromEntryPointABI);
 
-// const MumbaiProvider = new ethers.providers.InfuraProvider(
-//     "mumbai",
-//     process.env.INFURA_ID
-// );
+const mumbaiProvider = new ethers.providers.InfuraProvider(
+    "maticmum",
+    process.env.INFURA_ID
+);
 const georliProvider = new ethers.providers.InfuraProvider(
     "goerli",
     process.env.INFURA_ID
@@ -27,13 +32,24 @@ app.use(express.static("public"));
 // })
 
 app.get("/getTransactionInput", async (req, res) => {
-    let network = req.query.network
-    let txHash = req.query.txHash
-    let transaction;
-    if (network == "goerli") {
-        transaction = await georliProvider.getTransaction(txHash);
+    const queryParams = req?.query;
+    if (Object.keys(queryParams) == []) {
+        res.send({error: 1})
+        return;
     }
-    res.send(transaction.data);
+    const network = queryParams.network
+    const txHash = queryParams.txHash
+    const sender = queryParams.sender
+    const nonce = queryParams.nonce 
+    let userOp;
+    if (network && txHash && sender && nonce) {
+        userOp = await getUsersOperationDetails(txHash, sender, nonce, (network == "goerli") ? georliProvider: mumbaiProvider, userOpInter, execFromEntryPointABI) 
+    } else {
+        res.send({error: 1})
+        return;
+    }
+    
+    res.send(userOp);
 })
 
 app.use((req, res, next) => {
@@ -43,3 +59,5 @@ app.use((req, res, next) => {
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });
+
+
