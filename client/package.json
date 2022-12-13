@@ -34,12 +34,11 @@
     "redux-thunk": "^2.4.2",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:3000",
   "scripts": {
-    "start": "react-scripts start",
-    "start-client": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "cross-env PORT=3010 react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,6 +60,15 @@
     ]
   },
   "devDependencies": {
-    "@graphprotocol/client-cli": "^2.2.15"
+    "@graphprotocol/client-cli": "^2.2.15",
+    "assert": "^2.0.0",
+    "cross-env": "^7.0.3",
+    "crypto-browserify": "^3.12.0",
+    "https-browserify": "^1.0.0",
+    "os-browserify": "^0.3.0",
+    "react-app-rewired": "^2.2.1",
+    "stream-browserify": "^3.0.0",
+    "stream-http": "^3.2.0",
+    "url": "^0.11.0"
   }
 }

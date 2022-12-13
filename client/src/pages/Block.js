@@ -4,7 +4,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Search from "../components/Search";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
@@ -22,31 +22,10 @@ const columns = [
     { dataField: "status", text: "Status" },
 ];
 
-// const columns = ["Request ID", "Age", "Sender", "Gas Spent", "Status"];
-
-let BLOCK_QUERY = `
-    {
-        userOps(where: { blockNumber: "BLOCK_NUMBER" }, orderBy: blockTime, orderDirection: desc) {
-            paymaster
-            nonce
-            transactionHash
-            success
-            sender
-            revertReason
-            requestId
-            actualGasCost
-            actualGasPrice
-            blockTime
-            blockNumber
-        }
-    }
-`;
-
 const convertGraphDataToRows = (data) => {
     let rows = [];
-    console.log(data);
-    for (let idx in data.userOps) {
-        let userOp = data.userOps[idx];
+    for (let idx in data) {
+        let userOp = data[idx];
         let timePassedInEpoch = new Date().getTime() - userOp.blockTime * 1000;
         let timePassed = moment.duration(timePassedInEpoch);
         let requestLink = "/requestId/" + userOp.requestId;
@@ -65,11 +44,28 @@ const convertGraphDataToRows = (data) => {
 
 const Block = () => {
     let { block } = useParams();
-    const { data, loading, error } = useQuery(gql(BLOCK_QUERY.replace("BLOCK_NUMBER", block)));
+    const [data, setData] = useState([]);
+    const [rows, setRows] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-    if (loading) return "Loading...";
-    if (error) return <pre>{error.message}</pre>;
-    let rows = convertGraphDataToRows(data);
+    useEffect(() => {
+        setLoading(true);
+        fetch("/api/getActivityInBlock?block=" + block).then((res) =>
+            res.json().then((userOps) => {
+                if(userOps.error) return <pre>{userOps.message}</pre>
+                setData(userOps);
+                setLoading(false);
+            })
+        );
+    }, []);
+
+    useEffect(() => {
+        if (data) {
+            setRows(convertGraphDataToRows(data))
+        }
+    },[data])
+
+    if(loading) return "Loading..."
 
     const options = {
         pageStartIndex: 1,

@@ -77,6 +77,7 @@ export function handleUserOperationEvent(event: UserOperationEventEvent): void {
   userOp.success = event.params.success
   userOp.blockTime = event.block.timestamp
   userOp.blockNumber = event.block.number
+  userOp.network = "mumbai"
   // let transactionReceipt = event.receipt
   // if(transactionReceipt) {
   //   userOp.logLen = BigInt.fromI32(transactionReceipt.logs.length)
@@ -96,6 +97,7 @@ export function handleUserOperationRevertReason(
   userOp.transactionHash = event.transaction.hash
   userOp.sender = event.params.sender
   userOp.revertReason = event.params.revertReason
+  userOp.network = "mumbai"
   userOp.success = false
   userOp.save()
 }

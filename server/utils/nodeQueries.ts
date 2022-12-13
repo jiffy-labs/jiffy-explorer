@@ -1,31 +1,46 @@
-const { BigNumber } = require("ethers");
-const {
+import { BigNumber } from "ethers";
+import {
     Provider,
-} = require("@ethersproject/abstract-provider");
+} from "@ethersproject/abstract-provider";
 
-
-const getUserOpsfromTransaction = async (transactionHash, provider, inter) => {
-    const tx = await provider.getTransaction(transactionHash);
-    const decodedInput = inter.parseTransaction({ data: tx.data, value: tx.value });
-
-    // Decoded Transaction
-    return decodedInput.args
+interface UserOpArgs {
+    sender: String,
+    none: BigNumber,
+    initCode: String,
+    calldata: String,
+    callGas: BigNumber,
+    verificationGas: BigNumber,
+    perVerificationGas: BigNumber,
+    maxFeePerGas: BigNumber,
+    maxPriorityFeePerGas: BigNumber,
+    paymaster: String,
+    paymasterData: String,
+    signature: String
 }
 
-const decodeUserOpCallData = (calldata, inter) => {
+const decodeUserOpCallData = (calldata: string) => {
     // TODO: for every wallet , get the execFromEntryPoint function/ function that packs the UserOp calldata 
     // and decode it. For now we are just getting the first parameter using slice 
     // console.log('0x'+calldata.slice(34,74))
     return '0x'+calldata.slice(34,74);
 }
 
-const getUsersOperationDetails = async (transactionHash, sender, nonce, provider, userOpInterface, execFromEntryPointInterface) => {
-    const decodedInputArgs = await getUserOpsfromTransaction(transactionHash, provider, userOpInterface);
+const getUserOpsfromTransaction = async (transactionHash: String, provider: Provider, userOpInterface: any): Promise<UserOpArgs[]> => {
+    const tx = await provider.getTransaction("0xcb4822646a27facfd9bab20a887dc996b59effddee79f88d244d29cf61b09979");
+    console.log(tx);
+    const decodedInput = userOpInterface.parseTransaction({ data: tx.data, value: tx.value });
+
+    // Decoded Transaction
+    return decodedInput.args
+}
+
+const getUsersOperationDetails = async (transactionHash: string, sender: string, nonce: string, provider: Provider, userOpInterface: any) => {
+    const decodedInputArgs: any = await getUserOpsfromTransaction(transactionHash, provider, userOpInterface);
     let filteredUserOpData;
     for ( let i in decodedInputArgs) {
         if (decodedInputArgs[i][0].nonce?.toString() == nonce.toString() && decodedInputArgs[i][0].sender.localeCompare(sender)) {
             let userOpData = decodedInputArgs[i][0]
-            let target = decodeUserOpCallData(userOpData.callData, execFromEntryPointInterface)
+            let target = decodeUserOpCallData(userOpData.callData)
             console.log(target)
             filteredUserOpData = {
                 sender: userOpData.sender,
@@ -49,5 +64,4 @@ const getUsersOperationDetails = async (transactionHash, sender, nonce, provider
     return filteredUserOpData;
 }
 
-module.exports =
-    { getUsersOperationDetails };
+export { getUsersOperationDetails };

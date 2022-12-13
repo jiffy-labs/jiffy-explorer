@@ -21,7 +21,7 @@ var data = {
 
 const fetchAddressActivity = async (address) => {
     data.query= data.query.replace("SENDER_ADDRESS", address);
-    console.log(data)
+    // console.log(data)
     var config = {
         method: 'post',
         url: 'https://api.thegraph.com/subgraphs/name/lazycoder1/aa-subgraphs-test',
@@ -30,7 +30,7 @@ const fetchAddressActivity = async (address) => {
         },
         data : JSON.stringify(data)
       };
-    const res = await axios(config);
+    // const res = await axios(config);s
     axios(config)
 .then(function (response) {
   console.log(JSON.stringify(response.data));

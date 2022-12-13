@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc && cd client && npm install --force && npm run build",
     "quick-build": "cd client && npm run build",
+    "graph-build": "graphclient build",
     "start": "node dist/index.js",
-    "dev": "cd ./server && concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\""
+    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\""
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,7 @@
     "express": "^4.18.2"
   },
   "devDependencies": {
-    "@graphprotocol/client-cli": "^2.2.15",
+    "@graphprotocol/client-cli": "^2.2.16",
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.13",
     "tslint": "^6.1.3",
