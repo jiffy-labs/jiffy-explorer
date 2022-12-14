@@ -1,8 +1,8 @@
 branch-defaults:
   main:
-    environment: Jiffy-Explorer
+    environment: Jiffy-explorer-prod
   master:
-    environment: Jiffy-Explorer
+    environment: Jiffy-explorer-prod
     group_suffix: null
 environment-defaults:
   Highfi-chat-client:
