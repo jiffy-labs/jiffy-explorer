@@ -1,12 +1,29 @@
 sources:
-  - name: georliIndex
+  - name: userOpIndexer
     handler:
       graphql:
-        endpoint: https://api.thegraph.com/subgraphs/name/lazycoder1/aa-subgraphs-test
-  - name: mumbaiIndex
-    handler:
-      graphql:
-        endpoint: https://api.thegraph.com/subgraphs/name/lazycoder1/mumbai-aa-indexer
+        endpoint: https://api.thegraph.com/subgraphs/name/lazycoder1/{context.indexerName:aa-subgraphs-test}
+  # - name: mumbaiIndex
+  #   handler:
+  #     graphql:
+  #       endpoint: https://api.thegraph.com/subgraphs/name/lazycoder1/mumbai-aa-indexer
+
+additionalTypeDefs: |
+  extend type UserOp {
+    indexerName: String
+  }
+  extend type Query {
+    crossUserOps(
+      orderBy: UserOp_orderBy,
+      orderDirection: OrderDirection,
+      where: UserOp_filter, 
+      first: Int, 
+      indexerNames: [String!]!
+    ): [UserOp!]!
+  }
+
+additionalResolvers:
+  - ./utils/resolver
 
 documents:
   - ./queries/blockNumberQuery.graphql
@@ -14,3 +31,8 @@ documents:
   - ./queries/requestIdQuery.graphql
   - ./queries/senderAddressQuery.graphql
   - ./queries/stakeQuery.graphql
+  - ./queries/addressActivityQuery.graphql
+
+
+codegen:
+  contextType: 'MeshContext & { indexerName: string }'

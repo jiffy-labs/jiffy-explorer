@@ -1,0 +1,17 @@
+query AddressActivityQuery($senderAddress: Bytes, $indexerNames: [String!]!) {
+        crossUserOps(where: { sender: $senderAddress }, orderBy: blockTime, orderDirection: desc, indexerNames:$indexerNames) {
+            paymaster
+            nonce
+            transactionHash
+            success
+            sender
+            revertReason
+            requestId
+            actualGasCost
+            actualGasPrice
+            blockTime
+            blockNumber
+            network
+            input
+        }
+    }

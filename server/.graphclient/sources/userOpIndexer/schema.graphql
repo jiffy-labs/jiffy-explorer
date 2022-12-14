@@ -368,6 +368,7 @@ type UserOp {
   blockTime: BigInt
   blockNumber: BigInt
   network: String
+  input: Bytes
 }
 
 input UserOp_filter {
@@ -473,6 +474,12 @@ input UserOp_filter {
   network_ends_with_nocase: String
   network_not_ends_with: String
   network_not_ends_with_nocase: String
+  input: Bytes
+  input_not: Bytes
+  input_in: [Bytes!]
+  input_not_in: [Bytes!]
+  input_contains: Bytes
+  input_not_contains: Bytes
   """Filter for the block changed event."""
   _change_block: BlockChangedFilter
 }
@@ -491,6 +498,7 @@ enum UserOp_orderBy {
   blockTime
   blockNumber
   network
+  input
 }
 
 type _Block_ {

@@ -13,15 +13,15 @@ import { fetch as fetchFn } from '@whatwg-node/fetch';
 import { MeshResolvedSource } from '@graphql-mesh/runtime';
 import { MeshTransform, MeshPlugin } from '@graphql-mesh/types';
 import GraphqlHandler from "@graphql-mesh/graphql"
-import StitchingMerger from "@graphql-mesh/merger-stitching";
+import { parse } from 'graphql';
+import BareMerger from "@graphql-mesh/merger-bare";
 import { printWithCache } from '@graphql-mesh/utils';
 import { createMeshHTTPHandler, MeshHTTPHandler } from '@graphql-mesh/http';
 import { getMesh, ExecuteMeshFn, SubscribeMeshFn, MeshContext as BaseMeshContext, MeshInstance } from '@graphql-mesh/runtime';
 import { MeshStore, FsStoreStorageAdapter } from '@graphql-mesh/store';
 import { path as pathModule } from '@graphql-mesh/cross-helpers';
 import { ImportFn } from '@graphql-mesh/types';
-import type { GeorliIndexTypes } from './sources/georliIndex/types';
-import type { MumbaiIndexTypes } from './sources/mumbaiIndex/types';
+import type { UserOpIndexerTypes } from './sources/userOpIndexer/types';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -52,6 +52,7 @@ export type Query = {
   userOps: Array<UserOp>;
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
+  crossUserOps: Array<UserOp>;
 };
 
 
@@ -111,6 +112,15 @@ export type QueryuserOpsArgs = {
 
 export type Query_metaArgs = {
   block?: InputMaybe<Block_height>;
+};
+
+
+export type QuerycrossUserOpsArgs = {
+  orderBy?: InputMaybe<UserOp_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<UserOp_filter>;
+  first?: InputMaybe<Scalars['Int']>;
+  indexerNames: Array<Scalars['String']>;
 };
 
 export type Subscription = {
@@ -364,6 +374,8 @@ export type UserOp = {
   blockTime?: Maybe<Scalars['BigInt']>;
   blockNumber?: Maybe<Scalars['BigInt']>;
   network?: Maybe<Scalars['String']>;
+  input?: Maybe<Scalars['Bytes']>;
+  indexerName?: Maybe<Scalars['String']>;
 };
 
 export type UserOp_filter = {
@@ -469,6 +481,12 @@ export type UserOp_filter = {
   network_ends_with_nocase?: InputMaybe<Scalars['String']>;
   network_not_ends_with?: InputMaybe<Scalars['String']>;
   network_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  input?: InputMaybe<Scalars['Bytes']>;
+  input_not?: InputMaybe<Scalars['Bytes']>;
+  input_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  input_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  input_contains?: InputMaybe<Scalars['Bytes']>;
+  input_not_contains?: InputMaybe<Scalars['Bytes']>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
 };
@@ -486,7 +504,8 @@ export type UserOp_orderBy =
   | 'revertReason'
   | 'blockTime'
   | 'blockNumber'
-  | 'network';
+  | 'network'
+  | 'input';
 
 export type _Block_ = {
   /** The hash of the block */
@@ -656,21 +675,21 @@ export type ResolversParentTypes = ResolversObject<{
 
 export type entityDirectiveArgs = { };
 
-export type entityDirectiveResolver<Result, Parent, ContextType = MeshContext, Args = entityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+export type entityDirectiveResolver<Result, Parent, ContextType = MeshContext & { indexerName: string }, Args = entityDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type subgraphIdDirectiveArgs = {
   id: Scalars['String'];
 };
 
-export type subgraphIdDirectiveResolver<Result, Parent, ContextType = MeshContext, Args = subgraphIdDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+export type subgraphIdDirectiveResolver<Result, Parent, ContextType = MeshContext & { indexerName: string }, Args = subgraphIdDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type derivedFromDirectiveArgs = {
   field: Scalars['String'];
 };
 
-export type derivedFromDirectiveResolver<Result, Parent, ContextType = MeshContext, Args = derivedFromDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
+export type derivedFromDirectiveResolver<Result, Parent, ContextType = MeshContext & { indexerName: string }, Args = derivedFromDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
-export type QueryResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+export type QueryResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   transfer?: Resolver<Maybe<ResolversTypes['Transfer']>, ParentType, ContextType, RequireFields<QuerytransferArgs, 'id' | 'subgraphError'>>;
   transfers?: Resolver<Array<ResolversTypes['Transfer']>, ParentType, ContextType, RequireFields<QuerytransfersArgs, 'skip' | 'first' | 'subgraphError'>>;
   staking?: Resolver<Maybe<ResolversTypes['Staking']>, ParentType, ContextType, RequireFields<QuerystakingArgs, 'id' | 'subgraphError'>>;
@@ -678,9 +697,10 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   userOp?: Resolver<Maybe<ResolversTypes['UserOp']>, ParentType, ContextType, RequireFields<QueryuserOpArgs, 'id' | 'subgraphError'>>;
   userOps?: Resolver<Array<ResolversTypes['UserOp']>, ParentType, ContextType, RequireFields<QueryuserOpsArgs, 'skip' | 'first' | 'subgraphError'>>;
   _meta?: Resolver<Maybe<ResolversTypes['_Meta_']>, ParentType, ContextType, Partial<Query_metaArgs>>;
+  crossUserOps?: Resolver<Array<ResolversTypes['UserOp']>, ParentType, ContextType, RequireFields<QuerycrossUserOpsArgs, 'indexerNames'>>;
 }>;
 
-export type SubscriptionResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
+export type SubscriptionResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
   transfer?: SubscriptionResolver<Maybe<ResolversTypes['Transfer']>, "transfer", ParentType, ContextType, RequireFields<SubscriptiontransferArgs, 'id' | 'subgraphError'>>;
   transfers?: SubscriptionResolver<Array<ResolversTypes['Transfer']>, "transfers", ParentType, ContextType, RequireFields<SubscriptiontransfersArgs, 'skip' | 'first' | 'subgraphError'>>;
   staking?: SubscriptionResolver<Maybe<ResolversTypes['Staking']>, "staking", ParentType, ContextType, RequireFields<SubscriptionstakingArgs, 'id' | 'subgraphError'>>;
@@ -702,7 +722,7 @@ export interface BytesScalarConfig extends GraphQLScalarTypeConfig<ResolversType
   name: 'Bytes';
 }
 
-export type StakingResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Staking'] = ResolversParentTypes['Staking']> = ResolversObject<{
+export type StakingResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Staking'] = ResolversParentTypes['Staking']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   requestId?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -712,7 +732,7 @@ export type StakingResolvers<ContextType = MeshContext, ParentType extends Resol
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TransferResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['Transfer'] = ResolversParentTypes['Transfer']> = ResolversObject<{
+export type TransferResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Transfer'] = ResolversParentTypes['Transfer']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   requestId?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -722,7 +742,7 @@ export type TransferResolvers<ContextType = MeshContext, ParentType extends Reso
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type UserOpResolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['UserOp'] = ResolversParentTypes['UserOp']> = ResolversObject<{
+export type UserOpResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['UserOp'] = ResolversParentTypes['UserOp']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   transactionHash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   requestId?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
@@ -736,24 +756,26 @@ export type UserOpResolvers<ContextType = MeshContext, ParentType extends Resolv
   blockTime?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
   blockNumber?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
   network?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  input?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  indexerName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type _Block_Resolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['_Block_'] = ResolversParentTypes['_Block_']> = ResolversObject<{
+export type _Block_Resolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['_Block_'] = ResolversParentTypes['_Block_']> = ResolversObject<{
   hash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   number?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   timestamp?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type _Meta_Resolvers<ContextType = MeshContext, ParentType extends ResolversParentTypes['_Meta_'] = ResolversParentTypes['_Meta_']> = ResolversObject<{
+export type _Meta_Resolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['_Meta_'] = ResolversParentTypes['_Meta_']> = ResolversObject<{
   block?: Resolver<ResolversTypes['_Block_'], ParentType, ContextType>;
   deployment?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   hasIndexingErrors?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type Resolvers<ContextType = MeshContext> = ResolversObject<{
+export type Resolvers<ContextType = MeshContext & { indexerName: string }> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
   BigDecimal?: GraphQLScalarType;
@@ -766,13 +788,13 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   _Meta_?: _Meta_Resolvers<ContextType>;
 }>;
 
-export type DirectiveResolvers<ContextType = MeshContext> = ResolversObject<{
+export type DirectiveResolvers<ContextType = MeshContext & { indexerName: string }> = ResolversObject<{
   entity?: entityDirectiveResolver<any, any, ContextType>;
   subgraphId?: subgraphIdDirectiveResolver<any, any, ContextType>;
   derivedFrom?: derivedFromDirectiveResolver<any, any, ContextType>;
 }>;
 
-export type MeshContext = MumbaiIndexTypes.Context & GeorliIndexTypes.Context & BaseMeshContext;
+export type MeshContext = UserOpIndexerTypes.Context & BaseMeshContext;
 
 
 const baseDir = pathModule.join(typeof __dirname === 'string' ? __dirname : '/', '..');
@@ -780,11 +802,8 @@ const baseDir = pathModule.join(typeof __dirname === 'string' ? __dirname : '/',
 const importFn: ImportFn = <T>(moduleId: string) => {
   const relativeModuleId = (pathModule.isAbsolute(moduleId) ? pathModule.relative(baseDir, moduleId) : moduleId).split('\\').join('/').replace(baseDir + '/', '');
   switch(relativeModuleId) {
-    case ".graphclient/sources/mumbaiIndex/introspectionSchema":
-      return import("./sources/mumbaiIndex/introspectionSchema") as T;
-    
-    case ".graphclient/sources/georliIndex/introspectionSchema":
-      return import("./sources/georliIndex/introspectionSchema") as T;
+    case ".graphclient/sources/userOpIndexer/introspectionSchema":
+      return import("./sources/userOpIndexer/introspectionSchema") as T;
     
     default:
       return Promise.reject(new Error(`Cannot find module '${relativeModuleId}'.`));
@@ -816,45 +835,32 @@ const cache = new (MeshCache as any)({
 const sources: MeshResolvedSource[] = [];
 const transforms: MeshTransform[] = [];
 const additionalEnvelopPlugins: MeshPlugin<any>[] = [];
-const georliIndexTransforms = [];
-const mumbaiIndexTransforms = [];
-const additionalTypeDefs = [] as any[];
-const georliIndexHandler = new GraphqlHandler({
-              name: "georliIndex",
-              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/lazycoder1/aa-subgraphs-test"},
+const userOpIndexerTransforms = [];
+const userOpIndexerHandler = new GraphqlHandler({
+              name: "userOpIndexer",
+              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/lazycoder1/{context.indexerName:aa-subgraphs-test}"},
               baseDir,
               cache,
               pubsub,
-              store: sourcesStore.child("georliIndex"),
-              logger: logger.child("georliIndex"),
-              importFn,
-            });
-const mumbaiIndexHandler = new GraphqlHandler({
-              name: "mumbaiIndex",
-              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/lazycoder1/mumbai-aa-indexer"},
-              baseDir,
-              cache,
-              pubsub,
-              store: sourcesStore.child("mumbaiIndex"),
-              logger: logger.child("mumbaiIndex"),
+              store: sourcesStore.child("userOpIndexer"),
+              logger: logger.child("userOpIndexer"),
               importFn,
             });
 sources[0] = {
-          name: 'georliIndex',
-          handler: georliIndexHandler,
-          transforms: georliIndexTransforms
+          name: 'userOpIndexer',
+          handler: userOpIndexerHandler,
+          transforms: userOpIndexerTransforms
         }
-sources[1] = {
-          name: 'mumbaiIndex',
-          handler: mumbaiIndexHandler,
-          transforms: mumbaiIndexTransforms
-        }
-const additionalResolvers = [] as any[]
-const merger = new(StitchingMerger as any)({
+const additionalTypeDefs = [parse("extend type UserOp {\n  indexerName: String\n}\n\nextend type Query {\n  crossUserOps(orderBy: UserOp_orderBy, orderDirection: OrderDirection, where: UserOp_filter, first: Int, indexerNames: [String!]!): [UserOp!]!\n}"),] as any[];
+const additionalResolvers = await Promise.all([
+        import("../utils/resolver")
+            .then(m => m.resolvers || m.default || m)
+      ]);
+const merger = new(BareMerger as any)({
         cache,
         pubsub,
-        logger: logger.child('stitchingMerger'),
-        store: rootStore.child('stitchingMerger')
+        logger: logger.child('bareMerger'),
+        store: rootStore.child('bareMerger')
       })
 
   return {
@@ -870,6 +876,12 @@ const merger = new(StitchingMerger as any)({
     get documents() {
       return [
       {
+        document: AddressActivityQueryDocument,
+        get rawSDL() {
+          return printWithCache(AddressActivityQueryDocument);
+        },
+        location: 'AddressActivityQueryDocument.graphql'
+      },{
         document: BlockNumberQueryDocument,
         get rawSDL() {
           return printWithCache(BlockNumberQueryDocument);
@@ -937,6 +949,14 @@ export function getBuiltGraphSDK<TGlobalContext = any, TOperationContext = any>(
   const sdkRequester$ = getBuiltGraphClient().then(({ sdkRequesterFactory }) => sdkRequesterFactory(globalContext));
   return getSdk<TOperationContext, TGlobalContext>((...args) => sdkRequester$.then(sdkRequester => sdkRequester(...args)));
 }
+export type AddressActivityQueryQueryVariables = Exact<{
+  senderAddress?: InputMaybe<Scalars['Bytes']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type AddressActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+
 export type BlockNumberQueryQueryVariables = Exact<{
   blockNumber?: InputMaybe<Scalars['BigInt']>;
 }>;
@@ -969,6 +989,30 @@ export type StakingQueryQueryVariables = Exact<{ [key: string]: never; }>;
 export type StakingQueryQuery = { stakings: Array<Pick<Staking, 'id' | 'requestFrom' | 'requestId' | 'to' | 'type' | 'value'>> };
 
 
+export const AddressActivityQueryDocument = gql`
+    query AddressActivityQuery($senderAddress: Bytes, $indexerNames: [String!]!) {
+  crossUserOps(
+    where: {sender: $senderAddress}
+    orderBy: blockTime
+    orderDirection: desc
+    indexerNames: $indexerNames
+  ) {
+    paymaster
+    nonce
+    transactionHash
+    success
+    sender
+    revertReason
+    requestId
+    actualGasCost
+    actualGasPrice
+    blockTime
+    blockNumber
+    network
+    input
+  }
+}
+    ` as unknown as DocumentNode<AddressActivityQueryQuery, AddressActivityQueryQueryVariables>;
 export const BlockNumberQueryDocument = gql`
     query BlockNumberQuery($blockNumber: BigInt) {
   userOps(
@@ -1058,9 +1102,13 @@ export const StakingQueryDocument = gql`
 
 
 
+
 export type Requester<C = {}, E = unknown> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C, E>(requester: Requester<C, E>) {
   return {
+    AddressActivityQuery(variables: AddressActivityQueryQueryVariables, options?: C): Promise<AddressActivityQueryQuery> {
+      return requester<AddressActivityQueryQuery, AddressActivityQueryQueryVariables>(AddressActivityQueryDocument, variables, options) as Promise<AddressActivityQueryQuery>;
+    },
     BlockNumberQuery(variables?: BlockNumberQueryQueryVariables, options?: C): Promise<BlockNumberQueryQuery> {
       return requester<BlockNumberQueryQuery, BlockNumberQueryQueryVariables>(BlockNumberQueryDocument, variables, options) as Promise<BlockNumberQueryQuery>;
     },

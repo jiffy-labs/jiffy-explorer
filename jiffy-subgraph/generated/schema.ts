@@ -471,4 +471,21 @@ export class UserOp extends Entity {
       this.set("network", Value.fromString(<string>value));
     }
   }
+
+  get input(): Bytes | null {
+    let value = this.get("input");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set input(value: Bytes | null) {
+    if (!value) {
+      this.unset("input");
+    } else {
+      this.set("input", Value.fromBytes(<Bytes>value));
+    }
+  }
 }

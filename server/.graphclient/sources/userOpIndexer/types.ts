@@ -3,7 +3,7 @@
 import { InContextSdkMethod } from '@graphql-mesh/types';
 import { MeshContext } from '@graphql-mesh/runtime';
 
-export namespace MumbaiIndexTypes {
+export namespace UserOpIndexerTypes {
   export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -342,6 +342,7 @@ export type UserOp = {
   blockTime?: Maybe<Scalars['BigInt']>;
   blockNumber?: Maybe<Scalars['BigInt']>;
   network?: Maybe<Scalars['String']>;
+  input?: Maybe<Scalars['Bytes']>;
 };
 
 export type UserOp_filter = {
@@ -447,6 +448,12 @@ export type UserOp_filter = {
   network_ends_with_nocase?: InputMaybe<Scalars['String']>;
   network_not_ends_with?: InputMaybe<Scalars['String']>;
   network_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  input?: InputMaybe<Scalars['Bytes']>;
+  input_not?: InputMaybe<Scalars['Bytes']>;
+  input_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  input_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  input_contains?: InputMaybe<Scalars['Bytes']>;
+  input_not_contains?: InputMaybe<Scalars['Bytes']>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
 };
@@ -464,7 +471,8 @@ export type UserOp_orderBy =
   | 'revertReason'
   | 'blockTime'
   | 'blockNumber'
-  | 'network';
+  | 'network'
+  | 'input';
 
 export type _Block_ = {
   /** The hash of the block */
@@ -536,7 +544,7 @@ export type _SubgraphErrorPolicy_ =
   };
 
   export type Context = {
-      ["mumbaiIndex"]: { Query: QuerySdk, Mutation: MutationSdk, Subscription: SubscriptionSdk },
-      
+      ["userOpIndexer"]: { Query: QuerySdk, Mutation: MutationSdk, Subscription: SubscriptionSdk },
+      ["indexerName"]: Scalars['ID']
     };
 }

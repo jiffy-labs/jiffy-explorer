@@ -81,6 +81,7 @@ export function handleUserOperationEvent(event: UserOperationEvent): void {
 
   userOp.requestId = event.params.requestId
   userOp.transactionHash = event.transaction.hash
+  userOp.input = event.transaction.input
   userOp.sender = event.params.sender
   userOp.paymaster = event.params.paymaster
   userOp.nonce = event.params.nonce
@@ -107,6 +108,7 @@ export function handleUserOperationRevertReason(
 
   userOp.requestId = event.params.requestId
   userOp.transactionHash = event.transaction.hash
+  userOp.input = event.transaction.input
   userOp.sender = event.params.sender
   userOp.revertReason = event.params.revertReason
   userOp.network = "goerli"

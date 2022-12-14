@@ -30,4 +30,5 @@ type UserOp @entity {
   blockTime: BigInt
   blockNumber: BigInt
   network: String
+  input: Bytes
 }

@@ -2,7 +2,8 @@ import express, { Router, Request, Response } from 'express';
 import { getBuiltGraphSDK } from '../.graphclient';
 
 const router: Router = express.Router();
-const { SenderAddressQuery, BlockNumberQuery, RequestIdQuery } = getBuiltGraphSDK();
+const { AddressActivityQuery, BlockNumberQuery, RequestIdQuery } = getBuiltGraphSDK();
+const indexers: string[] = ["aa-subgraphs-test","mumbai-aa-indexer"]
 
 router.get('/getAddressActivity', async (req: Request, res: Response) => {
     const address = req.query.address as string;
@@ -10,12 +11,12 @@ router.get('/getAddressActivity', async (req: Request, res: Response) => {
         res.send({error: true, message: "Missing address parameter"})
         return;
     }
-    const { userOps } = await SenderAddressQuery({
-        senderAddress: address
+    const { crossUserOps } = await AddressActivityQuery({
+        senderAddress: address,
+        indexerNames: indexers
     });
 
-    console.log(userOps);
-    res.send(userOps);
+    res.send(crossUserOps);
 });
 
 router.get('/getActivityInBlock', async (req: Request, res: Response) => {
@@ -28,7 +29,6 @@ router.get('/getActivityInBlock', async (req: Request, res: Response) => {
         blockNumber: block
     });
 
-    console.log(userOps);
     res.send(userOps);
 });
 

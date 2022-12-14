@@ -1,11 +1,11 @@
 {
-  "name": "jiffy-server",
+  "name": "jiffy-explorer",
   "version": "1.0.0",
   "description": "An explorer for account abstraction",
-  "main": "dist/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc && cd client && npm install --force && npm run build",
+    "build": "cd server && npx tsc && cd ../client && npm install --force && npm run build",
+    "graph-build": "cd server && npm run graph-build",
     "quick-build": "cd client && npm run build",
     "start": "node dist/index.js",
     "dev": "cd ./server && concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\""
