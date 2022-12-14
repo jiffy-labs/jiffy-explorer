@@ -9,7 +9,6 @@ RUN npm install --force
 
 ENV NODE_OPTIONS=--max-old-space-size=8192
 
-RUN npm run graph-build
 RUN npm run build
 
 # Make port 3000 available to the world outside this container
