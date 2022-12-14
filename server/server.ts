@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, Router } from "express";
 import * as bodyParser from 'body-parser';
 import path from "path";
-require('dotenv').config()
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') })
 import { ethers } from "ethers";
 import UserOpABI from "./ABIs/UserOpsFunc.json";
 import ExecFromEntryPointABI from "./ABIs/ExecFromEntryPoint.json";
@@ -23,7 +23,8 @@ const georliProvider = new ethers.providers.InfuraProvider(
     process.env.INFURA_ID
 );
 
-console.log(path.join(__dirname, "../../client", "build"))
+// console.log(process.env.INFURA_ID)
+// console.log(path.join(__dirname, "../../client", "build"))
 app.use(express.static(path.join(__dirname, "../../client", "build")));
 app.use(express.static("public"));
 app.use(bodyParser.json())
