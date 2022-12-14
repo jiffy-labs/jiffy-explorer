@@ -1,5 +1,5 @@
-query RequestIdQuery($requestId: Bytes) {
-        userOps(where: { requestId: $requestId }, first: 1) {
+query RequestIdQuery($requestId: Bytes, $indexerNames: [String!]!) {
+        crossUserOps(where: { requestId: $requestId }, first: 1, indexerNames:$indexerNames) {
             paymaster
             nonce
             transactionHash
@@ -11,6 +11,7 @@ query RequestIdQuery($requestId: Bytes) {
             actualGasPrice
             blockTime
             blockNumber
+            network
+            input
         }
-    
 }

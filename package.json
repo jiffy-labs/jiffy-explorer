@@ -7,7 +7,7 @@
     "build": "cd server && npx tsc && cd ../client && npm install --force && npm run build",
     "graph-build": "cd server && npm run graph-build",
     "quick-build": "cd client && npm run build",
-    "start": "node dist/index.js",
+    "start": "node server/dist/server.js",
     "dev": "cd ./server && concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\""
   },
   "repository": {

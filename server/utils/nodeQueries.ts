@@ -25,9 +25,9 @@ const decodeUserOpCallData = (calldata: string) => {
     return '0x'+calldata.slice(34,74);
 }
 
-const getUserOpsfromTransaction = async (transactionHash: String, provider: Provider, userOpInterface: any): Promise<UserOpArgs[]> => {
-    const tx = await provider.getTransaction("0xcb4822646a27facfd9bab20a887dc996b59effddee79f88d244d29cf61b09979");
-    console.log(tx);
+const getUserOpsfromTransaction = async (transactionHash: string, provider: Provider, userOpInterface: any): Promise<UserOpArgs[]> => {
+    const tx = await provider.getTransaction(transactionHash);
+    // console.log(tx);
     const decodedInput = userOpInterface.parseTransaction({ data: tx.data, value: tx.value });
 
     // Decoded Transaction
@@ -38,10 +38,11 @@ const getUsersOperationDetails = async (transactionHash: string, sender: string,
     const decodedInputArgs: any = await getUserOpsfromTransaction(transactionHash, provider, userOpInterface);
     let filteredUserOpData;
     for ( let i in decodedInputArgs) {
+        console.log(i,' .  ',decodedInputArgs[i][0]);
         if (decodedInputArgs[i][0].nonce?.toString() == nonce.toString() && decodedInputArgs[i][0].sender.localeCompare(sender)) {
             let userOpData = decodedInputArgs[i][0]
+            
             let target = decodeUserOpCallData(userOpData.callData)
-            console.log(target)
             filteredUserOpData = {
                 sender: userOpData.sender,
                 callData: userOpData.callData,

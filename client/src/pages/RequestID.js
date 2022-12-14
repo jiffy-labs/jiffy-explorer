@@ -90,7 +90,7 @@ const RequestId = () => {
                                 </Tr>
                                 <Tr>
                                     <Th>Network</Th>
-                                    <Td>Georli</Td>
+                                    <Td>{userOp.network}</Td>
                                 </Tr>
                                 <Tr>
                                     <Th>Status</Th>

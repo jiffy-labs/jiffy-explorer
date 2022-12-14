@@ -959,10 +959,11 @@ export type AddressActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paym
 
 export type BlockNumberQueryQueryVariables = Exact<{
   blockNumber?: InputMaybe<Scalars['BigInt']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
 }>;
 
 
-export type BlockNumberQueryQuery = { userOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber'>> };
+export type BlockNumberQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
 
 export type DepositsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -971,10 +972,11 @@ export type DepositsQueryQuery = { transfers: Array<Pick<Transfer, 'from' | 'id'
 
 export type RequestIdQueryQueryVariables = Exact<{
   requestId?: InputMaybe<Scalars['Bytes']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
 }>;
 
 
-export type RequestIdQueryQuery = { userOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber'>> };
+export type RequestIdQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
 
 export type SenderAddressQueryQueryVariables = Exact<{
   senderAddress?: InputMaybe<Scalars['Bytes']>;
@@ -1014,11 +1016,12 @@ export const AddressActivityQueryDocument = gql`
 }
     ` as unknown as DocumentNode<AddressActivityQueryQuery, AddressActivityQueryQueryVariables>;
 export const BlockNumberQueryDocument = gql`
-    query BlockNumberQuery($blockNumber: BigInt) {
-  userOps(
+    query BlockNumberQuery($blockNumber: BigInt, $indexerNames: [String!]!) {
+  crossUserOps(
     where: {blockNumber: $blockNumber}
     orderBy: blockTime
     orderDirection: desc
+    indexerNames: $indexerNames
   ) {
     paymaster
     nonce
@@ -1031,6 +1034,8 @@ export const BlockNumberQueryDocument = gql`
     actualGasPrice
     blockTime
     blockNumber
+    network
+    input
   }
 }
     ` as unknown as DocumentNode<BlockNumberQueryQuery, BlockNumberQueryQueryVariables>;
@@ -1047,8 +1052,12 @@ export const DepositsQueryDocument = gql`
 }
     ` as unknown as DocumentNode<DepositsQueryQuery, DepositsQueryQueryVariables>;
 export const RequestIdQueryDocument = gql`
-    query RequestIdQuery($requestId: Bytes) {
-  userOps(where: {requestId: $requestId}, first: 1) {
+    query RequestIdQuery($requestId: Bytes, $indexerNames: [String!]!) {
+  crossUserOps(
+    where: {requestId: $requestId}
+    first: 1
+    indexerNames: $indexerNames
+  ) {
     paymaster
     nonce
     transactionHash
@@ -1060,6 +1069,8 @@ export const RequestIdQueryDocument = gql`
     actualGasPrice
     blockTime
     blockNumber
+    network
+    input
   }
 }
     ` as unknown as DocumentNode<RequestIdQueryQuery, RequestIdQueryQueryVariables>;
@@ -1109,13 +1120,13 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     AddressActivityQuery(variables: AddressActivityQueryQueryVariables, options?: C): Promise<AddressActivityQueryQuery> {
       return requester<AddressActivityQueryQuery, AddressActivityQueryQueryVariables>(AddressActivityQueryDocument, variables, options) as Promise<AddressActivityQueryQuery>;
     },
-    BlockNumberQuery(variables?: BlockNumberQueryQueryVariables, options?: C): Promise<BlockNumberQueryQuery> {
+    BlockNumberQuery(variables: BlockNumberQueryQueryVariables, options?: C): Promise<BlockNumberQueryQuery> {
       return requester<BlockNumberQueryQuery, BlockNumberQueryQueryVariables>(BlockNumberQueryDocument, variables, options) as Promise<BlockNumberQueryQuery>;
     },
     DepositsQuery(variables?: DepositsQueryQueryVariables, options?: C): Promise<DepositsQueryQuery> {
       return requester<DepositsQueryQuery, DepositsQueryQueryVariables>(DepositsQueryDocument, variables, options) as Promise<DepositsQueryQuery>;
     },
-    RequestIdQuery(variables?: RequestIdQueryQueryVariables, options?: C): Promise<RequestIdQueryQuery> {
+    RequestIdQuery(variables: RequestIdQueryQueryVariables, options?: C): Promise<RequestIdQueryQuery> {
       return requester<RequestIdQueryQuery, RequestIdQueryQueryVariables>(RequestIdQueryDocument, variables, options) as Promise<RequestIdQueryQuery>;
     },
     SenderAddressQuery(variables?: SenderAddressQueryQueryVariables, options?: C): Promise<SenderAddressQueryQuery> {

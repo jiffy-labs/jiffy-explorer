@@ -25,11 +25,12 @@ router.get('/getActivityInBlock', async (req: Request, res: Response) => {
         res.send({error: true, message: "Missing address parameter"})
         return;
     }
-    const { userOps } = await BlockNumberQuery({
-        blockNumber: block
+    const { crossUserOps } = await BlockNumberQuery({
+        blockNumber: block,
+        indexerNames: indexers
     });
 
-    res.send(userOps);
+    res.send(crossUserOps);
 });
 
 router.get('/getUserOpInfo', async (req: Request, res: Response) => {
@@ -38,12 +39,13 @@ router.get('/getUserOpInfo', async (req: Request, res: Response) => {
         res.send({error: true, message: "Missing userOpHash parameter"})
         return;
     }
-    const { userOps } = await RequestIdQuery({
-        requestId: userOpHash
+    const { crossUserOps } = await RequestIdQuery({
+        requestId: userOpHash,
+        indexerNames: indexers
     })
 
-    if (userOps.length > 0){
-        res.send(userOps[0]);
+    if (crossUserOps.length > 0){
+        res.send(crossUserOps[0]);
     } else {
         res.send([])
     }

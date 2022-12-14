@@ -20,6 +20,7 @@ const columns = [
     { dataField: "sender", text: "Sender" },
     { dataField: "blockNumber", text: "BlockNumber" },
     { dataField: "gasCost", text: "Gas Spent" },
+    { dataField: "network", text: "Network"},
     { dataField: "status", text: "Status" },
 ];
 
@@ -38,6 +39,7 @@ const convertGraphDataToRows = (data) => {
             gasCost: (userOp.actualGasCost / 10 ** 18).toFixed(5).toString() + " ETH",
             blockNumber: userOp.blockNumber,
             status: userOp.success ? "SUCCESS" : "REVERT",
+            network: userOp.network
         };
         rows.push(row);
     }

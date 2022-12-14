@@ -1,5 +1,5 @@
-query BlockNumberQuery($blockNumber: BigInt) {
-        userOps(where: { blockNumber: $blockNumber }, orderBy: blockTime, orderDirection: desc) {
+query BlockNumberQuery($blockNumber: BigInt, $indexerNames: [String!]!) {
+        crossUserOps(where: { blockNumber: $blockNumber }, orderBy: blockTime, orderDirection: desc, indexerNames:$indexerNames) {
             paymaster
             nonce
             transactionHash
@@ -11,5 +11,7 @@ query BlockNumberQuery($blockNumber: BigInt) {
             actualGasPrice
             blockTime
             blockNumber
+            network
+            input
         }
     }
