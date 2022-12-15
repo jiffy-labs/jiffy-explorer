@@ -2,7 +2,7 @@ query DepositsQuery {
   transfers {
     from
     id
-    requestId
+    userOpHash
     to
     type
     value

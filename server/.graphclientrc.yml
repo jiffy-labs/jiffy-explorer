@@ -28,7 +28,7 @@ additionalResolvers:
 documents:
   - ./queries/blockNumberQuery.graphql
   - ./queries/depositsQuery.graphql
-  - ./queries/requestIdQuery.graphql
+  - ./queries/userOpQuery.graphql
   - ./queries/senderAddressQuery.graphql
   - ./queries/stakeQuery.graphql
   - ./queries/addressActivityQuery.graphql

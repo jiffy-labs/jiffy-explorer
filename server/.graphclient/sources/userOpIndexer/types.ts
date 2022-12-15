@@ -108,7 +108,7 @@ export type Query_metaArgs = {
 
 export type Staking = {
   id: Scalars['ID'];
-  requestId?: Maybe<Scalars['Bytes']>;
+  userOpHash?: Maybe<Scalars['Bytes']>;
   type?: Maybe<Scalars['String']>;
   requestFrom?: Maybe<Scalars['Bytes']>;
   to?: Maybe<Scalars['Bytes']>;
@@ -124,12 +124,12 @@ export type Staking_filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_in?: InputMaybe<Array<Scalars['ID']>>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  requestId?: InputMaybe<Scalars['Bytes']>;
-  requestId_not?: InputMaybe<Scalars['Bytes']>;
-  requestId_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_contains?: InputMaybe<Scalars['Bytes']>;
-  requestId_not_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   type?: InputMaybe<Scalars['String']>;
   type_not?: InputMaybe<Scalars['String']>;
   type_gt?: InputMaybe<Scalars['String']>;
@@ -176,7 +176,7 @@ export type Staking_filter = {
 
 export type Staking_orderBy =
   | 'id'
-  | 'requestId'
+  | 'userOpHash'
   | 'type'
   | 'requestFrom'
   | 'to'
@@ -254,7 +254,7 @@ export type Subscription_metaArgs = {
 
 export type Transfer = {
   id: Scalars['ID'];
-  requestId?: Maybe<Scalars['Bytes']>;
+  userOpHash?: Maybe<Scalars['Bytes']>;
   type?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['BigInt']>;
   to?: Maybe<Scalars['Bytes']>;
@@ -270,12 +270,12 @@ export type Transfer_filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_in?: InputMaybe<Array<Scalars['ID']>>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  requestId?: InputMaybe<Scalars['Bytes']>;
-  requestId_not?: InputMaybe<Scalars['Bytes']>;
-  requestId_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_contains?: InputMaybe<Scalars['Bytes']>;
-  requestId_not_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   type?: InputMaybe<Scalars['String']>;
   type_not?: InputMaybe<Scalars['String']>;
   type_gt?: InputMaybe<Scalars['String']>;
@@ -322,7 +322,7 @@ export type Transfer_filter = {
 
 export type Transfer_orderBy =
   | 'id'
-  | 'requestId'
+  | 'userOpHash'
   | 'type'
   | 'value'
   | 'to'
@@ -331,7 +331,7 @@ export type Transfer_orderBy =
 export type UserOp = {
   id: Scalars['ID'];
   transactionHash?: Maybe<Scalars['Bytes']>;
-  requestId?: Maybe<Scalars['Bytes']>;
+  userOpHash?: Maybe<Scalars['Bytes']>;
   sender?: Maybe<Scalars['Bytes']>;
   paymaster?: Maybe<Scalars['Bytes']>;
   nonce?: Maybe<Scalars['BigInt']>;
@@ -343,6 +343,7 @@ export type UserOp = {
   blockNumber?: Maybe<Scalars['BigInt']>;
   network?: Maybe<Scalars['String']>;
   input?: Maybe<Scalars['Bytes']>;
+  value?: Maybe<Scalars['BigInt']>;
 };
 
 export type UserOp_filter = {
@@ -360,12 +361,12 @@ export type UserOp_filter = {
   transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
   transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  requestId?: InputMaybe<Scalars['Bytes']>;
-  requestId_not?: InputMaybe<Scalars['Bytes']>;
-  requestId_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_contains?: InputMaybe<Scalars['Bytes']>;
-  requestId_not_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   sender?: InputMaybe<Scalars['Bytes']>;
   sender_not?: InputMaybe<Scalars['Bytes']>;
   sender_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -454,6 +455,14 @@ export type UserOp_filter = {
   input_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   input_contains?: InputMaybe<Scalars['Bytes']>;
   input_not_contains?: InputMaybe<Scalars['Bytes']>;
+  value?: InputMaybe<Scalars['BigInt']>;
+  value_not?: InputMaybe<Scalars['BigInt']>;
+  value_gt?: InputMaybe<Scalars['BigInt']>;
+  value_lt?: InputMaybe<Scalars['BigInt']>;
+  value_gte?: InputMaybe<Scalars['BigInt']>;
+  value_lte?: InputMaybe<Scalars['BigInt']>;
+  value_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  value_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
 };
@@ -461,7 +470,7 @@ export type UserOp_filter = {
 export type UserOp_orderBy =
   | 'id'
   | 'transactionHash'
-  | 'requestId'
+  | 'userOpHash'
   | 'sender'
   | 'paymaster'
   | 'nonce'
@@ -472,7 +481,8 @@ export type UserOp_orderBy =
   | 'blockTime'
   | 'blockNumber'
   | 'network'
-  | 'input';
+  | 'input'
+  | 'value';
 
 export type _Block_ = {
   /** The hash of the block */

@@ -27,7 +27,7 @@ const decodeUserOpCallData = (calldata: string) => {
 
 const getUserOpsfromTransaction = async (transactionHash: string, provider: Provider, userOpInterface: any): Promise<UserOpArgs[]> => {
     const tx = await provider.getTransaction(transactionHash);
-    // console.log(tx);
+    console.log(tx);
     const decodedInput = userOpInterface.parseTransaction({ data: tx.data, value: tx.value });
 
     // Decoded Transaction

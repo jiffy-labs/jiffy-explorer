@@ -1057,7 +1057,7 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "arguments": [],
           "type": {
@@ -1280,7 +1280,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "type": {
             "kind": "NamedType",
@@ -1295,7 +1295,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not"
+            "value": "userOpHash_not"
           },
           "type": {
             "kind": "NamedType",
@@ -1310,7 +1310,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_in"
+            "value": "userOpHash_in"
           },
           "type": {
             "kind": "ListType",
@@ -1331,7 +1331,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not_in"
+            "value": "userOpHash_not_in"
           },
           "type": {
             "kind": "ListType",
@@ -1352,7 +1352,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_contains"
+            "value": "userOpHash_contains"
           },
           "type": {
             "kind": "NamedType",
@@ -1367,7 +1367,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not_contains"
+            "value": "userOpHash_not_contains"
           },
           "type": {
             "kind": "NamedType",
@@ -2068,7 +2068,7 @@ const schemaAST = {
           "kind": "EnumValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "directives": []
         },
@@ -2899,7 +2899,7 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "arguments": [],
           "type": {
@@ -3122,7 +3122,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "type": {
             "kind": "NamedType",
@@ -3137,7 +3137,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not"
+            "value": "userOpHash_not"
           },
           "type": {
             "kind": "NamedType",
@@ -3152,7 +3152,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_in"
+            "value": "userOpHash_in"
           },
           "type": {
             "kind": "ListType",
@@ -3173,7 +3173,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not_in"
+            "value": "userOpHash_not_in"
           },
           "type": {
             "kind": "ListType",
@@ -3194,7 +3194,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_contains"
+            "value": "userOpHash_contains"
           },
           "type": {
             "kind": "NamedType",
@@ -3209,7 +3209,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not_contains"
+            "value": "userOpHash_not_contains"
           },
           "type": {
             "kind": "NamedType",
@@ -3910,7 +3910,7 @@ const schemaAST = {
           "kind": "EnumValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "directives": []
         },
@@ -3995,7 +3995,7 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "arguments": [],
           "type": {
@@ -4179,6 +4179,22 @@ const schemaAST = {
             "name": {
               "kind": "Name",
               "value": "Bytes"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "FieldDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value"
+          },
+          "arguments": [],
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "BigInt"
             }
           },
           "directives": []
@@ -4432,7 +4448,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "type": {
             "kind": "NamedType",
@@ -4447,7 +4463,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not"
+            "value": "userOpHash_not"
           },
           "type": {
             "kind": "NamedType",
@@ -4462,7 +4478,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_in"
+            "value": "userOpHash_in"
           },
           "type": {
             "kind": "ListType",
@@ -4483,7 +4499,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not_in"
+            "value": "userOpHash_not_in"
           },
           "type": {
             "kind": "ListType",
@@ -4504,7 +4520,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_contains"
+            "value": "userOpHash_contains"
           },
           "type": {
             "kind": "NamedType",
@@ -4519,7 +4535,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId_not_contains"
+            "value": "userOpHash_not_contains"
           },
           "type": {
             "kind": "NamedType",
@@ -5984,6 +6000,138 @@ const schemaAST = {
         },
         {
           "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "BigInt"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value_not"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "BigInt"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value_gt"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "BigInt"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value_lt"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "BigInt"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value_gte"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "BigInt"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value_lte"
+          },
+          "type": {
+            "kind": "NamedType",
+            "name": {
+              "kind": "Name",
+              "value": "BigInt"
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value_in"
+          },
+          "type": {
+            "kind": "ListType",
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": {
+                  "kind": "Name",
+                  "value": "BigInt"
+                }
+              }
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value_not_in"
+          },
+          "type": {
+            "kind": "ListType",
+            "type": {
+              "kind": "NonNullType",
+              "type": {
+                "kind": "NamedType",
+                "name": {
+                  "kind": "Name",
+                  "value": "BigInt"
+                }
+              }
+            }
+          },
+          "directives": []
+        },
+        {
+          "kind": "InputValueDefinition",
           "description": {
             "kind": "StringValue",
             "value": "Filter for the block changed event.",
@@ -6032,7 +6180,7 @@ const schemaAST = {
           "kind": "EnumValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "requestId"
+            "value": "userOpHash"
           },
           "directives": []
         },
@@ -6121,6 +6269,14 @@ const schemaAST = {
           "name": {
             "kind": "Name",
             "value": "input"
+          },
+          "directives": []
+        },
+        {
+          "kind": "EnumValueDefinition",
+          "name": {
+            "kind": "Name",
+            "value": "value"
           },
           "directives": []
         }

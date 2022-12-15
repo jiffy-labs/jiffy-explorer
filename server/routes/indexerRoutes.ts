@@ -2,7 +2,7 @@ import express, { Router, Request, Response } from 'express';
 import { getBuiltGraphSDK } from '../.graphclient';
 
 const router: Router = express.Router();
-const { AddressActivityQuery, BlockNumberQuery, RequestIdQuery } = getBuiltGraphSDK();
+const { AddressActivityQuery, BlockNumberQuery, UserOpQuery } = getBuiltGraphSDK();
 const indexers: string[] = ["aa-subgraphs-test","mumbai-aa-indexer"]
 
 router.get('/getAddressActivity', async (req: Request, res: Response) => {
@@ -21,7 +21,8 @@ router.get('/getAddressActivity', async (req: Request, res: Response) => {
 
 router.get('/getActivityInBlock', async (req: Request, res: Response) => {
     const block = parseInt(req.query.block as string);
-    if (!isNaN(block)) {
+    console.log(block)
+    if (isNaN(block)) {
         res.send({error: true, message: "Missing address parameter"})
         return;
     }
@@ -39,8 +40,8 @@ router.get('/getUserOpInfo', async (req: Request, res: Response) => {
         res.send({error: true, message: "Missing userOpHash parameter"})
         return;
     }
-    const { crossUserOps } = await RequestIdQuery({
-        requestId: userOpHash,
+    const { crossUserOps } = await UserOpQuery({
+        userOpHash: userOpHash,
         indexerNames: indexers
     })
 

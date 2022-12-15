@@ -6,7 +6,7 @@ query AddressActivityQuery($senderAddress: Bytes, $indexerNames: [String!]!) {
             success
             sender
             revertReason
-            requestId
+            userOpHash
             actualGasCost
             actualGasPrice
             blockTime

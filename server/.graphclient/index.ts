@@ -210,7 +210,7 @@ export type OrderDirection =
 
 export type Staking = {
   id: Scalars['ID'];
-  requestId?: Maybe<Scalars['Bytes']>;
+  userOpHash?: Maybe<Scalars['Bytes']>;
   type?: Maybe<Scalars['String']>;
   requestFrom?: Maybe<Scalars['Bytes']>;
   to?: Maybe<Scalars['Bytes']>;
@@ -226,12 +226,12 @@ export type Staking_filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_in?: InputMaybe<Array<Scalars['ID']>>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  requestId?: InputMaybe<Scalars['Bytes']>;
-  requestId_not?: InputMaybe<Scalars['Bytes']>;
-  requestId_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_contains?: InputMaybe<Scalars['Bytes']>;
-  requestId_not_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   type?: InputMaybe<Scalars['String']>;
   type_not?: InputMaybe<Scalars['String']>;
   type_gt?: InputMaybe<Scalars['String']>;
@@ -278,7 +278,7 @@ export type Staking_filter = {
 
 export type Staking_orderBy =
   | 'id'
-  | 'requestId'
+  | 'userOpHash'
   | 'type'
   | 'requestFrom'
   | 'to'
@@ -286,7 +286,7 @@ export type Staking_orderBy =
 
 export type Transfer = {
   id: Scalars['ID'];
-  requestId?: Maybe<Scalars['Bytes']>;
+  userOpHash?: Maybe<Scalars['Bytes']>;
   type?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['BigInt']>;
   to?: Maybe<Scalars['Bytes']>;
@@ -302,12 +302,12 @@ export type Transfer_filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_in?: InputMaybe<Array<Scalars['ID']>>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  requestId?: InputMaybe<Scalars['Bytes']>;
-  requestId_not?: InputMaybe<Scalars['Bytes']>;
-  requestId_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_contains?: InputMaybe<Scalars['Bytes']>;
-  requestId_not_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   type?: InputMaybe<Scalars['String']>;
   type_not?: InputMaybe<Scalars['String']>;
   type_gt?: InputMaybe<Scalars['String']>;
@@ -354,7 +354,7 @@ export type Transfer_filter = {
 
 export type Transfer_orderBy =
   | 'id'
-  | 'requestId'
+  | 'userOpHash'
   | 'type'
   | 'value'
   | 'to'
@@ -363,7 +363,7 @@ export type Transfer_orderBy =
 export type UserOp = {
   id: Scalars['ID'];
   transactionHash?: Maybe<Scalars['Bytes']>;
-  requestId?: Maybe<Scalars['Bytes']>;
+  userOpHash?: Maybe<Scalars['Bytes']>;
   sender?: Maybe<Scalars['Bytes']>;
   paymaster?: Maybe<Scalars['Bytes']>;
   nonce?: Maybe<Scalars['BigInt']>;
@@ -375,6 +375,7 @@ export type UserOp = {
   blockNumber?: Maybe<Scalars['BigInt']>;
   network?: Maybe<Scalars['String']>;
   input?: Maybe<Scalars['Bytes']>;
+  value?: Maybe<Scalars['BigInt']>;
   indexerName?: Maybe<Scalars['String']>;
 };
 
@@ -393,12 +394,12 @@ export type UserOp_filter = {
   transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
   transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  requestId?: InputMaybe<Scalars['Bytes']>;
-  requestId_not?: InputMaybe<Scalars['Bytes']>;
-  requestId_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestId_contains?: InputMaybe<Scalars['Bytes']>;
-  requestId_not_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   sender?: InputMaybe<Scalars['Bytes']>;
   sender_not?: InputMaybe<Scalars['Bytes']>;
   sender_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -487,6 +488,14 @@ export type UserOp_filter = {
   input_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   input_contains?: InputMaybe<Scalars['Bytes']>;
   input_not_contains?: InputMaybe<Scalars['Bytes']>;
+  value?: InputMaybe<Scalars['BigInt']>;
+  value_not?: InputMaybe<Scalars['BigInt']>;
+  value_gt?: InputMaybe<Scalars['BigInt']>;
+  value_lt?: InputMaybe<Scalars['BigInt']>;
+  value_gte?: InputMaybe<Scalars['BigInt']>;
+  value_lte?: InputMaybe<Scalars['BigInt']>;
+  value_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  value_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
 };
@@ -494,7 +503,7 @@ export type UserOp_filter = {
 export type UserOp_orderBy =
   | 'id'
   | 'transactionHash'
-  | 'requestId'
+  | 'userOpHash'
   | 'sender'
   | 'paymaster'
   | 'nonce'
@@ -505,7 +514,8 @@ export type UserOp_orderBy =
   | 'blockTime'
   | 'blockNumber'
   | 'network'
-  | 'input';
+  | 'input'
+  | 'value';
 
 export type _Block_ = {
   /** The hash of the block */
@@ -724,7 +734,7 @@ export interface BytesScalarConfig extends GraphQLScalarTypeConfig<ResolversType
 
 export type StakingResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Staking'] = ResolversParentTypes['Staking']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  requestId?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  userOpHash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   requestFrom?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   to?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
@@ -734,7 +744,7 @@ export type StakingResolvers<ContextType = MeshContext & { indexerName: string }
 
 export type TransferResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Transfer'] = ResolversParentTypes['Transfer']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  requestId?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  userOpHash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   value?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
   to?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
@@ -745,7 +755,7 @@ export type TransferResolvers<ContextType = MeshContext & { indexerName: string 
 export type UserOpResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['UserOp'] = ResolversParentTypes['UserOp']> = ResolversObject<{
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   transactionHash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
-  requestId?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  userOpHash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   sender?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   paymaster?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   nonce?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
@@ -757,6 +767,7 @@ export type UserOpResolvers<ContextType = MeshContext & { indexerName: string },
   blockNumber?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
   network?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   input?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
   indexerName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -894,12 +905,6 @@ const merger = new(BareMerger as any)({
         },
         location: 'DepositsQueryDocument.graphql'
       },{
-        document: RequestIdQueryDocument,
-        get rawSDL() {
-          return printWithCache(RequestIdQueryDocument);
-        },
-        location: 'RequestIdQueryDocument.graphql'
-      },{
         document: SenderAddressQueryDocument,
         get rawSDL() {
           return printWithCache(SenderAddressQueryDocument);
@@ -911,6 +916,12 @@ const merger = new(BareMerger as any)({
           return printWithCache(StakingQueryDocument);
         },
         location: 'StakingQueryDocument.graphql'
+      },{
+        document: UserOpQueryDocument,
+        get rawSDL() {
+          return printWithCache(UserOpQueryDocument);
+        },
+        location: 'UserOpQueryDocument.graphql'
       }
     ];
     },
@@ -955,7 +966,7 @@ export type AddressActivityQueryQueryVariables = Exact<{
 }>;
 
 
-export type AddressActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+export type AddressActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
 
 export type BlockNumberQueryQueryVariables = Exact<{
   blockNumber?: InputMaybe<Scalars['BigInt']>;
@@ -963,32 +974,32 @@ export type BlockNumberQueryQueryVariables = Exact<{
 }>;
 
 
-export type BlockNumberQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+export type BlockNumberQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
 
 export type DepositsQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type DepositsQueryQuery = { transfers: Array<Pick<Transfer, 'from' | 'id' | 'requestId' | 'to' | 'type' | 'value'>> };
-
-export type RequestIdQueryQueryVariables = Exact<{
-  requestId?: InputMaybe<Scalars['Bytes']>;
-  indexerNames: Array<Scalars['String']> | Scalars['String'];
-}>;
-
-
-export type RequestIdQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+export type DepositsQueryQuery = { transfers: Array<Pick<Transfer, 'from' | 'id' | 'userOpHash' | 'to' | 'type' | 'value'>> };
 
 export type SenderAddressQueryQueryVariables = Exact<{
   senderAddress?: InputMaybe<Scalars['Bytes']>;
 }>;
 
 
-export type SenderAddressQueryQuery = { userOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'requestId' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber'>> };
+export type SenderAddressQueryQuery = { userOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber'>> };
 
 export type StakingQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type StakingQueryQuery = { stakings: Array<Pick<Staking, 'id' | 'requestFrom' | 'requestId' | 'to' | 'type' | 'value'>> };
+export type StakingQueryQuery = { stakings: Array<Pick<Staking, 'id' | 'requestFrom' | 'userOpHash' | 'to' | 'type' | 'value'>> };
+
+export type UserOpQueryQueryVariables = Exact<{
+  userOpHash?: InputMaybe<Scalars['Bytes']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type UserOpQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
 
 
 export const AddressActivityQueryDocument = gql`
@@ -1005,7 +1016,7 @@ export const AddressActivityQueryDocument = gql`
     success
     sender
     revertReason
-    requestId
+    userOpHash
     actualGasCost
     actualGasPrice
     blockTime
@@ -1029,7 +1040,7 @@ export const BlockNumberQueryDocument = gql`
     success
     sender
     revertReason
-    requestId
+    userOpHash
     actualGasCost
     actualGasPrice
     blockTime
@@ -1044,36 +1055,13 @@ export const DepositsQueryDocument = gql`
   transfers {
     from
     id
-    requestId
+    userOpHash
     to
     type
     value
   }
 }
     ` as unknown as DocumentNode<DepositsQueryQuery, DepositsQueryQueryVariables>;
-export const RequestIdQueryDocument = gql`
-    query RequestIdQuery($requestId: Bytes, $indexerNames: [String!]!) {
-  crossUserOps(
-    where: {requestId: $requestId}
-    first: 1
-    indexerNames: $indexerNames
-  ) {
-    paymaster
-    nonce
-    transactionHash
-    success
-    sender
-    revertReason
-    requestId
-    actualGasCost
-    actualGasPrice
-    blockTime
-    blockNumber
-    network
-    input
-  }
-}
-    ` as unknown as DocumentNode<RequestIdQueryQuery, RequestIdQueryQueryVariables>;
 export const SenderAddressQueryDocument = gql`
     query SenderAddressQuery($senderAddress: Bytes) {
   userOps(
@@ -1087,7 +1075,7 @@ export const SenderAddressQueryDocument = gql`
     success
     sender
     revertReason
-    requestId
+    userOpHash
     actualGasCost
     actualGasPrice
     blockTime
@@ -1100,13 +1088,36 @@ export const StakingQueryDocument = gql`
   stakings(first: 10) {
     id
     requestFrom
-    requestId
+    userOpHash
     to
     type
     value
   }
 }
     ` as unknown as DocumentNode<StakingQueryQuery, StakingQueryQueryVariables>;
+export const UserOpQueryDocument = gql`
+    query UserOpQuery($userOpHash: Bytes, $indexerNames: [String!]!) {
+  crossUserOps(
+    where: {userOpHash: $userOpHash}
+    first: 1
+    indexerNames: $indexerNames
+  ) {
+    paymaster
+    nonce
+    transactionHash
+    success
+    sender
+    revertReason
+    userOpHash
+    actualGasCost
+    actualGasPrice
+    blockTime
+    blockNumber
+    network
+    input
+  }
+}
+    ` as unknown as DocumentNode<UserOpQueryQuery, UserOpQueryQueryVariables>;
 
 
 
@@ -1126,14 +1137,14 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     DepositsQuery(variables?: DepositsQueryQueryVariables, options?: C): Promise<DepositsQueryQuery> {
       return requester<DepositsQueryQuery, DepositsQueryQueryVariables>(DepositsQueryDocument, variables, options) as Promise<DepositsQueryQuery>;
     },
-    RequestIdQuery(variables: RequestIdQueryQueryVariables, options?: C): Promise<RequestIdQueryQuery> {
-      return requester<RequestIdQueryQuery, RequestIdQueryQueryVariables>(RequestIdQueryDocument, variables, options) as Promise<RequestIdQueryQuery>;
-    },
     SenderAddressQuery(variables?: SenderAddressQueryQueryVariables, options?: C): Promise<SenderAddressQueryQuery> {
       return requester<SenderAddressQueryQuery, SenderAddressQueryQueryVariables>(SenderAddressQueryDocument, variables, options) as Promise<SenderAddressQueryQuery>;
     },
     StakingQuery(variables?: StakingQueryQueryVariables, options?: C): Promise<StakingQueryQuery> {
       return requester<StakingQueryQuery, StakingQueryQueryVariables>(StakingQueryDocument, variables, options) as Promise<StakingQueryQuery>;
+    },
+    UserOpQuery(variables: UserOpQueryQueryVariables, options?: C): Promise<UserOpQueryQuery> {
+      return requester<UserOpQueryQuery, UserOpQueryQueryVariables>(UserOpQueryDocument, variables, options) as Promise<UserOpQueryQuery>;
     }
   };
 }

@@ -48,12 +48,19 @@ app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res
     const sender = queryParams.sender as string
     const nonce = queryParams.nonce as string
     let userOp;
-    if (network && transactionHash && sender && nonce) {
-        userOp = await getUsersOperationDetails(transactionHash, sender, nonce, (network == "goerli") ? georliProvider: mumbaiProvider, userOpInter) 
-    } else {
+    try {
+        if (network && transactionHash && sender && nonce) {
+            userOp = await getUsersOperationDetails(transactionHash, sender, nonce, (network == "goerli") ? georliProvider: mumbaiProvider, userOpInter) 
+        } else {
+            res.send({error: 1})
+            return;
+        }
+    } catch (err) {
+        console.log(err);
         res.send({error: 1})
         return;
     }
+    
     
     res.send(userOp);
 })

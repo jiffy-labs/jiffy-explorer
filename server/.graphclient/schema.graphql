@@ -203,7 +203,7 @@ enum OrderDirection {
 
 type Staking {
   id: ID!
-  requestId: Bytes
+  userOpHash: Bytes
   type: String
   requestFrom: Bytes
   to: Bytes
@@ -219,12 +219,12 @@ input Staking_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  requestId: Bytes
-  requestId_not: Bytes
-  requestId_in: [Bytes!]
-  requestId_not_in: [Bytes!]
-  requestId_contains: Bytes
-  requestId_not_contains: Bytes
+  userOpHash: Bytes
+  userOpHash_not: Bytes
+  userOpHash_in: [Bytes!]
+  userOpHash_not_in: [Bytes!]
+  userOpHash_contains: Bytes
+  userOpHash_not_contains: Bytes
   type: String
   type_not: String
   type_gt: String
@@ -271,7 +271,7 @@ input Staking_filter {
 
 enum Staking_orderBy {
   id
-  requestId
+  userOpHash
   type
   requestFrom
   to
@@ -280,7 +280,7 @@ enum Staking_orderBy {
 
 type Transfer {
   id: ID!
-  requestId: Bytes
+  userOpHash: Bytes
   type: String
   value: BigInt
   to: Bytes
@@ -296,12 +296,12 @@ input Transfer_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  requestId: Bytes
-  requestId_not: Bytes
-  requestId_in: [Bytes!]
-  requestId_not_in: [Bytes!]
-  requestId_contains: Bytes
-  requestId_not_contains: Bytes
+  userOpHash: Bytes
+  userOpHash_not: Bytes
+  userOpHash_in: [Bytes!]
+  userOpHash_not_in: [Bytes!]
+  userOpHash_contains: Bytes
+  userOpHash_not_contains: Bytes
   type: String
   type_not: String
   type_gt: String
@@ -348,7 +348,7 @@ input Transfer_filter {
 
 enum Transfer_orderBy {
   id
-  requestId
+  userOpHash
   type
   value
   to
@@ -358,7 +358,7 @@ enum Transfer_orderBy {
 type UserOp {
   id: ID!
   transactionHash: Bytes
-  requestId: Bytes
+  userOpHash: Bytes
   sender: Bytes
   paymaster: Bytes
   nonce: BigInt
@@ -370,6 +370,7 @@ type UserOp {
   blockNumber: BigInt
   network: String
   input: Bytes
+  value: BigInt
   indexerName: String
 }
 
@@ -388,12 +389,12 @@ input UserOp_filter {
   transactionHash_not_in: [Bytes!]
   transactionHash_contains: Bytes
   transactionHash_not_contains: Bytes
-  requestId: Bytes
-  requestId_not: Bytes
-  requestId_in: [Bytes!]
-  requestId_not_in: [Bytes!]
-  requestId_contains: Bytes
-  requestId_not_contains: Bytes
+  userOpHash: Bytes
+  userOpHash_not: Bytes
+  userOpHash_in: [Bytes!]
+  userOpHash_not_in: [Bytes!]
+  userOpHash_contains: Bytes
+  userOpHash_not_contains: Bytes
   sender: Bytes
   sender_not: Bytes
   sender_in: [Bytes!]
@@ -482,6 +483,14 @@ input UserOp_filter {
   input_not_in: [Bytes!]
   input_contains: Bytes
   input_not_contains: Bytes
+  value: BigInt
+  value_not: BigInt
+  value_gt: BigInt
+  value_lt: BigInt
+  value_gte: BigInt
+  value_lte: BigInt
+  value_in: [BigInt!]
+  value_not_in: [BigInt!]
   """Filter for the block changed event."""
   _change_block: BlockChangedFilter
 }
@@ -489,7 +498,7 @@ input UserOp_filter {
 enum UserOp_orderBy {
   id
   transactionHash
-  requestId
+  userOpHash
   sender
   paymaster
   nonce
@@ -501,6 +510,7 @@ enum UserOp_orderBy {
   blockNumber
   network
   input
+  value
 }
 
 type _Block_ {

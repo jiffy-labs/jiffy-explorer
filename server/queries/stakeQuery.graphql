@@ -2,7 +2,7 @@ query StakingQuery {
   stakings(first: 10) {
     id
     requestFrom
-    requestId
+    userOpHash
     to
     type
     value
