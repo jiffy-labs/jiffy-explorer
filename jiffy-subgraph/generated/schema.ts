@@ -42,8 +42,8 @@ export class Transfer extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get requestId(): Bytes | null {
-    let value = this.get("requestId");
+  get txHash(): Bytes | null {
+    let value = this.get("txHash");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -51,11 +51,11 @@ export class Transfer extends Entity {
     }
   }
 
-  set requestId(value: Bytes | null) {
+  set txHash(value: Bytes | null) {
     if (!value) {
-      this.unset("requestId");
+      this.unset("txHash");
     } else {
-      this.set("requestId", Value.fromBytes(<Bytes>value));
+      this.set("txHash", Value.fromBytes(<Bytes>value));
     }
   }
 
@@ -159,8 +159,8 @@ export class Staking extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get requestId(): Bytes | null {
-    let value = this.get("requestId");
+  get userOpHash(): Bytes | null {
+    let value = this.get("userOpHash");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -168,11 +168,11 @@ export class Staking extends Entity {
     }
   }
 
-  set requestId(value: Bytes | null) {
+  set userOpHash(value: Bytes | null) {
     if (!value) {
-      this.unset("requestId");
+      this.unset("userOpHash");
     } else {
-      this.set("requestId", Value.fromBytes(<Bytes>value));
+      this.set("userOpHash", Value.fromBytes(<Bytes>value));
     }
   }
 
@@ -293,8 +293,8 @@ export class UserOp extends Entity {
     }
   }
 
-  get requestId(): Bytes | null {
-    let value = this.get("requestId");
+  get userOpHash(): Bytes | null {
+    let value = this.get("userOpHash");
     if (!value || value.kind == ValueKind.NULL) {
       return null;
     } else {
@@ -302,11 +302,11 @@ export class UserOp extends Entity {
     }
   }
 
-  set requestId(value: Bytes | null) {
+  set userOpHash(value: Bytes | null) {
     if (!value) {
-      this.unset("requestId");
+      this.unset("userOpHash");
     } else {
-      this.set("requestId", Value.fromBytes(<Bytes>value));
+      this.set("userOpHash", Value.fromBytes(<Bytes>value));
     }
   }
 

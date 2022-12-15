@@ -61,7 +61,6 @@ app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res
         return;
     }
     
-    
     res.send(userOp);
 })
 

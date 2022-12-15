@@ -32,7 +32,7 @@ export function handleDeposited(event: Deposited): void {
   }
 
   transfer
-  transfer.requestId = event.transaction.hash
+  transfer.txHash = event.transaction.hash
   transfer.type = "Deposited"
   transfer.value = event.params.totalDeposit
   transfer.to = event.transaction.to
@@ -79,7 +79,7 @@ export function handleUserOperationEvent(event: UserOperationEvent): void {
     userOp = new UserOp(event.params.requestId.toHex())
   }
 
-  userOp.requestId = event.params.requestId
+  userOp.userOpHash = event.params.requestId
   userOp.transactionHash = event.transaction.hash
   userOp.input = event.transaction.input
   userOp.sender = event.params.sender
@@ -106,7 +106,7 @@ export function handleUserOperationRevertReason(
     userOp = new UserOp(event.params.requestId.toHex())
   }
 
-  userOp.requestId = event.params.requestId
+  userOp.userOpHash = event.params.requestId
   userOp.transactionHash = event.transaction.hash
   userOp.input = event.transaction.input
   userOp.sender = event.params.sender
@@ -122,7 +122,7 @@ export function handleWithdrawn(event: Withdrawn): void {
     transfer = new Transfer(event.transaction.hash.toHex())
   }
 
-  transfer.requestId = event.transaction.hash
+  transfer.txHash = event.transaction.hash
   transfer.type = "Withdraw"
   transfer.value = event.params.amount
   transfer.to = event.params.withdrawAddress

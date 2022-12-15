@@ -6,15 +6,15 @@ import { useEffect, useState } from "react";
 
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, HStack, Box } from "@chakra-ui/react";
 
-const RequestId = () => {
-    let { reqId } = useParams();
+const UserOpHash = () => {
+    let { userOpHash } = useParams();
     const [userOp, setUserOp] = useState({});
     const [loading, setLoading] = useState(false);
     const [userOpData, setUserOpData] = useState("");
 
     useEffect(() => {
         setLoading(true);
-        fetch("/api/getUserOpInfo?userOpHash=" + reqId).then((res) =>
+        fetch("/api/getUserOpInfo?userOpHash=" + userOpHash).then((res) =>
             res.json().then((userOp) => {
                 if (userOp.error) return <pre>{userOp.message}</pre>;
                 setUserOp(userOp);
@@ -49,7 +49,7 @@ const RequestId = () => {
                             <Tbody>
                                 <Tr>
                                     <Th>UserOpHash</Th>
-                                    <Td>{userOp.requestId}</Td>
+                                    <Td>{userOp.userOpHash}</Td>
                                 </Tr>
                                 <Tr>
                                     <Th>Transaction Hash</Th>
@@ -118,4 +118,4 @@ const RequestId = () => {
     );
 };
 
-export default RequestId;
+export default UserOpHash;

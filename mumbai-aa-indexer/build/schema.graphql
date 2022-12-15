@@ -1,6 +1,6 @@
 type Transfer @entity {
   id:ID!
-  requestId: Bytes
+  txHash: Bytes
   type: String
   value: BigInt
   to: Bytes
@@ -9,7 +9,7 @@ type Transfer @entity {
 
 type Staking @entity {
   id: ID!
-  requestId: Bytes
+  userOpHash: Bytes
   type: String
   requestFrom: Bytes
   to: Bytes
@@ -19,7 +19,7 @@ type Staking @entity {
 type UserOp @entity {
   id: ID!
   transactionHash: Bytes
-  requestId: Bytes
+  userOpHash: Bytes
   sender: Bytes
   paymaster: Bytes
   nonce: BigInt

@@ -14,7 +14,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import moment from "moment";
 
 const columns = [
-    { dataField: "requestId", text: "userOpHash" },
+    { dataField: "userOpHash", text: "userOpHash" },
     { dataField: "blockTime", text: "Age" },
     { dataField: "sender", text: "Sender" },
     { dataField: "blockNumber", text: "BlockNumber" },
@@ -29,9 +29,9 @@ const convertGraphDataToRows = (data) => {
         let userOp = data[idx];
         let timePassedInEpoch = new Date().getTime() - userOp.blockTime * 1000;
         let timePassed = moment.duration(timePassedInEpoch);
-        let requestLink = "/requestId/" + userOp.requestId;
+        let requestLink = "/userOpHash/" + userOp.userOpHash;
         let row = {
-            requestId: <a href={requestLink}>{userOp.requestId.slice(0, 10) + "..."}</a>,
+            userOpHash: <a href={requestLink}>{userOp.userOpHash.slice(0, 10) + "..."}</a>,
             blockTime: timePassed.humanize() + " ago",
             sender: userOp.sender.slice(0, 10) + "...",
             blockNumber: userOp.blockNumber,
@@ -86,7 +86,7 @@ const Block = () => {
             <LinkLayout>
             <Container>
                 Blocks
-                <BootstrapTable keyField='requestId' data={ rows } columns={ columns } pagination={ paginationFactory(options) } />
+                <BootstrapTable keyField='userOpHash' data={ rows } columns={ columns } pagination={ paginationFactory(options) } />
             </Container>
             </LinkLayout>
         </>

@@ -6,12 +6,13 @@ import {
   UserOperationEvent as UserOperationEventEvent,
   UserOperationRevertReason as UserOperationRevertReasonEvent,
   Withdrawn as WithdrawnEvent
-} from "../generated/EntryPoint/EntryPoint"
+} from "../../mumbai-aa-indexer/generated/EntryPoint/EntryPoint"
 import {
   UserOp,
   Transfer,
   Staking
-} from "../generated/schema"
+} from "../../mumbai-aa-indexer/generated/schema"
+import { log } from '@graphprotocol/graph-ts'
 
 export function handleDeposited(event: DepositedEvent): void {
   let transfer = Transfer.load(event.transaction.hash.toHex())
@@ -20,7 +21,7 @@ export function handleDeposited(event: DepositedEvent): void {
   }
 
   transfer
-  transfer.requestId = event.transaction.hash
+  transfer.txHash = event.transaction.hash
   transfer.type = "Deposited"
   transfer.value = event.params.totalDeposit
   transfer.to = event.transaction.to
@@ -67,7 +68,7 @@ export function handleUserOperationEvent(event: UserOperationEventEvent): void {
     userOp = new UserOp(event.params.userOpHash.toHex())
   }
 
-  userOp.requestId = event.params.userOpHash
+  userOp.userOpHash = event.params.userOpHash
   userOp.transactionHash = event.transaction.hash
   userOp.input = event.transaction.input
   userOp.sender = event.params.sender
@@ -79,6 +80,7 @@ export function handleUserOperationEvent(event: UserOperationEventEvent): void {
   userOp.blockTime = event.block.timestamp
   userOp.blockNumber = event.block.number
   userOp.network = "mumbai"
+  log.info("userOpHash {}",[event.params.userOpHash.toHexString()])
   // let transactionReceipt = event.receipt
   // if(transactionReceipt) {
   //   userOp.logLen = BigInt.fromI32(transactionReceipt.logs.length)
@@ -94,7 +96,7 @@ export function handleUserOperationRevertReason(
     userOp = new UserOp(event.params.userOpHash.toHex())
   }
 
-  userOp.requestId = event.params.userOpHash
+  userOp.userOpHash = event.params.userOpHash
   userOp.transactionHash = event.transaction.hash
   userOp.input = event.transaction.input
   userOp.sender = event.params.sender
@@ -110,7 +112,7 @@ export function handleWithdrawn(event: WithdrawnEvent): void {
     transfer = new Transfer(event.transaction.hash.toHex())
   }
 
-  transfer.requestId = event.transaction.hash
+  transfer.txHash = event.transaction.hash
   transfer.type = "Withdraw"
   transfer.value = event.params.amount
   transfer.to = event.params.withdrawAddress

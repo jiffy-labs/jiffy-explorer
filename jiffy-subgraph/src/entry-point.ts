@@ -6,22 +6,19 @@ import {
   UserOperationEvent as UserOperationEventEvent,
   UserOperationRevertReason as UserOperationRevertReasonEvent,
   Withdrawn as WithdrawnEvent
-} from "../generated/BEntryPoint/BEntryPoint"
+} from "../../mumbai-aa-indexer/generated/EntryPoint/EntryPoint"
 import {
   UserOp,
   Transfer,
   Staking
-} from "../generated/schema"
+} from "../../mumbai-aa-indexer/generated/schema"
 
-export function handleBEntryPointDeposited(
-  event: DepositedEvent
-): void {
+export function handleDeposited(event: DepositedEvent): void {
   let transfer = Transfer.load(event.transaction.hash.toHex())
   if (transfer == null) {
     transfer = new Transfer(event.transaction.hash.toHex())
   }
 
-  transfer
   transfer.txHash = event.transaction.hash
   transfer.type = "Deposited"
   transfer.value = event.params.totalDeposit
@@ -30,9 +27,7 @@ export function handleBEntryPointDeposited(
   transfer.save()
 }
 
-export function handleBEntryPointStakeLocked(
-  event: StakeLockedEvent
-): void {
+export function handleStakeLocked(event: StakeLockedEvent): void {
   let stake = Staking.load(event.transaction.hash.toHex())
   if (stake == null) {
     stake = new Staking(event.transaction.hash.toHex())
@@ -43,9 +38,7 @@ export function handleBEntryPointStakeLocked(
   stake.value = event.params.totalStaked
 }
 
-export function handleBEntryPointStakeUnlocked(
-  event: StakeUnlockedEvent
-): void {
+export function handleStakeUnlocked(event: StakeUnlockedEvent): void {
   let stake = Staking.load(event.transaction.hash.toHex())
   if (stake == null) {
     stake = new Staking(event.transaction.hash.toHex())
@@ -55,9 +48,7 @@ export function handleBEntryPointStakeUnlocked(
   stake.requestFrom = event.params.account
 }
 
-export function handleBEntryPointStakeWithdrawn(
-  event: StakeWithdrawnEvent
-): void {
+export function handleStakeWithdrawn(event: StakeWithdrawnEvent): void {
   let stake = Staking.load(event.transaction.hash.toHex())
   if (stake == null) {
     stake = new Staking(event.transaction.hash.toHex())
@@ -69,15 +60,13 @@ export function handleBEntryPointStakeWithdrawn(
   stake.to = event.params.withdrawAddress
 }
 
-export function handleBEntryPointUserOperationEvent(
-  event: UserOperationEventEvent
-): void {
-  let userOp = UserOp.load(event.params.requestId.toHex())
+export function handleUserOperationEvent(event: UserOperationEventEvent): void {
+  let userOp = UserOp.load(event.params.userOpHash.toHex())
   if (userOp == null) {
-    userOp = new UserOp(event.params.requestId.toHex())
+    userOp = new UserOp(event.params.userOpHash.toHex())
   }
 
-  userOp.userOpHash = event.params.requestId
+  userOp.userOpHash = event.params.userOpHash
   userOp.transactionHash = event.transaction.hash
   userOp.input = event.transaction.input
   userOp.sender = event.params.sender
@@ -96,27 +85,25 @@ export function handleBEntryPointUserOperationEvent(
   userOp.save()
 }
 
-export function handleBEntryPointUserOperationRevertReason(
+export function handleUserOperationRevertReason(
   event: UserOperationRevertReasonEvent
 ): void {
-  let userOp = UserOp.load(event.params.requestId.toHex())
+  let userOp = UserOp.load(event.params.userOpHash.toHex())
   if (userOp == null) {
-    userOp = new UserOp(event.params.requestId.toHex())
+    userOp = new UserOp(event.params.userOpHash.toHex())
   }
 
-  userOp.userOpHash = event.params.requestId
+  userOp.userOpHash = event.params.userOpHash
   userOp.transactionHash = event.transaction.hash
   userOp.input = event.transaction.input
   userOp.sender = event.params.sender
   userOp.revertReason = event.params.revertReason
-  userOp.success = false
   userOp.network = "mumbai"
+  userOp.success = false
   userOp.save()
 }
 
-export function handleBEntryPointWithdrawn(
-  event: WithdrawnEvent
-): void {
+export function handleWithdrawn(event: WithdrawnEvent): void {
   let transfer = Transfer.load(event.transaction.hash.toHex())
   if (transfer == null) {
     transfer = new Transfer(event.transaction.hash.toHex())

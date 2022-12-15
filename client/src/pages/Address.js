@@ -15,7 +15,7 @@ import moment from "moment";
 import { Heading } from "@chakra-ui/react";
 
 const columns = [
-    { dataField: "requestId", text: "UserOpHash" },
+    { dataField: "userOpHash", text: "UserOpHash" },
     { dataField: "blockTime", text: "Age" },
     { dataField: "sender", text: "Sender" },
     { dataField: "blockNumber", text: "BlockNumber" },
@@ -30,10 +30,10 @@ const convertGraphDataToRows = (data) => {
         let userOp = data[idx];
         let timePassedInEpoch = new Date().getTime() - userOp.blockTime * 1000;
         let timePassed = moment.duration(timePassedInEpoch);
-        let requestLink = "/requestId/" + userOp.requestId;
+        let requestLink = "/userOpHash/" + userOp.userOpHash;
         let row = {
-            transactionHash: <a href={requestLink}>{userOp.requestId.slice(0, 10) + "..."}</a>,
-            requestId: <a href={requestLink}>{userOp.requestId.slice(0, 10) + "..."}</a>,
+            transactionHash: <a href={requestLink}>{userOp.userOpHash.slice(0, 10) + "..."}</a>,
+            userOpHash: <a href={requestLink}>{userOp.userOpHash.slice(0, 10) + "..."}</a>,
             blockTime: timePassed.humanize() + " ago",
             sender: userOp.sender.slice(0, 10) + "...",
             gasCost: (userOp.actualGasCost / 10 ** 18).toFixed(5).toString() + " ETH",
@@ -89,7 +89,7 @@ const Address = () => {
             <LinkLayout>
                 <Container>
                     <Heading>Transactions</Heading>
-                    <BootstrapTable keyField="requestId" data={rows} columns={columns} pagination={paginationFactory(options)} />
+                    <BootstrapTable keyField="userOpHash" data={rows} columns={columns} pagination={paginationFactory(options)} />
                 </Container>
             </LinkLayout>
         </>
