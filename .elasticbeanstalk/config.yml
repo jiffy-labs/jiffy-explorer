@@ -1,13 +1,6 @@
 branch-defaults:
   main:
     environment: Jiffy-explorer-prod
-  master:
-    environment: Jiffy-explorer-prod
-    group_suffix: null
-environment-defaults:
-  Highfi-chat-client:
-    branch: null
-    repository: null
 global:
   application_name: Jiffy
   default_ec2_keyname: null
