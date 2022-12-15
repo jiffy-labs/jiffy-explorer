@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
+import RequestId from "./pages/RequestId";
 import Address from "./pages/Address";
 import Block from "./pages/Block";
 import Home from "./pages/Home";
-import RequestId from "./pages/RequestId";
 
 function App() {
     return (
@@ -13,8 +13,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/address/:address" element={<Address />} />
-                    <Route path="/block/:block" element={<Block />}/>
                     <Route path="/requestId/:reqId" element={<RequestId />}/>
+                    <Route path="/block/:block" element={<Block />}/>
                 </Routes>
             </Router>
         </>
