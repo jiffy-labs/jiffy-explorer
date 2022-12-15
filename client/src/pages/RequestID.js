@@ -1,11 +1,6 @@
 import LinkLayout from "../components/LinkingLayout";
-import InputGroup from "react-bootstrap/InputGroup";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Search from "../components/Search";
 import { Col, Container, Nav, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { useQuery, gql } from "@apollo/client";
 import { useEffect, useState } from "react";
 // import decodeInputData from "../utils/test";
 
