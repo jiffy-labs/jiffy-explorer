@@ -81,18 +81,20 @@ dataSources:
           handler: handleBEntryPointWithdrawn
       file: ./src/b-entry-point.ts
   - kind: ethereum
-    name: EntryPoint1
+    name: EntryPointLatest
     network: mumbai
     source:
       address: "0x78d4f01f56b982a3B03C4E127A5D3aFa8EBee686"
-      abi: EntryPoint1
+      abi: EntryPointLatest
       startBlock: 29692429
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
+        - AccountDeployed
         - Deposited
+        - SignatureAggregatorChanged
         - StakeLocked
         - StakeUnlocked
         - StakeWithdrawn
@@ -100,11 +102,15 @@ dataSources:
         - UserOperationRevertReason
         - Withdrawn
       abis:
-        - name: EntryPoint1
-          file: ./abis/EntryPoint1.json
+        - name: EntryPointLatest
+          file: ./abis/EntryPointLatest.json
       eventHandlers:
+        - event: AccountDeployed(indexed bytes32,indexed address,address,address)
+          handler: handleAccountDeployed
         - event: Deposited(indexed address,uint256)
           handler: handleDeposited
+        - event: SignatureAggregatorChanged(address)
+          handler: handleSignatureAggregatorChanged
         - event: StakeLocked(indexed address,uint256,uint256)
           handler: handleStakeLocked
         - event: StakeUnlocked(indexed address,uint256)
@@ -114,8 +120,9 @@ dataSources:
         - event: UserOperationEvent(indexed bytes32,indexed address,indexed
             address,uint256,bool,uint256,uint256)
           handler: handleUserOperationEvent
-        - event: UserOperationRevertReason(indexed bytes32,indexed address,uint256,bytes)
+        - event: UserOperationRevertReason(indexed bytes32,indexed
+            address,uint256,bytes)
           handler: handleUserOperationRevertReason
         - event: Withdrawn(indexed address,address,uint256)
           handler: handleWithdrawn
-      file: ./src/entry-point.ts
+      file: ./src/entry-point-latest.ts

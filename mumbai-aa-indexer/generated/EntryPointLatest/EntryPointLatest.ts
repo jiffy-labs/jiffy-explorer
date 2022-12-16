@@ -252,7 +252,7 @@ export class Withdrawn__Params {
   }
 }
 
-export class EntryPoint1__depositsResult {
+export class EntryPointLatest__depositsResult {
   value0: BigInt;
   value1: boolean;
   value2: BigInt;
@@ -304,7 +304,7 @@ export class EntryPoint1__depositsResult {
   }
 }
 
-export class EntryPoint1__getDepositInfoResultInfoStruct extends ethereum.Tuple {
+export class EntryPointLatest__getDepositInfoResultInfoStruct extends ethereum.Tuple {
   get deposit(): BigInt {
     return this[0].toBigInt();
   }
@@ -326,7 +326,7 @@ export class EntryPoint1__getDepositInfoResultInfoStruct extends ethereum.Tuple 
   }
 }
 
-export class EntryPoint1__getUserOpHashInputUserOpStruct extends ethereum.Tuple {
+export class EntryPointLatest__getUserOpHashInputUserOpStruct extends ethereum.Tuple {
   get sender(): Address {
     return this[0].toAddress();
   }
@@ -372,9 +372,9 @@ export class EntryPoint1__getUserOpHashInputUserOpStruct extends ethereum.Tuple 
   }
 }
 
-export class EntryPoint1__innerHandleOpInputOpInfoStruct extends ethereum.Tuple {
-  get mUserOp(): EntryPoint1__innerHandleOpInputOpInfoMUserOpStruct {
-    return changetype<EntryPoint1__innerHandleOpInputOpInfoMUserOpStruct>(
+export class EntryPointLatest__innerHandleOpInputOpInfoStruct extends ethereum.Tuple {
+  get mUserOp(): EntryPointLatest__innerHandleOpInputOpInfoMUserOpStruct {
+    return changetype<EntryPointLatest__innerHandleOpInputOpInfoMUserOpStruct>(
       this[0].toTuple()
     );
   }
@@ -396,7 +396,7 @@ export class EntryPoint1__innerHandleOpInputOpInfoStruct extends ethereum.Tuple 
   }
 }
 
-export class EntryPoint1__innerHandleOpInputOpInfoMUserOpStruct extends ethereum.Tuple {
+export class EntryPointLatest__innerHandleOpInputOpInfoMUserOpStruct extends ethereum.Tuple {
   get sender(): Address {
     return this[0].toAddress();
   }
@@ -430,9 +430,9 @@ export class EntryPoint1__innerHandleOpInputOpInfoMUserOpStruct extends ethereum
   }
 }
 
-export class EntryPoint1 extends ethereum.SmartContract {
-  static bind(address: Address): EntryPoint1 {
-    return new EntryPoint1("EntryPoint1", address);
+export class EntryPointLatest extends ethereum.SmartContract {
+  static bind(address: Address): EntryPointLatest {
+    return new EntryPointLatest("EntryPointLatest", address);
   }
 
   balanceOf(account: Address): BigInt {
@@ -454,14 +454,14 @@ export class EntryPoint1 extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
-  deposits(param0: Address): EntryPoint1__depositsResult {
+  deposits(param0: Address): EntryPointLatest__depositsResult {
     let result = super.call(
       "deposits",
       "deposits(address):(uint112,bool,uint112,uint32,uint64)",
       [ethereum.Value.fromAddress(param0)]
     );
 
-    return new EntryPoint1__depositsResult(
+    return new EntryPointLatest__depositsResult(
       result[0].toBigInt(),
       result[1].toBoolean(),
       result[2].toBigInt(),
@@ -472,7 +472,7 @@ export class EntryPoint1 extends ethereum.SmartContract {
 
   try_deposits(
     param0: Address
-  ): ethereum.CallResult<EntryPoint1__depositsResult> {
+  ): ethereum.CallResult<EntryPointLatest__depositsResult> {
     let result = super.tryCall(
       "deposits",
       "deposits(address):(uint112,bool,uint112,uint32,uint64)",
@@ -483,7 +483,7 @@ export class EntryPoint1 extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      new EntryPoint1__depositsResult(
+      new EntryPointLatest__depositsResult(
         value[0].toBigInt(),
         value[1].toBoolean(),
         value[2].toBigInt(),
@@ -495,21 +495,21 @@ export class EntryPoint1 extends ethereum.SmartContract {
 
   getDepositInfo(
     account: Address
-  ): EntryPoint1__getDepositInfoResultInfoStruct {
+  ): EntryPointLatest__getDepositInfoResultInfoStruct {
     let result = super.call(
       "getDepositInfo",
       "getDepositInfo(address):((uint112,bool,uint112,uint32,uint64))",
       [ethereum.Value.fromAddress(account)]
     );
 
-    return changetype<EntryPoint1__getDepositInfoResultInfoStruct>(
+    return changetype<EntryPointLatest__getDepositInfoResultInfoStruct>(
       result[0].toTuple()
     );
   }
 
   try_getDepositInfo(
     account: Address
-  ): ethereum.CallResult<EntryPoint1__getDepositInfoResultInfoStruct> {
+  ): ethereum.CallResult<EntryPointLatest__getDepositInfoResultInfoStruct> {
     let result = super.tryCall(
       "getDepositInfo",
       "getDepositInfo(address):((uint112,bool,uint112,uint32,uint64))",
@@ -520,13 +520,15 @@ export class EntryPoint1 extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(
-      changetype<EntryPoint1__getDepositInfoResultInfoStruct>(
+      changetype<EntryPointLatest__getDepositInfoResultInfoStruct>(
         value[0].toTuple()
       )
     );
   }
 
-  getUserOpHash(userOp: EntryPoint1__getUserOpHashInputUserOpStruct): Bytes {
+  getUserOpHash(
+    userOp: EntryPointLatest__getUserOpHashInputUserOpStruct
+  ): Bytes {
     let result = super.call(
       "getUserOpHash",
       "getUserOpHash((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)):(bytes32)",
@@ -537,7 +539,7 @@ export class EntryPoint1 extends ethereum.SmartContract {
   }
 
   try_getUserOpHash(
-    userOp: EntryPoint1__getUserOpHashInputUserOpStruct
+    userOp: EntryPointLatest__getUserOpHashInputUserOpStruct
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
       "getUserOpHash",
@@ -553,7 +555,7 @@ export class EntryPoint1 extends ethereum.SmartContract {
 
   innerHandleOp(
     callData: Bytes,
-    opInfo: EntryPoint1__innerHandleOpInputOpInfoStruct,
+    opInfo: EntryPointLatest__innerHandleOpInputOpInfoStruct,
     context: Bytes
   ): BigInt {
     let result = super.call(
@@ -571,7 +573,7 @@ export class EntryPoint1 extends ethereum.SmartContract {
 
   try_innerHandleOp(
     callData: Bytes,
-    opInfo: EntryPoint1__innerHandleOpInputOpInfoStruct,
+    opInfo: EntryPointLatest__innerHandleOpInputOpInfoStruct,
     context: Bytes
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(

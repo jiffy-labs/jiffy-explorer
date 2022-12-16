@@ -5,6 +5,9 @@
     },
     "BEntryPoint": {
       "address": "0x119df1582e0dd7334595b8280180f336c959f3bb"
+    },
+    "EntryPointLatest": {
+      "address": "0x78d4f01f56b982a3B03C4E127A5D3aFa8EBee686"
     }
   }
 }

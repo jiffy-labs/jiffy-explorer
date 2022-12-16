@@ -81,18 +81,20 @@ dataSources:
           handler: handleBEntryPointWithdrawn
       file: BEntryPoint/BEntryPoint.wasm
   - kind: ethereum
-    name: EntryPoint1
+    name: EntryPointLatest
     network: mumbai
     source:
       address: "0x78d4f01f56b982a3B03C4E127A5D3aFa8EBee686"
-      abi: EntryPoint1
+      abi: EntryPointLatest
       startBlock: 29692429
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
+        - AccountDeployed
         - Deposited
+        - SignatureAggregatorChanged
         - StakeLocked
         - StakeUnlocked
         - StakeWithdrawn
@@ -100,11 +102,15 @@ dataSources:
         - UserOperationRevertReason
         - Withdrawn
       abis:
-        - name: EntryPoint1
-          file: EntryPoint1/abis/EntryPoint1.json
+        - name: EntryPointLatest
+          file: EntryPointLatest/abis/EntryPointLatest.json
       eventHandlers:
+        - event: AccountDeployed(indexed bytes32,indexed address,address,address)
+          handler: handleAccountDeployed
         - event: Deposited(indexed address,uint256)
           handler: handleDeposited
+        - event: SignatureAggregatorChanged(address)
+          handler: handleSignatureAggregatorChanged
         - event: StakeLocked(indexed address,uint256,uint256)
           handler: handleStakeLocked
         - event: StakeUnlocked(indexed address,uint256)
@@ -118,4 +124,4 @@ dataSources:
           handler: handleUserOperationRevertReason
         - event: Withdrawn(indexed address,address,uint256)
           handler: handleWithdrawn
-      file: EntryPoint/EntryPoint.wasm
+      file: EntryPointLatest/EntryPointLatest.wasm
