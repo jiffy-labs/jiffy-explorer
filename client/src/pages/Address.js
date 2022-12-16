@@ -31,13 +31,11 @@ let userOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,
 
 
 const getTarget = (network, calldata, sender, nonce) => {
-    console.log("Here1")
-    if (network != "mumbai") return {}
-    console.log("Here2")
+    if (network != "mumbai") return ""
 
     const decodedInput = abiCoder.decode(userOpsParams, "0x"+calldata.slice(10))
     console.log(decodedInput[0]);
-    if (decodedInput==null) return {}
+    if (decodedInput==null) return ""
     for(let userOpIdx in decodedInput[0]) {
         let userOp = decodedInput[0][userOpIdx]
         if (sender.toLowerCase() == userOp[0].toLowerCase() && nonce.toString() == userOp[1].toString() ){

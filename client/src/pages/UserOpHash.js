@@ -2,15 +2,33 @@ import LinkLayout from "../components/LinkingLayout";
 import { Col, Container, Nav, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import {ethers, BigNumber} from "ethers";
 // import decodeInputData from "../utils/test";
 
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, HStack, Box } from "@chakra-ui/react";
+
+let abiCoder = new ethers.utils.AbiCoder()
+let userOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)[]","address"]
+
+
+const getTarget = (network, calldata, sender, nonce) => {
+    if (network != "mumbai") return ""
+
+    const decodedInput = abiCoder.decode(userOpsParams, "0x"+calldata.slice(10))
+    if (decodedInput==null) return ""
+    for(let userOpIdx in decodedInput[0]) {
+        let userOp = decodedInput[0][userOpIdx]
+        if (sender.toLowerCase() == userOp[0].toLowerCase() && nonce.toString() == userOp[1].toString() ){
+            return  "0x"+userOp[3].slice(34,74)
+        }
+    }
+}
 
 const UserOpHash = () => {
     let { userOpHash } = useParams();
     const [userOp, setUserOp] = useState({});
     const [loading, setLoading] = useState(false);
-    const [userOpData, setUserOpData] = useState("");
+    const [target, setTarget] = useState("");
 
     useEffect(() => {
         setLoading(true);
@@ -24,12 +42,7 @@ const UserOpHash = () => {
     }, []);
 
     useEffect(() => {
-        if (Object.keys(userOp).length == 0) return;
-        fetch(
-            "/getTransactionInput?network="+userOp.network+"&txHash=" + userOp.transactionHash + "&sender=" + userOp.sender + "&nonce=" + userOp.nonce
-        ).then((res) => {
-            res.json().then((userOpData) => setUserOpData(userOpData));
-        });
+        setTarget(getTarget(userOp.network,userOp.input,userOp.sender,userOp.nonce))
     }, [userOp]);
 
     if (loading) return "Loading...";
@@ -69,7 +82,7 @@ const UserOpHash = () => {
                                 </Tr>
                                 <Tr>
                                     <Th>Target</Th>
-                                    <Td>{userOpData.target}</Td>
+                                    <Td>{target}</Td>
                                 </Tr>
                                 <Tr>
                                     <Th>Actual Gas Cost</Th>
@@ -97,10 +110,6 @@ const UserOpHash = () => {
                                         <Td>{userOp.revertMessage}</Td>
                                     </Tr>
                                 )}
-                                <Tr>
-                                    <Th>Calldata</Th>
-                                    <Td w="500px">{userOpData.callData}</Td>
-                                </Tr>
                                 <Tr>
                                     <Th>
                                         <a href={"https://goerli.etherscan.io/tx/" + userOp.transactionHash}>Etherscan</a>
