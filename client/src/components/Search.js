@@ -18,7 +18,7 @@ const Search = ({ noButton }) => {
     if (searchTerm.length == 42) { // This is an address
         navigate('/address/'+searchTerm);
     } else if (searchTerm.length == 66) { // This is request ID
-        navigate('/requestId/'+searchTerm);
+        navigate('/userOpHash/'+searchTerm);
     } else if (searchTerm.length == parseInt(searchTerm).toString().length && parseInt(searchTerm) < 99999999) {
         navigate('/block/'+searchTerm)
     } else {
@@ -34,7 +34,7 @@ const Search = ({ noButton }) => {
           onChange={handleChange}
           width="lg"
           focusBorderColor="#502eb4"
-          placeholder="Search by block/adress Hash or request Id"
+          placeholder="Search by block/adress Hash or userOp hash"
           variant="filled"
           _placeholder={{ opacity: 0.4, color: "#502eb4" }}
         />
