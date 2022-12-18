@@ -88,7 +88,7 @@ router.get('/getActivityInBlock', async (req: Request, res: Response) => {
     const block = parseInt(req.query.block as string);
     console.log(block)
     if (isNaN(block)) {
-        res.send({ error: true, message: "Missing address parameter" })
+        res.send({ error: true, message: "Missing block parameter" })
         return;
     }
     const { crossUserOps } = await BlockNumberQuery({
