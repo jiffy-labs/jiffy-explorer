@@ -84,7 +84,7 @@ router.get('/getAddressActivity', async (req: Request, res: Response) => {
     res.send(decodedCrossUserOps);
 });
 
-router.get('/getActivityInBlock', async (req: Request, res: Response) => {
+router.get('/getBlockActivity', async (req: Request, res: Response) => {
     const block = parseInt(req.query.block as string);
     console.log(block)
     if (isNaN(block)) {
