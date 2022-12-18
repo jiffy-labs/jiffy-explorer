@@ -30,7 +30,7 @@ app.use(express.static("public"));
 app.use(bodyParser.json())
 
 //configure routes
-app.use('/api', indexerRoutes);
+app.use('/api/v0', indexerRoutes);
 
 interface TransactionInputsQuery {
     network?: string,
