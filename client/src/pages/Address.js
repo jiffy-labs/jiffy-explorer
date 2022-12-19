@@ -78,7 +78,7 @@ const Address = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch("/api/getAddressActivity?address=" + address).then((res) =>
+        fetch("/api/v0/getAddressActivity?address=" + address).then((res) =>
             res.json().then((userOps) => {
                 if(userOps.error) return <pre>{userOps.message}</pre>
                 setData(userOps);

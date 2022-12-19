@@ -75,7 +75,7 @@ const Block = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch("/api/getActivityInBlock?block=" + block).then((res) =>
+        fetch("/api/v0/getBlockActivity?block=" + block).then((res) =>
             res.json().then((userOps) => {
                 if(userOps.error) return <pre>{userOps.message}</pre>
                 setData(userOps);

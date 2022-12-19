@@ -32,7 +32,7 @@ const UserOpHash = () => {
 
     useEffect(() => {
         setLoading(true);
-        fetch("/api/getUserOpInfo?userOpHash=" + userOpHash).then((res) =>
+        fetch("/api/v0/getUserOpInfo?userOpHash=" + userOpHash).then((res) =>
             res.json().then((userOp) => {
                 if (userOp.error) return <pre>{userOp.message}</pre>;
                 setUserOp(userOp);
