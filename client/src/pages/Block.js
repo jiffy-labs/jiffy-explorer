@@ -1,28 +1,22 @@
-import { Col, Container, Nav, Row } from "react-bootstrap";
-import LinkLayout from "../components/LinkingLayout";
-import InputGroup from "react-bootstrap/InputGroup";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Search from "../components/Search";
 import { useMemo, useState, useEffect } from "react";
-import Table from "react-bootstrap/Table";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
-import Pagination from "react-bootstrap/Pagination";
-import BootstrapTable from 'react-bootstrap-table-next';
-import paginationFactory from 'react-bootstrap-table2-paginator';
-import moment from "moment";
 import {ethers, BigNumber} from "ethers";
+import NavBar from "../components/NavBar";
+import moment from "moment";
+import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Box, Paper } from "@mui/material";
+import TransactionTable from "../components/TransactionTable";
+
 
 const columns = [
-    { dataField: "userOpHash", text: "userOpHash" },
-    { dataField: "blockTime", text: "Age" },
-    { dataField: "sender", text: "Sender" },
-    { dataField: "blockNumber", text: "BlockNumber" },
-    { dataField: "gasCost", text: "Gas Spent" },
-    { dataField: "network", text: "Network"},
-    { dataField: "status", text: "Status" },
-    { dataField: "target", text: "Target" },
+    { dataField: "userOpHash", text: "HASH" },
+    { dataField: "blockTime", text: "AGE" },
+    { dataField: "sender", text: "SENDER" },
+    // { dataField: "blockNumber", text: "BlockNumber" },
+    { dataField: "target", text: "TARGET" },
+    { dataField: "gasCost", text: "FEE" },
+    { dataField: "network", text: "NETWORK"},
+    // { dataField: "status", text: "Status" },
 ];
 
 
@@ -60,7 +54,7 @@ const convertGraphDataToRows = (data) => {
             gasCost: (userOp.actualGasCost / 10 ** 18).toFixed(5).toString() + " ETH",
             status: userOp.success ? "SUCCESS" : "REVERT",
             network: userOp.network,
-            target: target
+            target: target.slice(0, 10) + "...",
         };
         rows.push(row);
     }
@@ -106,12 +100,16 @@ const Block = () => {
 
     return (
         <>
-            <LinkLayout>
-            <Container>
-                Blocks
-                <BootstrapTable keyField='userOpHash' data={ rows } columns={ columns } pagination={ paginationFactory(options) } />
-            </Container>
-            </LinkLayout>
+            <NavBar />
+            <Paper elevation={5} square="false" >
+                <Container variant="md" sx={{ width: '80%', backgroundColor: "white", padding: "50px", marginTop: "50px",  }}>
+                    <Box sx={{ paddingBottom: "50px" }}>
+                        <Typography variant="h6">Block:</Typography>
+                        <Typography variant="body1">{block}</Typography>
+                    </Box>
+                    <TransactionTable rows={rows} columns={columns} />
+                </Container>
+            </Paper>
         </>
     );
 };

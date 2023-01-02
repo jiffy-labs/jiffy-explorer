@@ -9,7 +9,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
-import { ChakraProvider } from "@chakra-ui/react";
+// import { createTheme, ThemeProvider} from '@mui/material/styles';
+import { ThemeProvider, CssBaseline, createTheme, Paper } from "@mui/material";
+
+const theme = createTheme({
+    palette: {
+      background: {
+        default: "#fafafa"
+      }
+    }
+  });
 
 const client = new ApolloClient({
     uri: "https://api.thegraph.com/subgraphs/name/lazycoder1/aa-subgraphs-test",
@@ -21,13 +30,12 @@ const root = createRoot(container);
 
 root.render(
     <React.StrictMode>
-        <ChakraProvider>
-            <ApolloProvider client={client}>
-                <Provider store={store}>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Provider store={store}>
                     <App />
-                </Provider>
-            </ApolloProvider>
-        </ChakraProvider>
+            </Provider>
+        </ThemeProvider>
     </React.StrictMode>
 );
 

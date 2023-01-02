@@ -10,7 +10,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 
-import Search from "./Search";
+import Search from "./SearchBar";
 
 import { BiSearchAlt } from "react-icons/fa";
 
