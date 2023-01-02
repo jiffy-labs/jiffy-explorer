@@ -65,7 +65,7 @@ const SearchBar = ({ noButton }) => {
             onKeyDown={handleKeyPress}
             InputProps={{
                 endAdornment: (
-                    <IconButton>
+                    <IconButton onClick={handleSubmit}>
                         <SearchOutlined />
                     </IconButton>
                 ),
