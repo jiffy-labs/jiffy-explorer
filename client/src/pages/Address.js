@@ -29,7 +29,7 @@ const columns = [
     // { dataField: "blockNumber", text: "BlockNumber" },
     { dataField: "target", text: "TARGET" },
     { dataField: "gasCost", text: "FEE" },
-    { dataField: "network", text: "NETWORK"},
+    { dataField: "network", text: "NETWORK" },
     // { dataField: "status", text: "Status" },
 ];
 
@@ -51,6 +51,7 @@ const getTarget = (network, calldata, sender, nonce) => {
     }
 };
 
+
 const CopyButtonDiv = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -71,7 +72,7 @@ const convertGraphDataToRows = (data) => {
             userOpHash: (
                 <CopyButtonDiv>
                     <a href={userOpLink}>{userOp.userOpHash.slice(0, 10) + "..."}</a>
-                    <IconButton onClick={handleCopy()}>
+                    <IconButton onClick={() => handleCopy(userOp.userOpHash)}>
                         <ContentCopyIcon size="small" />
                     </IconButton>
                 </CopyButtonDiv>
@@ -80,7 +81,7 @@ const convertGraphDataToRows = (data) => {
             sender: (
                 <CopyButtonDiv>
                     <a href={senderLink}>{userOp.sender.slice(0, 10) + "..."}</a>
-                    <IconButton onClick={handleCopy()}>
+                    <IconButton onClick={() => handleCopy(userOp.sender)}>
                         <ContentCopyIcon size="small" />
                     </IconButton>
                 </CopyButtonDiv>
@@ -92,7 +93,7 @@ const convertGraphDataToRows = (data) => {
             target: (
                 <CopyButtonDiv>
                     {target.slice(0, 10) + "..."}
-                    <IconButton onClick={handleCopy()}>
+                    <IconButton onClick={() => handleCopy(target)}>
                         <ContentCopyIcon size="small" />
                     </IconButton>
                 </CopyButtonDiv>
@@ -103,8 +104,8 @@ const convertGraphDataToRows = (data) => {
     return rows;
 };
 
-const handleCopy = (e) => {
-    console.log(e);
+const handleCopy = (text) => {
+    navigator.clipboard.writeText(text)
 };
 
 const Address = () => {
@@ -148,16 +149,16 @@ const Address = () => {
     return (
         <>
             <NavBar />
-            <Container alignItems="center" >
-            <Paper elevation={2} square="false" alignItems="center" sx={{display:'contents'}}>
-                <Container variant="md" sx={{ width: '80%', backgroundColor: "white", padding: "50px", margin: "50px" }}>
-                    <Box sx={{ paddingBottom: "50px" }}>
-                        <Typography variant="h6">Wallet:</Typography>
-                        <Typography variant="body1">{address}</Typography>
-                    </Box>
-                    <TransactionTable rows={rows} columns={columns} />
-                </Container>
-            </Paper>
+            <Container alignItems="center">
+                <Paper elevation={2} square="false" alignItems="center" sx={{ display: "contents" }}>
+                    <Container variant="md" sx={{ width: "80%", backgroundColor: "white", padding: "50px", marginTop: "50px" }}>
+                        <Box sx={{ paddingBottom: "50px" }}>
+                            <Typography variant="h6">Wallet:</Typography>
+                            <Typography variant="body1">{address}</Typography>
+                        </Box>
+                        <TransactionTable rows={rows} columns={columns} />
+                    </Container>
+                </Paper>
             </Container>
         </>
     );

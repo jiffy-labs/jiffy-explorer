@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ethers, BigNumber } from "ethers";
 // import decodeInputData from "../utils/test";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 
 import {
     Container,
@@ -16,8 +17,29 @@ import {
     Paper,
     Grid,
     Divider,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
 } from "@mui/material";
 import NavBar from "../components/NavBar";
+
+const transactionDetailsMeta = [
+    { identifier: "blockNumber", Text: "BLOCK NUMBER" },
+    { identifier: "blockTime", Text: "BLOCK TIME" },
+    { identifier: "transactionHash", Text: "TRANSACTION HASH" },
+    { identifier: "sender", Text: "SENDER" },
+    { identifier: "target", Text: "TARGET" },
+    { identifier: "success", Text: "SUCCESS" },
+    { identifier: "revertReason", Text: "REVERT REASON" },
+    { identifier: "actualGasCost", Text: "FEE" },
+];
+
+const developerDetailsMeta = [
+    { identifier: "input", Text: "INPUT" },
+    { identifier: "actualGasUsed", Text: "FEE" },
+];
 
 const UserOpHash = () => {
     let { userOpHash } = useParams();
@@ -40,93 +62,67 @@ const UserOpHash = () => {
     return (
         <>
             <NavBar />
-            <Container sx={{ marginTop: "50px", backgroundColor: "white", width: "80%" }}>
-                <Typography variant="h3">User Operation</Typography>
-                <Typography variant="h6">User Operation Hash:</Typography>
-                <Typography variant="body1">{userOp.userOpHash}</Typography>
-                <Paper elevation={2}>
-                    <Typography variant="h4" align="left">
-                        Transaction Details
-                    </Typography>
-
-                    <Grid container spacing={2}>
-                        <Grid item xs={3}>
-                            <Typography noWrap="true">BLOCK NUMBER</Typography>
-                            <br />
-                            <Typography noWrap="true">BLOCK TIME</Typography>
-                            <br />
-                            <Typography noWrap="true">TRANSACTION HASH</Typography>
-                            <br />
-                            <Typography noWrap="true">SENDER</Typography>
-                            <br />
-                            <Typography noWrap="true">TARGET</Typography>
-                            <br />
-                            <Typography noWrap="true">SUCCESS</Typography>
-                            <br />
-                            {userOp.success ? (
-                                ""
-                            ) : (
-                                <>
-                                    <Typography noWrap="true">REVERT REASON</Typography>
-                                    <br />
-                                </>
-                            )}
-                            FEE
-                        </Grid>
-                        <Grid item xs={9} sx={{ borderBottom: "5px" }}>
-                            <Typography noWrap="true">{userOp.blockNumber}</Typography>
-
-                            <Divider />
-                            <Typography noWrap="true">{userOp.blockTime}</Typography>
-
-                            <Divider />
-                            <Typography noWrap="true">{userOp.transactionHash}</Typography>
-
-                            <Divider />
-                            <Typography noWrap="true">{userOp.sender}</Typography>
-
-                            <Divider />
-                            <Typography noWrap="true">{userOp.target}</Typography>
-
-                            <Divider />
-                            <Typography noWrap="true">{userOp.success ? "True" : "False"}</Typography>
-
-                            <Divider />
-                            <Typography sx={{ wordWrap: "break-word" }}>
-                                {userOp.success ? (
-                                    ""
-                                ) : (
-                                    <>
-                                        <Typography noWrap="true"></Typography>
-                                        {userOp.revertReason}
-                                        <Divider />
-                                    </>
-                                )}
+            <Grid container>
+                <Grid item xs={2}></Grid>
+                <Grid item xs={8}>
+                    <Paper elevation={2} sx={{ marginTop: "50px" }}>
+                        <Container>
+                            <Typography variant="h3">User Operation</Typography>
+                        </Container>
+                        <Container sx={{ marginTop: "50px" }}>
+                            <Typography variant="h6">User Operation Hash:</Typography>
+                            <Typography variant="body1">{userOp.userOpHash}</Typography>
+                        </Container>
+                        <Container sx={{ marginTop: "50px" }}>
+                            <Typography variant="h4" align="left">
+                                Transaction Details
                             </Typography>
-
-                            <Typography noWrap="true"></Typography>
-                            {userOp.actualGasCost}
-                        </Grid>
-                    </Grid>
-                </Paper>
-                <Paper elevation={2}>
-                    <Typography variant="h4" align="left">
-                        Developer Details
-                    </Typography>
-                    <Grid container spacing={2}>
-                        <Grid item xs={3} sx={{ borderBottom: "5px" }}>
-                            <Typography noWrap="true"></Typography>INPUT
-                            <br />
-                            <Typography noWrap="true"></Typography>ACTUAL GAS USED
-                        </Grid>
-                        <Grid item xs={9} sx={{ borderBottom: "5px" }}>
-                            <Typography sx={{wordWrap: "break-word"}}>{userOp.input}</Typography>
-                            <Divider />
-                            <Typography >{userOp.actualGasUsed ? userOp.actualGasUsed : userOp.actualGasPrice}</Typography>
-                        </Grid>
-                    </Grid>
-                </Paper>
-            </Container>
+                            <List>
+                                {transactionDetailsMeta.map((txDetail) => {
+                                    return (
+                                        <>
+                                            <ListItem disablePadding>
+                                                <ListItemIcon>
+                                                    <HelpOutlineIcon size="small" />
+                                                </ListItemIcon>
+                                                <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>{txDetail.Text}</ListItemText>
+                                                <ListItemText>:</ListItemText>
+                                                <ListItemText sx={{ width: "60%", wordWrap: "break-word" }}>
+                                                    {userOp[txDetail.identifier] == true ? "TRUE" : userOp[txDetail.identifier]}
+                                                </ListItemText>
+                                            </ListItem>
+                                        </>
+                                    );
+                                })}
+                            </List>
+                        </Container>
+                        <Container sx={{ marginTop: "50px" }}>
+                            <Typography variant="h4" align="left">
+                                Developer Details
+                            </Typography>
+                            <List>
+                                {developerDetailsMeta.map((devDetail) => {
+                                    return (
+                                        <>
+                                            <ListItem disablePadding>
+                                                <ListItemIcon>
+                                                    <HelpOutlineIcon size="small" />
+                                                </ListItemIcon>
+                                                <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>{devDetail.Text}</ListItemText>
+                                                <ListItemText>:</ListItemText>
+                                                <ListItemText sx={{ width: "60%", wordWrap: "break-word" }}>
+                                                    {userOp[devDetail.identifier]}
+                                                </ListItemText>
+                                            </ListItem>
+                                        </>
+                                    );
+                                })}
+                            </List>
+                        </Container>
+                    </Paper>
+                </Grid>
+                <Grid item xs={2}></Grid>
+            </Grid>
         </>
     );
 };
