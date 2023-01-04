@@ -17,9 +17,7 @@ import Grid from "@mui/material/Grid";
 import SearchBar from "./SearchBar";
 import { Route } from "react-router-dom";
 
-const pages = ["Docs"];
-
-function NavBar() {
+function NavBar({ page }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -140,15 +138,17 @@ function NavBar() {
                 </Container>
             </AppBar>
 
-            <Grid container>
-                <Grid item xs={2}></Grid>
-                <Grid item xs={8}>
-                    <Paper elevation={2}>
-                        <SearchBar />
-                    </Paper>
+            {(page!="Home") ? (
+                <Grid container>
+                    <Grid item xs={2}></Grid>
+                    <Grid item xs={8}>
+                        <Paper elevation={2}>
+                            <SearchBar />
+                        </Paper>
+                    </Grid>
+                    <Grid item xs={2}></Grid>
                 </Grid>
-                <Grid item xs={2}></Grid>
-            </Grid>
+            ) : <></>}
         </>
     );
 }

@@ -23,19 +23,23 @@ interface PopulatedCrossUserOp {
 }
 
 const router: Router = express.Router();
-const { AddressActivityQuery, BlockNumberQuery, UserOpQuery, PaymasterActivityQuery } = getBuiltGraphSDK();
-const indexers: string[] = ["aa-subgraphs-test", "mumbai-aa-indexer"]
+const { AddressActivityQuery, BlockNumberQuery, UserOpQuery, PaymasterActivityQuery, LatestTransactionQuery  } = getBuiltGraphSDK();
+const indexers: string[] = ["mumbai-aa-indexer", "aa-subgraphs-test"]
 let abiCoder = new ethers.utils.AbiCoder()
 let userOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)[]", "address"]
 let candideUserOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)[]", "address"]
 let calldataParams = ["address","uint256","bytes"]
-const getCalldata = (network: String, calldata: String, sender: String, nonce: String): Result => {
 
+const getCalldata = (network: String, calldata: String, sender: String, nonce: String): Result => {
     let decodedInput = abiCoder.decode(userOpsParams, "0x" + calldata.slice(10))
-    if (decodedInput == null && network == "goerli") {
+    try {
+        let userOp = decodedInput[0][0]
+    } catch(err) {
+        // TODO: find out a better way to detect its from candide wallet
         decodedInput = abiCoder.decode(candideUserOpsParams, "0x" + calldata.slice(10))
         if (decodedInput == null) return ["","",""]
     }
+    
     // console.log(decodedInput)
     for (let userOpIdx in decodedInput[0]) {
         let userOp = decodedInput[0][userOpIdx]
@@ -101,6 +105,18 @@ router.get('/getAddressActivity', async (req: Request, res: Response) => {
     let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
     res.send(decodedCrossUserOps);
 });
+
+router.get('/getLatestTransactions', async (req: Request, res: Response) => {
+    let { crossUserOps } = await LatestTransactionQuery({
+        first: 5,
+        skip: 0,
+        indexerNames: indexers
+    });
+
+    let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
+    res.send(decodedCrossUserOps);
+});
+
 
 router.get('/getBlockActivity', async (req: Request, res: Response) => {
     const block = parseInt(req.query.block as string);

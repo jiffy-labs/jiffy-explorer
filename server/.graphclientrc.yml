@@ -31,6 +31,8 @@ documents:
   - ./queries/userOpQuery.graphql
   - ./queries/addressActivityQuery.graphql
   - ./queries/paymasterActivityQuery.graphql
+  - ./queries/latestTransactions.graphql
+
   
 
 codegen:

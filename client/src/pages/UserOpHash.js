@@ -37,9 +37,10 @@ const transactionDetailsMeta = [
 ];
 
 const developerDetailsMeta = [
-    { identifier: "value", text: "VALUE"},
+    { identifier: "value", text: "VALUE" },
     { identifier: "actualGasUsed", text: "FEE" },
-    { identifier: "calldata", text: "CALLDATA"},
+    { identifier: "actualGasPrice", text: "FEE" },
+    { identifier: "calldata", text: "CALLDATA" },
     { identifier: "input", text: "INPUT" },
 ];
 
@@ -81,6 +82,7 @@ const UserOpHash = () => {
                             </Typography>
                             <List>
                                 {transactionDetailsMeta.map((txDetail) => {
+                                    if (txDetail.identifier in userOp && userOp[txDetail.identifier] != null)
                                     return (
                                         <>
                                             <ListItem disablePadding>
@@ -104,20 +106,23 @@ const UserOpHash = () => {
                             </Typography>
                             <List>
                                 {developerDetailsMeta.map((devDetail) => {
-                                    return (
-                                        <>
-                                            <ListItem disablePadding>
-                                                <ListItemIcon>
-                                                    <HelpOutlineIcon size="small" />
-                                                </ListItemIcon>
-                                                <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>{devDetail.Text}</ListItemText>
-                                                <ListItemText>:</ListItemText>
-                                                <ListItemText sx={{ width: "60%", wordWrap: "break-word" }}>
-                                                    {userOp[devDetail.identifier]}
-                                                </ListItemText>
-                                            </ListItem>
-                                        </>
-                                    );
+                                    if (devDetail.identifier in userOp && userOp[devDetail.identifier] != "")
+                                        return (
+                                            <>
+                                                <ListItem disablePadding>
+                                                    <ListItemIcon>
+                                                        <HelpOutlineIcon size="small" />
+                                                    </ListItemIcon>
+                                                    <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>
+                                                        {devDetail.text}
+                                                    </ListItemText>
+                                                    <ListItemText>:</ListItemText>
+                                                    <ListItemText sx={{ width: "60%", wordWrap: "break-word" }}>
+                                                        {userOp[devDetail.identifier]}
+                                                    </ListItemText>
+                                                </ListItem>
+                                            </>
+                                        );
                                 })}
                             </List>
                         </Container>

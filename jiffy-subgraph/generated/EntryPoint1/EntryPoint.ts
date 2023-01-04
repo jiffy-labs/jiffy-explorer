@@ -119,7 +119,7 @@ export class UserOperationEvent__Params {
     this._event = event;
   }
 
-  get userOpHash(): Bytes {
+  get requestId(): Bytes {
     return this._event.parameters[0].value.toBytes();
   }
 
@@ -161,7 +161,7 @@ export class UserOperationRevertReason__Params {
     this._event = event;
   }
 
-  get userOpHash(): Bytes {
+  get requestId(): Bytes {
     return this._event.parameters[0].value.toBytes();
   }
 
@@ -278,7 +278,7 @@ export class EntryPoint__getDepositInfoResultInfoStruct extends ethereum.Tuple {
   }
 }
 
-export class EntryPoint__getUserOpHashInputUserOpStruct extends ethereum.Tuple {
+export class EntryPoint__getRequestIdInputUserOpStruct extends ethereum.Tuple {
   get sender(): Address {
     return this[0].toAddress();
   }
@@ -295,11 +295,11 @@ export class EntryPoint__getUserOpHashInputUserOpStruct extends ethereum.Tuple {
     return this[3].toBytes();
   }
 
-  get callGasLimit(): BigInt {
+  get callGas(): BigInt {
     return this[4].toBigInt();
   }
 
-  get verificationGasLimit(): BigInt {
+  get verificationGas(): BigInt {
     return this[5].toBigInt();
   }
 
@@ -315,28 +315,80 @@ export class EntryPoint__getUserOpHashInputUserOpStruct extends ethereum.Tuple {
     return this[8].toBigInt();
   }
 
-  get paymasterAndData(): Bytes {
-    return this[9].toBytes();
+  get paymaster(): Address {
+    return this[9].toAddress();
+  }
+
+  get paymasterData(): Bytes {
+    return this[10].toBytes();
   }
 
   get signature(): Bytes {
+    return this[11].toBytes();
+  }
+}
+
+export class EntryPoint__innerHandleOpInputOpStruct extends ethereum.Tuple {
+  get sender(): Address {
+    return this[0].toAddress();
+  }
+
+  get nonce(): BigInt {
+    return this[1].toBigInt();
+  }
+
+  get initCode(): Bytes {
+    return this[2].toBytes();
+  }
+
+  get callData(): Bytes {
+    return this[3].toBytes();
+  }
+
+  get callGas(): BigInt {
+    return this[4].toBigInt();
+  }
+
+  get verificationGas(): BigInt {
+    return this[5].toBigInt();
+  }
+
+  get preVerificationGas(): BigInt {
+    return this[6].toBigInt();
+  }
+
+  get maxFeePerGas(): BigInt {
+    return this[7].toBigInt();
+  }
+
+  get maxPriorityFeePerGas(): BigInt {
+    return this[8].toBigInt();
+  }
+
+  get paymaster(): Address {
+    return this[9].toAddress();
+  }
+
+  get paymasterData(): Bytes {
     return this[10].toBytes();
+  }
+
+  get signature(): Bytes {
+    return this[11].toBytes();
   }
 }
 
 export class EntryPoint__innerHandleOpInputOpInfoStruct extends ethereum.Tuple {
-  get mUserOp(): EntryPoint__innerHandleOpInputOpInfoMUserOpStruct {
-    return changetype<EntryPoint__innerHandleOpInputOpInfoMUserOpStruct>(
-      this[0].toTuple()
-    );
-  }
-
-  get userOpHash(): Bytes {
-    return this[1].toBytes();
+  get requestId(): Bytes {
+    return this[0].toBytes();
   }
 
   get prefund(): BigInt {
-    return this[2].toBigInt();
+    return this[1].toBigInt();
+  }
+
+  get paymentMode(): i32 {
+    return this[2].toI32();
   }
 
   get contextOffset(): BigInt {
@@ -348,7 +400,32 @@ export class EntryPoint__innerHandleOpInputOpInfoStruct extends ethereum.Tuple {
   }
 }
 
-export class EntryPoint__innerHandleOpInputOpInfoMUserOpStruct extends ethereum.Tuple {
+export class EntryPoint__simulateValidationResult {
+  value0: BigInt;
+  value1: BigInt;
+
+  constructor(value0: BigInt, value1: BigInt) {
+    this.value0 = value0;
+    this.value1 = value1;
+  }
+
+  toMap(): TypedMap<string, ethereum.Value> {
+    let map = new TypedMap<string, ethereum.Value>();
+    map.set("value0", ethereum.Value.fromUnsignedBigInt(this.value0));
+    map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
+    return map;
+  }
+
+  getPreOpGas(): BigInt {
+    return this.value0;
+  }
+
+  getPrefund(): BigInt {
+    return this.value1;
+  }
+}
+
+export class EntryPoint__simulateValidationInputUserOpStruct extends ethereum.Tuple {
   get sender(): Address {
     return this[0].toAddress();
   }
@@ -357,28 +434,44 @@ export class EntryPoint__innerHandleOpInputOpInfoMUserOpStruct extends ethereum.
     return this[1].toBigInt();
   }
 
-  get callGasLimit(): BigInt {
-    return this[2].toBigInt();
+  get initCode(): Bytes {
+    return this[2].toBytes();
   }
 
-  get verificationGasLimit(): BigInt {
-    return this[3].toBigInt();
+  get callData(): Bytes {
+    return this[3].toBytes();
   }
 
-  get preVerificationGas(): BigInt {
+  get callGas(): BigInt {
     return this[4].toBigInt();
   }
 
-  get paymaster(): Address {
-    return this[5].toAddress();
+  get verificationGas(): BigInt {
+    return this[5].toBigInt();
   }
 
-  get maxFeePerGas(): BigInt {
+  get preVerificationGas(): BigInt {
     return this[6].toBigInt();
   }
 
-  get maxPriorityFeePerGas(): BigInt {
+  get maxFeePerGas(): BigInt {
     return this[7].toBigInt();
+  }
+
+  get maxPriorityFeePerGas(): BigInt {
+    return this[8].toBigInt();
+  }
+
+  get paymaster(): Address {
+    return this[9].toAddress();
+  }
+
+  get paymasterData(): Bytes {
+    return this[10].toBytes();
+  }
+
+  get signature(): Bytes {
+    return this[11].toBytes();
   }
 }
 
@@ -404,6 +497,25 @@ export class EntryPoint extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  create2factory(): Address {
+    let result = super.call("create2factory", "create2factory():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_create2factory(): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "create2factory",
+      "create2factory():(address)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
   deposits(param0: Address): EntryPoint__depositsResult {
@@ -474,22 +586,22 @@ export class EntryPoint extends ethereum.SmartContract {
     );
   }
 
-  getUserOpHash(userOp: EntryPoint__getUserOpHashInputUserOpStruct): Bytes {
+  getRequestId(userOp: EntryPoint__getRequestIdInputUserOpStruct): Bytes {
     let result = super.call(
-      "getUserOpHash",
-      "getUserOpHash((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)):(bytes32)",
+      "getRequestId",
+      "getRequestId((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)):(bytes32)",
       [ethereum.Value.fromTuple(userOp)]
     );
 
     return result[0].toBytes();
   }
 
-  try_getUserOpHash(
-    userOp: EntryPoint__getUserOpHashInputUserOpStruct
+  try_getRequestId(
+    userOp: EntryPoint__getRequestIdInputUserOpStruct
   ): ethereum.CallResult<Bytes> {
     let result = super.tryCall(
-      "getUserOpHash",
-      "getUserOpHash((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)):(bytes32)",
+      "getRequestId",
+      "getRequestId((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)):(bytes32)",
       [ethereum.Value.fromTuple(userOp)]
     );
     if (result.reverted) {
@@ -499,16 +611,71 @@ export class EntryPoint extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBytes());
   }
 
+  getSenderAddress(initCode: Bytes, salt: BigInt): Address {
+    let result = super.call(
+      "getSenderAddress",
+      "getSenderAddress(bytes,uint256):(address)",
+      [
+        ethereum.Value.fromBytes(initCode),
+        ethereum.Value.fromUnsignedBigInt(salt)
+      ]
+    );
+
+    return result[0].toAddress();
+  }
+
+  try_getSenderAddress(
+    initCode: Bytes,
+    salt: BigInt
+  ): ethereum.CallResult<Address> {
+    let result = super.tryCall(
+      "getSenderAddress",
+      "getSenderAddress(bytes,uint256):(address)",
+      [
+        ethereum.Value.fromBytes(initCode),
+        ethereum.Value.fromUnsignedBigInt(salt)
+      ]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
+  getSenderStorage(sender: Address): Array<BigInt> {
+    let result = super.call(
+      "getSenderStorage",
+      "getSenderStorage(address):(uint256[])",
+      [ethereum.Value.fromAddress(sender)]
+    );
+
+    return result[0].toBigIntArray();
+  }
+
+  try_getSenderStorage(sender: Address): ethereum.CallResult<Array<BigInt>> {
+    let result = super.tryCall(
+      "getSenderStorage",
+      "getSenderStorage(address):(uint256[])",
+      [ethereum.Value.fromAddress(sender)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigIntArray());
+  }
+
   innerHandleOp(
-    callData: Bytes,
+    op: EntryPoint__innerHandleOpInputOpStruct,
     opInfo: EntryPoint__innerHandleOpInputOpInfoStruct,
     context: Bytes
   ): BigInt {
     let result = super.call(
       "innerHandleOp",
-      "innerHandleOp(bytes,((address,uint256,uint256,uint256,uint256,address,uint256,uint256),bytes32,uint256,uint256,uint256),bytes):(uint256)",
+      "innerHandleOp((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes),(bytes32,uint256,uint8,uint256,uint256),bytes):(uint256)",
       [
-        ethereum.Value.fromBytes(callData),
+        ethereum.Value.fromTuple(op),
         ethereum.Value.fromTuple(opInfo),
         ethereum.Value.fromBytes(context)
       ]
@@ -518,15 +685,15 @@ export class EntryPoint extends ethereum.SmartContract {
   }
 
   try_innerHandleOp(
-    callData: Bytes,
+    op: EntryPoint__innerHandleOpInputOpStruct,
     opInfo: EntryPoint__innerHandleOpInputOpInfoStruct,
     context: Bytes
   ): ethereum.CallResult<BigInt> {
     let result = super.tryCall(
       "innerHandleOp",
-      "innerHandleOp(bytes,((address,uint256,uint256,uint256,uint256,address,uint256,uint256),bytes32,uint256,uint256,uint256),bytes):(uint256)",
+      "innerHandleOp((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes),(bytes32,uint256,uint8,uint256,uint256),bytes):(uint256)",
       [
-        ethereum.Value.fromBytes(callData),
+        ethereum.Value.fromTuple(op),
         ethereum.Value.fromTuple(opInfo),
         ethereum.Value.fromBytes(context)
       ]
@@ -536,6 +703,121 @@ export class EntryPoint extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  paymasterStake(): BigInt {
+    let result = super.call("paymasterStake", "paymasterStake():(uint256)", []);
+
+    return result[0].toBigInt();
+  }
+
+  try_paymasterStake(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "paymasterStake",
+      "paymasterStake():(uint256)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+
+  simulateValidation(
+    userOp: EntryPoint__simulateValidationInputUserOpStruct
+  ): EntryPoint__simulateValidationResult {
+    let result = super.call(
+      "simulateValidation",
+      "simulateValidation((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)):(uint256,uint256)",
+      [ethereum.Value.fromTuple(userOp)]
+    );
+
+    return new EntryPoint__simulateValidationResult(
+      result[0].toBigInt(),
+      result[1].toBigInt()
+    );
+  }
+
+  try_simulateValidation(
+    userOp: EntryPoint__simulateValidationInputUserOpStruct
+  ): ethereum.CallResult<EntryPoint__simulateValidationResult> {
+    let result = super.tryCall(
+      "simulateValidation",
+      "simulateValidation((address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)):(uint256,uint256)",
+      [ethereum.Value.fromTuple(userOp)]
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(
+      new EntryPoint__simulateValidationResult(
+        value[0].toBigInt(),
+        value[1].toBigInt()
+      )
+    );
+  }
+
+  unstakeDelaySec(): BigInt {
+    let result = super.call(
+      "unstakeDelaySec",
+      "unstakeDelaySec():(uint32)",
+      []
+    );
+
+    return result[0].toBigInt();
+  }
+
+  try_unstakeDelaySec(): ethereum.CallResult<BigInt> {
+    let result = super.tryCall(
+      "unstakeDelaySec",
+      "unstakeDelaySec():(uint32)",
+      []
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toBigInt());
+  }
+}
+
+export class ConstructorCall extends ethereum.Call {
+  get inputs(): ConstructorCall__Inputs {
+    return new ConstructorCall__Inputs(this);
+  }
+
+  get outputs(): ConstructorCall__Outputs {
+    return new ConstructorCall__Outputs(this);
+  }
+}
+
+export class ConstructorCall__Inputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
+  }
+
+  get _create2factory(): Address {
+    return this._call.inputValues[0].value.toAddress();
+  }
+
+  get _paymasterStake(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+
+  get _unstakeDelaySec(): BigInt {
+    return this._call.inputValues[2].value.toBigInt();
+  }
+}
+
+export class ConstructorCall__Outputs {
+  _call: ConstructorCall;
+
+  constructor(call: ConstructorCall) {
+    this._call = call;
   }
 }
 
@@ -599,134 +881,6 @@ export class DepositToCall__Outputs {
   }
 }
 
-export class GetSenderAddressCall extends ethereum.Call {
-  get inputs(): GetSenderAddressCall__Inputs {
-    return new GetSenderAddressCall__Inputs(this);
-  }
-
-  get outputs(): GetSenderAddressCall__Outputs {
-    return new GetSenderAddressCall__Outputs(this);
-  }
-}
-
-export class GetSenderAddressCall__Inputs {
-  _call: GetSenderAddressCall;
-
-  constructor(call: GetSenderAddressCall) {
-    this._call = call;
-  }
-
-  get initCode(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
-  }
-}
-
-export class GetSenderAddressCall__Outputs {
-  _call: GetSenderAddressCall;
-
-  constructor(call: GetSenderAddressCall) {
-    this._call = call;
-  }
-}
-
-export class HandleAggregatedOpsCall extends ethereum.Call {
-  get inputs(): HandleAggregatedOpsCall__Inputs {
-    return new HandleAggregatedOpsCall__Inputs(this);
-  }
-
-  get outputs(): HandleAggregatedOpsCall__Outputs {
-    return new HandleAggregatedOpsCall__Outputs(this);
-  }
-}
-
-export class HandleAggregatedOpsCall__Inputs {
-  _call: HandleAggregatedOpsCall;
-
-  constructor(call: HandleAggregatedOpsCall) {
-    this._call = call;
-  }
-
-  get opsPerAggregator(): Array<HandleAggregatedOpsCallOpsPerAggregatorStruct> {
-    return this._call.inputValues[0].value.toTupleArray<
-      HandleAggregatedOpsCallOpsPerAggregatorStruct
-    >();
-  }
-
-  get beneficiary(): Address {
-    return this._call.inputValues[1].value.toAddress();
-  }
-}
-
-export class HandleAggregatedOpsCall__Outputs {
-  _call: HandleAggregatedOpsCall;
-
-  constructor(call: HandleAggregatedOpsCall) {
-    this._call = call;
-  }
-}
-
-export class HandleAggregatedOpsCallOpsPerAggregatorStruct extends ethereum.Tuple {
-  get userOps(): Array<HandleAggregatedOpsCallOpsPerAggregatorUserOpsStruct> {
-    return this[0].toTupleArray<
-      HandleAggregatedOpsCallOpsPerAggregatorUserOpsStruct
-    >();
-  }
-
-  get aggregator(): Address {
-    return this[1].toAddress();
-  }
-
-  get signature(): Bytes {
-    return this[2].toBytes();
-  }
-}
-
-export class HandleAggregatedOpsCallOpsPerAggregatorUserOpsStruct extends ethereum.Tuple {
-  get sender(): Address {
-    return this[0].toAddress();
-  }
-
-  get nonce(): BigInt {
-    return this[1].toBigInt();
-  }
-
-  get initCode(): Bytes {
-    return this[2].toBytes();
-  }
-
-  get callData(): Bytes {
-    return this[3].toBytes();
-  }
-
-  get callGasLimit(): BigInt {
-    return this[4].toBigInt();
-  }
-
-  get verificationGasLimit(): BigInt {
-    return this[5].toBigInt();
-  }
-
-  get preVerificationGas(): BigInt {
-    return this[6].toBigInt();
-  }
-
-  get maxFeePerGas(): BigInt {
-    return this[7].toBigInt();
-  }
-
-  get maxPriorityFeePerGas(): BigInt {
-    return this[8].toBigInt();
-  }
-
-  get paymasterAndData(): Bytes {
-    return this[9].toBytes();
-  }
-
-  get signature(): Bytes {
-    return this[10].toBytes();
-  }
-}
-
 export class HandleOpsCall extends ethereum.Call {
   get inputs(): HandleOpsCall__Inputs {
     return new HandleOpsCall__Inputs(this);
@@ -780,11 +934,11 @@ export class HandleOpsCallOpsStruct extends ethereum.Tuple {
     return this[3].toBytes();
   }
 
-  get callGasLimit(): BigInt {
+  get callGas(): BigInt {
     return this[4].toBigInt();
   }
 
-  get verificationGasLimit(): BigInt {
+  get verificationGas(): BigInt {
     return this[5].toBigInt();
   }
 
@@ -800,12 +954,16 @@ export class HandleOpsCallOpsStruct extends ethereum.Tuple {
     return this[8].toBigInt();
   }
 
-  get paymasterAndData(): Bytes {
-    return this[9].toBytes();
+  get paymaster(): Address {
+    return this[9].toAddress();
+  }
+
+  get paymasterData(): Bytes {
+    return this[10].toBytes();
   }
 
   get signature(): Bytes {
-    return this[10].toBytes();
+    return this[11].toBytes();
   }
 }
 
@@ -826,8 +984,10 @@ export class InnerHandleOpCall__Inputs {
     this._call = call;
   }
 
-  get callData(): Bytes {
-    return this._call.inputValues[0].value.toBytes();
+  get op(): InnerHandleOpCallOpStruct {
+    return changetype<InnerHandleOpCallOpStruct>(
+      this._call.inputValues[0].value.toTuple()
+    );
   }
 
   get opInfo(): InnerHandleOpCallOpInfoStruct {
@@ -853,29 +1013,7 @@ export class InnerHandleOpCall__Outputs {
   }
 }
 
-export class InnerHandleOpCallOpInfoStruct extends ethereum.Tuple {
-  get mUserOp(): InnerHandleOpCallOpInfoMUserOpStruct {
-    return changetype<InnerHandleOpCallOpInfoMUserOpStruct>(this[0].toTuple());
-  }
-
-  get userOpHash(): Bytes {
-    return this[1].toBytes();
-  }
-
-  get prefund(): BigInt {
-    return this[2].toBigInt();
-  }
-
-  get contextOffset(): BigInt {
-    return this[3].toBigInt();
-  }
-
-  get preOpGas(): BigInt {
-    return this[4].toBigInt();
-  }
-}
-
-export class InnerHandleOpCallOpInfoMUserOpStruct extends ethereum.Tuple {
+export class InnerHandleOpCallOpStruct extends ethereum.Tuple {
   get sender(): Address {
     return this[0].toAddress();
   }
@@ -884,28 +1022,66 @@ export class InnerHandleOpCallOpInfoMUserOpStruct extends ethereum.Tuple {
     return this[1].toBigInt();
   }
 
-  get callGasLimit(): BigInt {
-    return this[2].toBigInt();
+  get initCode(): Bytes {
+    return this[2].toBytes();
   }
 
-  get verificationGasLimit(): BigInt {
-    return this[3].toBigInt();
+  get callData(): Bytes {
+    return this[3].toBytes();
   }
 
-  get preVerificationGas(): BigInt {
+  get callGas(): BigInt {
     return this[4].toBigInt();
   }
 
-  get paymaster(): Address {
-    return this[5].toAddress();
+  get verificationGas(): BigInt {
+    return this[5].toBigInt();
   }
 
-  get maxFeePerGas(): BigInt {
+  get preVerificationGas(): BigInt {
     return this[6].toBigInt();
   }
 
-  get maxPriorityFeePerGas(): BigInt {
+  get maxFeePerGas(): BigInt {
     return this[7].toBigInt();
+  }
+
+  get maxPriorityFeePerGas(): BigInt {
+    return this[8].toBigInt();
+  }
+
+  get paymaster(): Address {
+    return this[9].toAddress();
+  }
+
+  get paymasterData(): Bytes {
+    return this[10].toBytes();
+  }
+
+  get signature(): Bytes {
+    return this[11].toBytes();
+  }
+}
+
+export class InnerHandleOpCallOpInfoStruct extends ethereum.Tuple {
+  get requestId(): Bytes {
+    return this[0].toBytes();
+  }
+
+  get prefund(): BigInt {
+    return this[1].toBigInt();
+  }
+
+  get paymentMode(): i32 {
+    return this[2].toI32();
+  }
+
+  get contextOffset(): BigInt {
+    return this[3].toBigInt();
+  }
+
+  get preOpGas(): BigInt {
+    return this[4].toBigInt();
   }
 }
 
@@ -939,6 +1115,14 @@ export class SimulateValidationCall__Outputs {
   constructor(call: SimulateValidationCall) {
     this._call = call;
   }
+
+  get preOpGas(): BigInt {
+    return this._call.outputValues[0].value.toBigInt();
+  }
+
+  get prefund(): BigInt {
+    return this._call.outputValues[1].value.toBigInt();
+  }
 }
 
 export class SimulateValidationCallUserOpStruct extends ethereum.Tuple {
@@ -958,11 +1142,11 @@ export class SimulateValidationCallUserOpStruct extends ethereum.Tuple {
     return this[3].toBytes();
   }
 
-  get callGasLimit(): BigInt {
+  get callGas(): BigInt {
     return this[4].toBigInt();
   }
 
-  get verificationGasLimit(): BigInt {
+  get verificationGas(): BigInt {
     return this[5].toBigInt();
   }
 
@@ -978,12 +1162,16 @@ export class SimulateValidationCallUserOpStruct extends ethereum.Tuple {
     return this[8].toBigInt();
   }
 
-  get paymasterAndData(): Bytes {
-    return this[9].toBytes();
+  get paymaster(): Address {
+    return this[9].toAddress();
+  }
+
+  get paymasterData(): Bytes {
+    return this[10].toBytes();
   }
 
   get signature(): Bytes {
-    return this[10].toBytes();
+    return this[11].toBytes();
   }
 }
 

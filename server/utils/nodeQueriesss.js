@@ -7,7 +7,7 @@ const {
 const getUserOpsfromTransaction = async (transactionHash, provider, inter) => {
     const tx = await provider.getTransaction(transactionHash);
     const decodedInput = inter.parseTransaction({ data: tx.data, value: tx.value });
-
+    console.log(decodedInput)
     // Decoded Transaction
     return decodedInput.args
 }

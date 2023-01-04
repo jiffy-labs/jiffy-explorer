@@ -395,6 +395,23 @@ export class UserOp extends Entity {
     }
   }
 
+  get actualGasUsed(): BigInt | null {
+    let value = this.get("actualGasUsed");
+    if (!value || value.kind == ValueKind.NULL) {
+      return null;
+    } else {
+      return value.toBigInt();
+    }
+  }
+
+  set actualGasUsed(value: BigInt | null) {
+    if (!value) {
+      this.unset("actualGasUsed");
+    } else {
+      this.set("actualGasUsed", Value.fromBigInt(<BigInt>value));
+    }
+  }
+
   get success(): boolean {
     let value = this.get("success");
     return value!.toBoolean();

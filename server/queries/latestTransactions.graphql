@@ -1,0 +1,18 @@
+query LatestTransactionQuery($senderAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
+        crossUserOps(first: $first, skip: $skip, orderBy: blockTime, orderDirection: desc, indexerNames:$indexerNames) {
+            paymaster
+            nonce
+            transactionHash
+            success
+            sender
+            revertReason
+            userOpHash
+            actualGasCost
+            actualGasPrice
+            actualGasUsed
+            blockTime
+            blockNumber
+            network
+            input
+        }
+    }

@@ -900,6 +900,12 @@ const merger = new(BareMerger as any)({
         },
         location: 'BlockNumberQueryDocument.graphql'
       },{
+        document: LatestTransactionQueryDocument,
+        get rawSDL() {
+          return printWithCache(LatestTransactionQueryDocument);
+        },
+        location: 'LatestTransactionQueryDocument.graphql'
+      },{
         document: PaymasterActivityQueryDocument,
         get rawSDL() {
           return printWithCache(PaymasterActivityQueryDocument);
@@ -968,6 +974,16 @@ export type BlockNumberQueryQueryVariables = Exact<{
 
 
 export type BlockNumberQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+
+export type LatestTransactionQueryQueryVariables = Exact<{
+  senderAddress?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type LatestTransactionQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
 
 export type PaymasterActivityQueryQueryVariables = Exact<{
   paymasterAddress?: InputMaybe<Scalars['Bytes']>;
@@ -1040,6 +1056,32 @@ export const BlockNumberQueryDocument = gql`
   }
 }
     ` as unknown as DocumentNode<BlockNumberQueryQuery, BlockNumberQueryQueryVariables>;
+export const LatestTransactionQueryDocument = gql`
+    query LatestTransactionQuery($senderAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
+  crossUserOps(
+    first: $first
+    skip: $skip
+    orderBy: blockTime
+    orderDirection: desc
+    indexerNames: $indexerNames
+  ) {
+    paymaster
+    nonce
+    transactionHash
+    success
+    sender
+    revertReason
+    userOpHash
+    actualGasCost
+    actualGasPrice
+    actualGasUsed
+    blockTime
+    blockNumber
+    network
+    input
+  }
+}
+    ` as unknown as DocumentNode<LatestTransactionQueryQuery, LatestTransactionQueryQueryVariables>;
 export const PaymasterActivityQueryDocument = gql`
     query PaymasterActivityQuery($paymasterAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
   crossUserOps(
@@ -1096,6 +1138,7 @@ export const UserOpQueryDocument = gql`
 
 
 
+
 export type Requester<C = {}, E = unknown> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R> | AsyncIterable<R>
 export function getSdk<C, E>(requester: Requester<C, E>) {
   return {
@@ -1104,6 +1147,9 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     },
     BlockNumberQuery(variables: BlockNumberQueryQueryVariables, options?: C): Promise<BlockNumberQueryQuery> {
       return requester<BlockNumberQueryQuery, BlockNumberQueryQueryVariables>(BlockNumberQueryDocument, variables, options) as Promise<BlockNumberQueryQuery>;
+    },
+    LatestTransactionQuery(variables: LatestTransactionQueryQueryVariables, options?: C): Promise<LatestTransactionQueryQuery> {
+      return requester<LatestTransactionQueryQuery, LatestTransactionQueryQueryVariables>(LatestTransactionQueryDocument, variables, options) as Promise<LatestTransactionQueryQuery>;
     },
     PaymasterActivityQuery(variables: PaymasterActivityQueryQueryVariables, options?: C): Promise<PaymasterActivityQueryQuery> {
       return requester<PaymasterActivityQueryQuery, PaymasterActivityQueryQueryVariables>(PaymasterActivityQueryDocument, variables, options) as Promise<PaymasterActivityQueryQuery>;

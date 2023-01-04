@@ -51,7 +51,6 @@ const getTarget = (network, calldata, sender, nonce) => {
     }
 };
 
-
 const CopyButtonDiv = styled("div")(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -134,18 +133,6 @@ const Address = () => {
 
     if (loading) return "Loading...";
 
-    const options = {
-        pageStartIndex: 1,
-        firstPageText: "First",
-        prePageText: "Back",
-        nextPageText: "Next",
-        lastPageText: "Last",
-        nextPageTitle: "First page",
-        prePageTitle: "Pre page",
-        firstPageTitle: "Next page",
-        lastPageTitle: "Last page",
-    };
-
     return (
         <>
             <NavBar />
@@ -156,7 +143,7 @@ const Address = () => {
                             <Typography variant="h6">Wallet:</Typography>
                             <Typography variant="body1">{address}</Typography>
                         </Box>
-                        <TransactionTable rows={rows} columns={columns} />
+                        <TransactionTable rows={rows} columns={columns} tableAlign="left" tableTitle="Transactions"/>
                     </Container>
                 </Paper>
             </Container>

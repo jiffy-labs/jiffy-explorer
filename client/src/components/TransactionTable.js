@@ -1,11 +1,11 @@
 import React from "react";
 import { Paper, Container, Box, Typography, TableContainer, Table, TableBody, TableCell, TableRow, TableHead } from "@mui/material";
 
-function TransactionTable({ rows, columns }) {
+function TransactionTable({ rows, columns, tableAlign, tableTitle }) {
     return (
         <TableContainer component={Paper}>
-            <Typography variant="h6" align="center">
-                Transactions
+            <Typography variant="h6" align={tableAlign}>
+                {tableTitle}
             </Typography>
             <Table>
                 <TableHead>

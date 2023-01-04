@@ -25,6 +25,7 @@ type UserOp @entity {
   nonce: BigInt
   actualGasCost: BigInt
   actualGasPrice: BigInt
+  actualGasUsed: BigInt
   success: Boolean
   revertReason: Bytes
   blockTime: BigInt
