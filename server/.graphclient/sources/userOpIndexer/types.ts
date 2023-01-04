@@ -254,7 +254,7 @@ export type Subscription_metaArgs = {
 
 export type Transfer = {
   id: Scalars['ID'];
-  userOpHash?: Maybe<Scalars['Bytes']>;
+  txHash?: Maybe<Scalars['Bytes']>;
   type?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['BigInt']>;
   to?: Maybe<Scalars['Bytes']>;
@@ -270,12 +270,12 @@ export type Transfer_filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_in?: InputMaybe<Array<Scalars['ID']>>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  userOpHash?: InputMaybe<Scalars['Bytes']>;
-  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
-  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
-  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash?: InputMaybe<Scalars['Bytes']>;
+  txHash_not?: InputMaybe<Scalars['Bytes']>;
+  txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  txHash_contains?: InputMaybe<Scalars['Bytes']>;
+  txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   type?: InputMaybe<Scalars['String']>;
   type_not?: InputMaybe<Scalars['String']>;
   type_gt?: InputMaybe<Scalars['String']>;
@@ -322,7 +322,7 @@ export type Transfer_filter = {
 
 export type Transfer_orderBy =
   | 'id'
-  | 'userOpHash'
+  | 'txHash'
   | 'type'
   | 'value'
   | 'to'
@@ -337,13 +337,13 @@ export type UserOp = {
   nonce?: Maybe<Scalars['BigInt']>;
   actualGasCost?: Maybe<Scalars['BigInt']>;
   actualGasPrice?: Maybe<Scalars['BigInt']>;
+  actualGasUsed?: Maybe<Scalars['BigInt']>;
   success?: Maybe<Scalars['Boolean']>;
   revertReason?: Maybe<Scalars['Bytes']>;
   blockTime?: Maybe<Scalars['BigInt']>;
   blockNumber?: Maybe<Scalars['BigInt']>;
   network?: Maybe<Scalars['String']>;
   input?: Maybe<Scalars['Bytes']>;
-  value?: Maybe<Scalars['BigInt']>;
 };
 
 export type UserOp_filter = {
@@ -403,6 +403,14 @@ export type UserOp_filter = {
   actualGasPrice_lte?: InputMaybe<Scalars['BigInt']>;
   actualGasPrice_in?: InputMaybe<Array<Scalars['BigInt']>>;
   actualGasPrice_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  actualGasUsed?: InputMaybe<Scalars['BigInt']>;
+  actualGasUsed_not?: InputMaybe<Scalars['BigInt']>;
+  actualGasUsed_gt?: InputMaybe<Scalars['BigInt']>;
+  actualGasUsed_lt?: InputMaybe<Scalars['BigInt']>;
+  actualGasUsed_gte?: InputMaybe<Scalars['BigInt']>;
+  actualGasUsed_lte?: InputMaybe<Scalars['BigInt']>;
+  actualGasUsed_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  actualGasUsed_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   success?: InputMaybe<Scalars['Boolean']>;
   success_not?: InputMaybe<Scalars['Boolean']>;
   success_in?: InputMaybe<Array<Scalars['Boolean']>>;
@@ -455,14 +463,6 @@ export type UserOp_filter = {
   input_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   input_contains?: InputMaybe<Scalars['Bytes']>;
   input_not_contains?: InputMaybe<Scalars['Bytes']>;
-  value?: InputMaybe<Scalars['BigInt']>;
-  value_not?: InputMaybe<Scalars['BigInt']>;
-  value_gt?: InputMaybe<Scalars['BigInt']>;
-  value_lt?: InputMaybe<Scalars['BigInt']>;
-  value_gte?: InputMaybe<Scalars['BigInt']>;
-  value_lte?: InputMaybe<Scalars['BigInt']>;
-  value_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  value_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
 };
@@ -476,13 +476,13 @@ export type UserOp_orderBy =
   | 'nonce'
   | 'actualGasCost'
   | 'actualGasPrice'
+  | 'actualGasUsed'
   | 'success'
   | 'revertReason'
   | 'blockTime'
   | 'blockNumber'
   | 'network'
-  | 'input'
-  | 'value';
+  | 'input';
 
 export type _Block_ = {
   /** The hash of the block */

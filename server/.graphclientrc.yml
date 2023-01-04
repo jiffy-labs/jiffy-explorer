@@ -17,7 +17,8 @@ additionalTypeDefs: |
       orderBy: UserOp_orderBy,
       orderDirection: OrderDirection,
       where: UserOp_filter, 
-      first: Int, 
+      skip: Int = 0,
+      first: Int = 100,
       indexerNames: [String!]!
     ): [UserOp!]!
   }
@@ -27,12 +28,10 @@ additionalResolvers:
 
 documents:
   - ./queries/blockNumberQuery.graphql
-  - ./queries/depositsQuery.graphql
   - ./queries/userOpQuery.graphql
-  - ./queries/senderAddressQuery.graphql
-  - ./queries/stakeQuery.graphql
   - ./queries/addressActivityQuery.graphql
-
+  - ./queries/paymasterActivityQuery.graphql
+  
 
 codegen:
   contextType: 'MeshContext & { indexerName: string }'

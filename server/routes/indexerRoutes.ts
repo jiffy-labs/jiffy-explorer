@@ -1,7 +1,8 @@
 import express, { Router, Request, Response } from 'express';
 import { getBuiltGraphSDK, UserOp } from '../.graphclient';
 import { ethers, BigNumber } from "ethers";
-
+import { findSourceMap } from 'module';
+import { Result } from 'ethers/lib/utils';
 interface PopulatedCrossUserOp {
     paymaster: string
     nonce: string
@@ -17,27 +18,32 @@ interface PopulatedCrossUserOp {
     network: string
     input: string
     target: string
+    value: string
+    callData: string
 }
 
 const router: Router = express.Router();
-const { AddressActivityQuery, BlockNumberQuery, UserOpQuery } = getBuiltGraphSDK();
+const { AddressActivityQuery, BlockNumberQuery, UserOpQuery, PaymasterActivityQuery } = getBuiltGraphSDK();
 const indexers: string[] = ["aa-subgraphs-test", "mumbai-aa-indexer"]
 let abiCoder = new ethers.utils.AbiCoder()
 let userOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)[]", "address"]
 let candideUserOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)[]", "address"]
-
-const getTarget = (network: String, calldata: String, sender: String, nonce: String): string => {
+let calldataParams = ["address","uint256","bytes"]
+const getCalldata = (network: String, calldata: String, sender: String, nonce: String): Result => {
 
     let decodedInput = abiCoder.decode(userOpsParams, "0x" + calldata.slice(10))
     if (decodedInput == null && network == "goerli") {
         decodedInput = abiCoder.decode(candideUserOpsParams, "0x" + calldata.slice(10))
-        if (decodedInput == null) return ""
+        if (decodedInput == null) return ["","",""]
     }
     // console.log(decodedInput)
     for (let userOpIdx in decodedInput[0]) {
         let userOp = decodedInput[0][userOpIdx]
+        
         if (sender.toLowerCase() == userOp[0].toLowerCase() && nonce.toString() == userOp[1].toString()) {
-            return "0x" + userOp[3].slice(34, 74)
+            let callDataDecoded = abiCoder.decode(calldataParams, "0x"+userOp[3].slice(10))
+            if (callDataDecoded == null) return ["","",""]
+            return callDataDecoded;
         }
     }
 }
@@ -48,6 +54,7 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
     let populatedCrossUserOps: PopulatedCrossUserOp[] = []
     for (let userOpIdx in crossUserOps) {
         let crossUserOp = crossUserOps[userOpIdx]
+        let decodedCallData = getCalldata(crossUserOp.network, crossUserOp.input, crossUserOp.sender, crossUserOp.nonce)
         let populatedUserOp: PopulatedCrossUserOp = {
             paymaster: crossUserOp.paymaster,
             nonce: crossUserOp.nonce,
@@ -62,7 +69,9 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
             blockNumber: crossUserOp.blockNumber,
             network: crossUserOp.network,
             input: crossUserOp.input,
-            target: getTarget(crossUserOp.network, crossUserOp.input, crossUserOp.sender, crossUserOp.nonce),
+            target: decodedCallData[0],
+            value: decodedCallData[1].toString(),
+            callData: decodedCallData[2]
         }
         populatedCrossUserOps.push(populatedUserOp)
     }
@@ -72,12 +81,20 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
 
 router.get('/getAddressActivity', async (req: Request, res: Response) => {
     const address = req.query.address as string;
+    let first = parseInt(req.query.first? req.query.first as string: "50");
+    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
+    
+    if (first > 100) first = 100;
+
     if (!address) {
         res.send({ error: true, message: "Missing address parameter" })
         return;
     }
+
     let { crossUserOps } = await AddressActivityQuery({
         senderAddress: address,
+        first: first,
+        skip: skip,
         indexerNames: indexers
     });
 
@@ -87,13 +104,20 @@ router.get('/getAddressActivity', async (req: Request, res: Response) => {
 
 router.get('/getBlockActivity', async (req: Request, res: Response) => {
     const block = parseInt(req.query.block as string);
-    console.log(block)
+    let first = parseInt(req.query.first? req.query.first as string: "50");
+    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
+    
+    if (first > 100) first = 100;
+
     if (isNaN(block)) {
         res.send({ error: true, message: "Missing block parameter" })
         return;
     }
+
     const { crossUserOps } = await BlockNumberQuery({
         blockNumber: block,
+        first: first,
+        skip: skip,
         indexerNames: indexers
     });
 
@@ -117,6 +141,33 @@ router.get('/getUserOpInfo', async (req: Request, res: Response) => {
         res.send(decodedCrossUserOps[0]);
     } else {
         res.send([])
+    }
+})
+
+router.get('/getPaymasterActivity', async (req: Request, res: Response) => {
+    const address = req.query.address as string;
+    let first = parseInt(req.query.first? req.query.first as string: "50");
+    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
+    
+    if (first > 100) first = 100;
+
+    if (!address) {
+        res.send({ error: true, message: "Missing address parameter" })
+        return;
+    }
+
+    let { crossUserOps } = await PaymasterActivityQuery({
+        paymasterAddress: address,
+        first: first,
+        skip: skip,
+        indexerNames: indexers
+    });
+
+    if (crossUserOps.length > 0) {
+        let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
+        res.send(decodedCrossUserOps);
+    } else {
+        res.send({error:true , message:"Paymaster not found"})
     }
 })
 

@@ -279,7 +279,7 @@ type Subscription {
 
 type Transfer {
   id: ID!
-  userOpHash: Bytes
+  txHash: Bytes
   type: String
   value: BigInt
   to: Bytes
@@ -295,12 +295,12 @@ input Transfer_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  userOpHash: Bytes
-  userOpHash_not: Bytes
-  userOpHash_in: [Bytes!]
-  userOpHash_not_in: [Bytes!]
-  userOpHash_contains: Bytes
-  userOpHash_not_contains: Bytes
+  txHash: Bytes
+  txHash_not: Bytes
+  txHash_in: [Bytes!]
+  txHash_not_in: [Bytes!]
+  txHash_contains: Bytes
+  txHash_not_contains: Bytes
   type: String
   type_not: String
   type_gt: String
@@ -347,7 +347,7 @@ input Transfer_filter {
 
 enum Transfer_orderBy {
   id
-  userOpHash
+  txHash
   type
   value
   to
@@ -363,13 +363,13 @@ type UserOp {
   nonce: BigInt
   actualGasCost: BigInt
   actualGasPrice: BigInt
+  actualGasUsed: BigInt
   success: Boolean
   revertReason: Bytes
   blockTime: BigInt
   blockNumber: BigInt
   network: String
   input: Bytes
-  value: BigInt
 }
 
 input UserOp_filter {
@@ -429,6 +429,14 @@ input UserOp_filter {
   actualGasPrice_lte: BigInt
   actualGasPrice_in: [BigInt!]
   actualGasPrice_not_in: [BigInt!]
+  actualGasUsed: BigInt
+  actualGasUsed_not: BigInt
+  actualGasUsed_gt: BigInt
+  actualGasUsed_lt: BigInt
+  actualGasUsed_gte: BigInt
+  actualGasUsed_lte: BigInt
+  actualGasUsed_in: [BigInt!]
+  actualGasUsed_not_in: [BigInt!]
   success: Boolean
   success_not: Boolean
   success_in: [Boolean!]
@@ -481,14 +489,6 @@ input UserOp_filter {
   input_not_in: [Bytes!]
   input_contains: Bytes
   input_not_contains: Bytes
-  value: BigInt
-  value_not: BigInt
-  value_gt: BigInt
-  value_lt: BigInt
-  value_gte: BigInt
-  value_lte: BigInt
-  value_in: [BigInt!]
-  value_not_in: [BigInt!]
   """Filter for the block changed event."""
   _change_block: BlockChangedFilter
 }
@@ -502,13 +502,13 @@ enum UserOp_orderBy {
   nonce
   actualGasCost
   actualGasPrice
+  actualGasUsed
   success
   revertReason
   blockTime
   blockNumber
   network
   input
-  value
 }
 
 type _Block_ {

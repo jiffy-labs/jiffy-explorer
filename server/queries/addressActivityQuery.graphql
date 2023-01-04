@@ -1,5 +1,5 @@
-query AddressActivityQuery($senderAddress: Bytes, $indexerNames: [String!]!) {
-        crossUserOps(where: { sender: $senderAddress }, orderBy: blockTime, orderDirection: desc, indexerNames:$indexerNames) {
+query AddressActivityQuery($senderAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
+        crossUserOps(first: $first, skip: $skip, where: { sender: $senderAddress }, orderBy: blockTime, orderDirection: desc, indexerNames:$indexerNames) {
             paymaster
             nonce
             transactionHash
@@ -9,6 +9,7 @@ query AddressActivityQuery($senderAddress: Bytes, $indexerNames: [String!]!) {
             userOpHash
             actualGasCost
             actualGasPrice
+            actualGasUsed
             blockTime
             blockNumber
             network

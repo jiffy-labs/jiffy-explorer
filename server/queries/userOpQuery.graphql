@@ -9,6 +9,7 @@ query UserOpQuery($userOpHash: Bytes, $indexerNames: [String!]!) {
             userOpHash
             actualGasCost
             actualGasPrice
+            actualGasUsed
             blockTime
             blockNumber
             network
