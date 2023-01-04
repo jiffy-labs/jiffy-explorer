@@ -87,7 +87,7 @@ const UserOpHash = () => {
                                                 <ListItemIcon>
                                                     <HelpOutlineIcon size="small" />
                                                 </ListItemIcon>
-                                                <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>{txDetail.Text}</ListItemText>
+                                                <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>{txDetail.text}</ListItemText>
                                                 <ListItemText>:</ListItemText>
                                                 <ListItemText sx={{ width: "60%", wordWrap: "break-word" }}>
                                                     {userOp[txDetail.identifier] == true ? "TRUE" : userOp[txDetail.identifier]}
