@@ -26,19 +26,21 @@ import {
 import NavBar from "../components/NavBar";
 
 const transactionDetailsMeta = [
-    { identifier: "blockNumber", Text: "BLOCK NUMBER" },
-    { identifier: "blockTime", Text: "BLOCK TIME" },
-    { identifier: "transactionHash", Text: "TRANSACTION HASH" },
-    { identifier: "sender", Text: "SENDER" },
-    { identifier: "target", Text: "TARGET" },
-    { identifier: "success", Text: "SUCCESS" },
-    { identifier: "revertReason", Text: "REVERT REASON" },
-    { identifier: "actualGasCost", Text: "FEE" },
+    { identifier: "blockNumber", text: "BLOCK NUMBER" },
+    { identifier: "blockTime", text: "BLOCK TIME" },
+    { identifier: "transactionHash", text: "TRANSACTION HASH" },
+    { identifier: "sender", text: "SENDER" },
+    { identifier: "target", text: "TARGET" },
+    { identifier: "success", text: "SUCCESS" },
+    { identifier: "revertReason", text: "REVERT REASON" },
+    { identifier: "actualGasCost", text: "FEE" },
 ];
 
 const developerDetailsMeta = [
-    { identifier: "input", Text: "INPUT" },
-    { identifier: "actualGasUsed", Text: "FEE" },
+    { identifier: "value", text: "VALUE"},
+    { identifier: "actualGasUsed", text: "FEE" },
+    { identifier: "calldata", text: "CALLDATA"},
+    { identifier: "input", text: "INPUT" },
 ];
 
 const UserOpHash = () => {
