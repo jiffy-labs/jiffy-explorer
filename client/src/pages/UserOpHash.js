@@ -40,7 +40,7 @@ const developerDetailsMeta = [
     { identifier: "value", text: "VALUE" },
     { identifier: "actualGasUsed", text: "FEE" },
     { identifier: "actualGasPrice", text: "FEE" },
-    { identifier: "calldata", text: "CALLDATA" },
+    { identifier: "callData", text: "CALLDATA" },
     { identifier: "input", text: "INPUT" },
 ];
 
@@ -48,6 +48,8 @@ const UserOpHash = () => {
     let { userOpHash } = useParams();
     const [userOp, setUserOp] = useState({});
     const [loading, setLoading] = useState(false);
+    const [decodingStatus, setDecodingStatus] = useState(false);
+    const [decodedData, setDecodedData] = useState([]);
 
     useEffect(() => {
         setLoading(true);
@@ -59,6 +61,30 @@ const UserOpHash = () => {
             })
         );
     }, []);
+
+    useEffect(() => {
+        if (Object.keys(userOp) == 0) return;
+        fetch(
+            "/api/v0/decodeTransaction?inputData=" +
+                userOp.callData +
+                "&value=" +
+                userOp.value +
+                "&contractAddress=" +
+                userOp.target +
+                "&network=" +
+                userOp.network
+        ).then((res) =>
+            res.json().then((decodedData) => {
+                if (decodedData.error) {
+                    console.log("decoding is broken , contact admin")
+                    return;
+                };
+                setDecodingStatus(true)
+                setDecodedData(decodedData);
+                console.log(decodedData)
+            })
+        );
+    }, [userOp]);
 
     if (loading) return "Loading...";
 
@@ -81,23 +107,119 @@ const UserOpHash = () => {
                                 Transaction Details
                             </Typography>
                             <List>
-                                {transactionDetailsMeta.map((txDetail) => {
-                                    if (txDetail.identifier in userOp && userOp[txDetail.identifier] != null)
-                                    return (
-                                        <>
-                                            <ListItem disablePadding>
-                                                <ListItemIcon>
-                                                    <HelpOutlineIcon size="small" />
-                                                </ListItemIcon>
-                                                <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>{txDetail.text}</ListItemText>
-                                                <ListItemText>:</ListItemText>
-                                                <ListItemText sx={{ width: "60%", wordWrap: "break-word" }}>
-                                                    {userOp[txDetail.identifier] == true ? "TRUE" : userOp[txDetail.identifier]}
-                                                </ListItemText>
-                                            </ListItem>
-                                        </>
-                                    );
-                                })}
+                                {userOp.blockNumber && (
+                                    <ListItem disablePadding key="blockNumber">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>BLOCK NUMBER</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.blockNumber}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.blockTime && (
+                                    <ListItem disablePadding key="blockTime">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>BLOCK TIME</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {new Date(userOp.blockTime * 1000).toString()}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.transactionHash && (
+                                    <ListItem disablePadding key="transactionHash">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>TRANSACTION HASH</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.transactionHash}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.sender && (
+                                    <ListItem disablePadding key="sender">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>SENDER</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.sender}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.target && (
+                                    <ListItem disablePadding key="target">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>TARGET</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.target}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.success && (
+                                    <ListItem disablePadding key="success">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>STATUS</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.success ? "SUCCESS" : "FAILURE"}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.revertReason && (
+                                    <ListItem disablePadding key="revertReason">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>REVERT REASON</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.revertReason}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.actualGasCost && (
+                                    <ListItem disablePadding key="actualGasCost">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>FEE</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {(parseInt(userOp.actualGasCost) / 10 ** 18).toFixed(5).toString()}{" "}
+                                            {" " + userOp.network == "georli" ? "ETH" : "MATIC"}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
                             </List>
                         </Container>
                         <Container sx={{ marginTop: "50px" }}>
@@ -105,25 +227,94 @@ const UserOpHash = () => {
                                 Developer Details
                             </Typography>
                             <List>
-                                {developerDetailsMeta.map((devDetail) => {
-                                    if (devDetail.identifier in userOp && userOp[devDetail.identifier] != "")
-                                        return (
-                                            <>
-                                                <ListItem disablePadding>
-                                                    <ListItemIcon>
-                                                        <HelpOutlineIcon size="small" />
-                                                    </ListItemIcon>
-                                                    <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>
-                                                        {devDetail.text}
-                                                    </ListItemText>
-                                                    <ListItemText>:</ListItemText>
-                                                    <ListItemText sx={{ width: "60%", wordWrap: "break-word" }}>
-                                                        {userOp[devDetail.identifier]}
-                                                    </ListItemText>
-                                                </ListItem>
-                                            </>
-                                        );
-                                })}
+                                {userOp.value && (
+                                    <ListItem disablePadding key="value">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>REVERT REASON</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.value}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {
+                                    decodedData.signature && (
+                                        <ListItem disablePadding key="actualGasUsed">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>FUNCTION</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {decodedData.signature}
+                                        </ListItemText>
+                                    </ListItem>
+                                    )
+                                }
+                                {userOp.actualGasUsed && (
+                                    <ListItem disablePadding key="actualGasUsed">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>ACTUAL GAS USED</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {(parseInt(userOp.actualGasUsed) / 10 ** 18).toFixed(5).toString()}{" "}
+                                            {" " + userOp.network == "georli" ? "ETH" : "MATIC"}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.actualGasPrice && (
+                                    <ListItem disablePadding key="actualGasPrice">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>ACTUAL GAS PRICE</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {(parseInt(userOp.actualGasPrice) / 10 ** 18).toFixed(5).toString()}{" "}
+                                            {" " + userOp.network == "georli" ? "ETH" : "MATIC"}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.callData && (
+                                    <ListItem disablePadding key="callData">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>CALLDATA</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.callData}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.input && (
+                                    <ListItem disablePadding key="input">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>TRANSACTION INPUT</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.input}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
                             </List>
                         </Container>
                     </Paper>

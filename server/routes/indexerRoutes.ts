@@ -3,6 +3,7 @@ import { getBuiltGraphSDK, UserOp } from '../.graphclient';
 import { ethers, BigNumber } from "ethers";
 import { findSourceMap } from 'module';
 import { Result } from 'ethers/lib/utils';
+import { decodeInputData } from '../utils/decoder';
 interface PopulatedCrossUserOp {
     paymaster: string
     nonce: string
@@ -81,6 +82,23 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
     }
     return populatedCrossUserOps
 }
+
+router.get('/decodeTransaction', async (req: Request, res: Response) => {
+    const inputData = req.query.inputData as string;
+    const value = req.query.value as string; 
+    const contractAddress = req.query.contractAddress as string;
+    const network = req.query.network as string;
+    
+    if (!inputData || !value || !contractAddress || !network) {
+        return {error:1, message: "Missing input params"}
+    }
+
+    if (inputData == "0x") {
+        {}
+    }
+    const decodedInputData = await decodeInputData(inputData, value, contractAddress, network);
+    res.send(decodedInputData);
+})
 
 
 router.get('/getAddressActivity', async (req: Request, res: Response) => {
