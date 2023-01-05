@@ -232,7 +232,7 @@ const UserOpHash = () => {
                                         <ListItemIcon>
                                             <HelpOutlineIcon size="small" />
                                         </ListItemIcon>
-                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>REVERT REASON</ListItemText>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>VALUE</ListItemText>
                                         <ListItemText>:</ListItemText>
                                         <ListItemText
                                             sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
