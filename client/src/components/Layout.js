@@ -18,7 +18,7 @@ const Layout = () => (
                 ji<span>ƒƒ</span>y-scan
             </Typography>
             <Typography sx={{ marginBottom: "50px" }} variant="h5" align="center" color="textSecondary" paragraph>
-                User Op explorer for <a href="https://eips.ethereum.org/EIPS/eip-4337">EIP-4337</a>
+                User Op explorer for <a target="_blank" href="https://eips.ethereum.org/EIPS/eip-4337">EIP-4337</a>
             </Typography>
             <div sx={{ marginTop: "40px" }}>
                 <Search></Search>

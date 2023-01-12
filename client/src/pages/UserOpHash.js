@@ -220,6 +220,20 @@ const UserOpHash = () => {
                                         </ListItemText>
                                     </ListItem>
                                 )}
+                                {userOp.paymaster && (
+                                    <ListItem disablePadding key="actualGasCost">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>PAYMASTER</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.paymaster}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
                             </List>
                         </Container>
                         <Container sx={{ marginTop: "50px" }}>

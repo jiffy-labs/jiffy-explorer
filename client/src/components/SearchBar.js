@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { TextField, IconButton } from "@mui/material";
 
@@ -14,7 +14,7 @@ const SearchBar = ({ noButton }) => {
 
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
-            handleSubmit()
+            handleSubmit();
         }
     };
 
@@ -22,7 +22,19 @@ const SearchBar = ({ noButton }) => {
         let searchTerm = term.trim();
         if (searchTerm.length == 42) {
             // This is an address
-            navigate("/address/" + searchTerm);
+            fetch("/api/v0/getPaymasterActivity?address=" + searchTerm).then((res) =>
+                res.json().then((userOps) => {
+                    if (userOps.error) {
+                        navigate("/address/" + searchTerm);
+                        return
+                    }
+                    if (userOps.length == 0) {
+                        navigate("/address/" + searchTerm);
+                        return;
+                    }
+                    navigate("/paymaster/" + searchTerm);
+                })
+            );
         } else if (searchTerm.length == 66) {
             // This is request ID
             navigate("/userOpHash/" + searchTerm);
