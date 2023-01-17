@@ -126,6 +126,29 @@ router.get('/getAddressActivity', async (req: Request, res: Response) => {
     res.send(decodedCrossUserOps);
 });
 
+router.get('/getAddressActivityTest', async (req: Request, res: Response) => {
+    const address = req.query.address as string;
+    let first = parseInt(req.query.first? req.query.first as string: "50");
+    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
+    
+    if (first > 100) first = 100;
+
+    if (!address) {
+        res.send({ error: true, message: "Missing address parameter" })
+        return;
+    }
+
+    let { crossUserOps } = await AddressActivityQuery({
+        senderAddress: address,
+        first: first,
+        skip: skip,
+        indexerNames: indexers
+    });
+
+    // let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
+    res.send(crossUserOps);
+});
+
 router.get('/getLatestTransactions', async (req: Request, res: Response) => {
     let { crossUserOps } = await LatestTransactionQuery({
         first: 5,
