@@ -41,14 +41,16 @@ const getCalldata = (network: String, calldata: String, sender: String, nonce: S
         if (decodedInput == null) return ["","",""]
     }
     
-    // console.log(decodedInput)
     for (let userOpIdx in decodedInput[0]) {
         let userOp = decodedInput[0][userOpIdx]
-        
         if (sender.toLowerCase() == userOp[0].toLowerCase() && nonce.toString() == userOp[1].toString()) {
-            let callDataDecoded = abiCoder.decode(calldataParams, "0x"+userOp[3].slice(10))
-            if (callDataDecoded == null) return ["","",""]
-            return callDataDecoded;
+            try{
+                let callDataDecoded = abiCoder.decode(calldataParams, "0x"+userOp[3].slice(10))
+                if (callDataDecoded == null) return ["","",""]
+                return callDataDecoded;
+            } catch {
+                return null
+            }
         }
     }
 }
@@ -74,9 +76,9 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
             blockNumber: crossUserOp.blockNumber,
             network: crossUserOp.network,
             input: crossUserOp.input,
-            target: decodedCallData[0],
-            value: decodedCallData[1].toString(),
-            callData: decodedCallData[2]
+            target: decodedCallData != null ? decodedCallData[0] : "" ,
+            value: decodedCallData != null ? decodedCallData[1].toString() : "",
+            callData: decodedCallData != null ? decodedCallData[2] : ""
         }
         populatedCrossUserOps.push(populatedUserOp)
     }
