@@ -25,6 +25,30 @@ import {
 } from "@mui/material";
 import NavBar from "../components/NavBar";
 
+const UNISWAP_ROUTER = "68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
+const UNITOKEN = "1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+const WETHTOKEN = "b4fbf271143f4fbf7b91a5ded31805e42b2208d6"
+const getUniswapDeets = (input) => {
+    let uniswapDeets = {transaction: false}
+    if (input.toLowerCase().indexOf(UNISWAP_ROUTER)) {
+        uniswapDeets.transaction = true
+        let indexOfUni = input.toLowerCase().indexOf(UNITOKEN)
+        let indexOfWeth = input.toLowerCase().indexOf(WETHTOKEN)
+        if (indexOfWeth == -1 || indexOfUni == -1) {
+            uniswapDeets.transaction = false
+            return uniswapDeets;
+        }
+        if (indexOfUni > indexOfWeth) {
+            uniswapDeets.from = "ETH"
+            uniswapDeets.to = "UNI"
+        } else {
+            uniswapDeets.from = "UNI"
+            uniswapDeets.to = "ETH"
+        }
+        return uniswapDeets;
+    }
+}
+
 const transactionDetailsMeta = [
     { identifier: "blockNumber", text: "BLOCK NUMBER" },
     { identifier: "blockTime", text: "BLOCK TIME" },
@@ -50,6 +74,7 @@ const UserOpHash = () => {
     const [loading, setLoading] = useState(false);
     const [decodingStatus, setDecodingStatus] = useState(false);
     const [decodedData, setDecodedData] = useState([]);
+    const [uniswapDeets, setUniswapDeets] = useState({transaction: false})
 
     useEffect(() => {
         setLoading(true);
@@ -62,8 +87,11 @@ const UserOpHash = () => {
         );
     }, []);
 
+
+
     useEffect(() => {
         if (Object.keys(userOp) == 0) return;
+        setUniswapDeets(getUniswapDeets(userOp.callData))
         fetch(
             "/api/v0/decodeTransaction?inputData=" +
                 userOp.callData +
@@ -83,6 +111,7 @@ const UserOpHash = () => {
                 setDecodedData(decodedData);
                 console.log(decodedData)
             })
+            
         );
     }, [userOp]);
 
@@ -220,8 +249,22 @@ const UserOpHash = () => {
                                         </ListItemText>
                                     </ListItem>
                                 )}
+                                {(uniswapDeets.transaction == true) && (
+                                    <ListItem disablePadding key="decode">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>WHATS HAPPENING ?</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {"UNISWAP - SWAP: "+uniswapDeets.from + "=> " + uniswapDeets.to}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
                                 {userOp.paymaster && (
-                                    <ListItem disablePadding key="actualGasCost">
+                                    <ListItem disablePadding key="paymaster">
                                         <ListItemIcon>
                                             <HelpOutlineIcon size="small" />
                                         </ListItemIcon>
