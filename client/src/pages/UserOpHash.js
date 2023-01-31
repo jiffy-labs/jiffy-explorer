@@ -25,29 +25,29 @@ import {
 } from "@mui/material";
 import NavBar from "../components/NavBar";
 
-const UNISWAP_ROUTER = "68b3465833fb72a70ecdf485e0e4c7bd8665fc45"
-const UNITOKEN = "1f9840a85d5af5bf1d1762f925bdaddc4201f984"
-const WETHTOKEN = "b4fbf271143f4fbf7b91a5ded31805e42b2208d6"
+const UNISWAP_ROUTER = "68b3465833fb72a70ecdf485e0e4c7bd8665fc45";
+const UNITOKEN = "1f9840a85d5af5bf1d1762f925bdaddc4201f984";
+const WETHTOKEN = "b4fbf271143f4fbf7b91a5ded31805e42b2208d6";
 const getUniswapDeets = (input) => {
-    let uniswapDeets = {transaction: false}
+    let uniswapDeets = { transaction: false };
     if (input.toLowerCase().indexOf(UNISWAP_ROUTER)) {
-        uniswapDeets.transaction = true
-        let indexOfUni = input.toLowerCase().indexOf(UNITOKEN)
-        let indexOfWeth = input.toLowerCase().indexOf(WETHTOKEN)
+        uniswapDeets.transaction = true;
+        let indexOfUni = input.toLowerCase().indexOf(UNITOKEN);
+        let indexOfWeth = input.toLowerCase().indexOf(WETHTOKEN);
         if (indexOfWeth == -1 || indexOfUni == -1) {
-            uniswapDeets.transaction = false
+            uniswapDeets.transaction = false;
             return uniswapDeets;
         }
         if (indexOfUni > indexOfWeth) {
-            uniswapDeets.from = "ETH"
-            uniswapDeets.to = "UNI"
+            uniswapDeets.from = "ETH";
+            uniswapDeets.to = "UNI";
         } else {
-            uniswapDeets.from = "UNI"
-            uniswapDeets.to = "ETH"
+            uniswapDeets.from = "UNI";
+            uniswapDeets.to = "ETH";
         }
         return uniswapDeets;
     }
-}
+};
 
 const transactionDetailsMeta = [
     { identifier: "blockNumber", text: "BLOCK NUMBER" },
@@ -74,7 +74,7 @@ const UserOpHash = () => {
     const [loading, setLoading] = useState(false);
     const [decodingStatus, setDecodingStatus] = useState(false);
     const [decodedData, setDecodedData] = useState([]);
-    const [uniswapDeets, setUniswapDeets] = useState({transaction: false})
+    const [uniswapDeets, setUniswapDeets] = useState({ transaction: false });
 
     useEffect(() => {
         setLoading(true);
@@ -87,11 +87,9 @@ const UserOpHash = () => {
         );
     }, []);
 
-
-
     useEffect(() => {
         if (Object.keys(userOp) == 0) return;
-        setUniswapDeets(getUniswapDeets(userOp.callData))
+        setUniswapDeets(getUniswapDeets(userOp.callData));
         fetch(
             "/api/v0/decodeTransaction?inputData=" +
                 userOp.callData +
@@ -104,14 +102,13 @@ const UserOpHash = () => {
         ).then((res) =>
             res.json().then((decodedData) => {
                 if (decodedData.error) {
-                    console.log("decoding is broken , contact admin")
+                    console.log("decoding is broken , contact admin");
                     return;
-                };
-                setDecodingStatus(true)
+                }
+                setDecodingStatus(true);
                 setDecodedData(decodedData);
-                console.log(decodedData)
+                console.log(decodedData);
             })
-            
         );
     }, [userOp]);
 
@@ -125,12 +122,18 @@ const UserOpHash = () => {
                 <Grid item xs={8}>
                     <Paper elevation={2} sx={{ marginTop: "50px" }}>
                         <Container>
-                            <Typography variant="h3">User Operation</Typography>
+                            <Typography variant="h3" >User Operation</Typography>
                         </Container>
                         <Container sx={{ marginTop: "50px" }}>
-                            <Typography variant="h6">User Operation Hash:</Typography>
+                            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>User Operation Hash:</Typography>
                             <Typography variant="body1">{userOp.userOpHash}</Typography>
                         </Container>
+                        {uniswapDeets.transaction == true && (
+                            <Container sx={{ marginTop: "50px" }}>
+                                <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Transaction Type:</Typography>
+                                <Typography variant="body1">{"UNISWAP - SWAP: " + uniswapDeets.from + "=> " + uniswapDeets.to}</Typography>
+                            </Container>
+                        )}
                         <Container sx={{ marginTop: "50px" }}>
                             <Typography variant="h4" align="left">
                                 Transaction Details
@@ -249,7 +252,7 @@ const UserOpHash = () => {
                                         </ListItemText>
                                     </ListItem>
                                 )}
-                                {(uniswapDeets.transaction == true) && (
+                                {uniswapDeets.transaction == true && (
                                     <ListItem disablePadding key="decode">
                                         <ListItemIcon>
                                             <HelpOutlineIcon size="small" />
@@ -259,7 +262,7 @@ const UserOpHash = () => {
                                         <ListItemText
                                             sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
                                         >
-                                            {"UNISWAP - SWAP: "+uniswapDeets.from + "=> " + uniswapDeets.to}
+                                            {"UNISWAP - SWAP: " + uniswapDeets.from + "=> " + uniswapDeets.to}
                                         </ListItemText>
                                     </ListItem>
                                 )}
@@ -298,9 +301,8 @@ const UserOpHash = () => {
                                         </ListItemText>
                                     </ListItem>
                                 )}
-                                {
-                                    decodedData.signature && (
-                                        <ListItem disablePadding key="actualGasUsed">
+                                {decodedData.signature && (
+                                    <ListItem disablePadding key="actualGasUsed">
                                         <ListItemIcon>
                                             <HelpOutlineIcon size="small" />
                                         </ListItemIcon>
@@ -312,8 +314,7 @@ const UserOpHash = () => {
                                             {decodedData.signature}
                                         </ListItemText>
                                     </ListItem>
-                                    )
-                                }
+                                )}
                                 {userOp.actualGasUsed && (
                                     <ListItem disablePadding key="actualGasUsed">
                                         <ListItemIcon>
