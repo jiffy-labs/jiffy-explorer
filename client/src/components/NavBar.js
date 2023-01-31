@@ -130,7 +130,7 @@ function NavBar({ page }) {
                                 href="https://documenter.getpostman.com/view/21318108/2s8YzZPJsr"
                             >
                                 <Button key="docs" sx={{ my: 2, color: "white", display: "block" }}>
-                                    Docs
+                                    API docs
                                 </Button>
                             </a>
                         </Box>

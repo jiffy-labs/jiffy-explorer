@@ -1,4 +1,4 @@
-import express, { Express, Request, Response, Router } from "express";
+import express, { Express, NextFunction, Request, Response, Router } from "express";
 import * as bodyParser from 'body-parser';
 import path from "path";
 require('dotenv').config({ path: path.resolve(__dirname, '../../.env') })
@@ -7,6 +7,8 @@ import UserOpABI from "./ABIs/UserOpsFunc.json";
 import ExecFromEntryPointABI from "./ABIs/ExecFromEntryPoint.json";
 import { getUsersOperationDetails } from "./utils/nodeQueries";
 import indexerRoutes from './routes/indexerRoutes';
+import apiErrorHandler from "./error/api-error-handler";
+import ApiError from "./error/ApiError";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -41,7 +43,7 @@ interface TransactionInputsQuery {
 
 type TransactionInputsRequestHandler =  Request<TransactionInputsQuery>
 
-app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res: Response) => {
+app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res: Response, next: NextFunction) => {
     const queryParams = req?.query;
     const network = queryParams.network as string
     const transactionHash = queryParams.txHash as string
@@ -52,12 +54,12 @@ app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res
         if (network && transactionHash && sender && nonce) {
             userOp = await getUsersOperationDetails(transactionHash, sender, nonce, (network == "goerli") ? georliProvider: mumbaiProvider, userOpInter) 
         } else {
-            res.send({error: 1})
+            next(ApiError.badRequest("One or more fields are empty. Please send network, txHash, sender and nonce"))
             return;
         }
     } catch (err) {
         console.log(err);
-        res.send({error: 1})
+        next(ApiError.badRequest("Some error occurred"))
         return;
     }
     
@@ -67,6 +69,8 @@ app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res
 app.use((req, res, next) => {
     res.sendFile(path.join(__dirname, "../../client", "build", "index.html"), { root: "../../"});
 });
+
+app.use(apiErrorHandler)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);

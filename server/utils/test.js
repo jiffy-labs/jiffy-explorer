@@ -2,6 +2,8 @@ const axios = require("axios");
 const {ethers} = require("ethers");
 const { decode } = require("punycode");
 
+// Script to test breaking down of calldata
+
 let abiCoder = new ethers.utils.AbiCoder()
 
 var configMumbai = {

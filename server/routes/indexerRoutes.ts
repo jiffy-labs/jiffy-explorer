@@ -1,9 +1,11 @@
-import express, { Router, Request, Response } from 'express';
+import express, { Router, Request, Response, NextFunction } from 'express';
 import { getBuiltGraphSDK, UserOp } from '../.graphclient';
 import { ethers, BigNumber } from "ethers";
 import { findSourceMap } from 'module';
 import { Result } from 'ethers/lib/utils';
 import { decodeInputData } from '../utils/decoder';
+import ApiError from "../error/ApiError";
+import { nextTick } from 'process';
 interface PopulatedCrossUserOp {
     paymaster: string
     nonce: string
@@ -85,14 +87,14 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
     return populatedCrossUserOps
 }
 
-router.get('/decodeTransaction', async (req: Request, res: Response) => {
+router.get('/decodeTransaction', async (req: Request, res: Response, next: NextFunction) => {
     const inputData = req.query.inputData as string;
     const value = req.query.value as string; 
     const contractAddress = req.query.contractAddress as string;
     const network = req.query.network as string;
     
     if (!inputData || !value || !contractAddress || !network) {
-        return {error:1, message: "Missing input params"}
+        next(ApiError.badRequest("Missing input params"))
     }
 
     if (inputData == "0x") {
@@ -103,7 +105,7 @@ router.get('/decodeTransaction', async (req: Request, res: Response) => {
 })
 
 
-router.get('/getAddressActivity', async (req: Request, res: Response) => {
+router.get('/getAddressActivity', async (req: Request, res: Response, next: NextFunction) => {
     const address = req.query.address as string;
     let first = parseInt(req.query.first? req.query.first as string: "50");
     let skip = parseInt(req.query.skip? req.query.skip as string: "0");
@@ -111,7 +113,7 @@ router.get('/getAddressActivity', async (req: Request, res: Response) => {
     if (first > 100) first = 100;
 
     if (!address) {
-        res.send({ error: true, message: "Missing address parameter" })
+        next(ApiError.badRequest("Missing address param"))
         return;
     }
 
@@ -126,7 +128,7 @@ router.get('/getAddressActivity', async (req: Request, res: Response) => {
     res.send(decodedCrossUserOps);
 });
 
-router.get('/getAddressActivityTest', async (req: Request, res: Response) => {
+router.get('/getAddressActivityTest', async (req: Request, res: Response, next: NextFunction) => {
     const address = req.query.address as string;
     let first = parseInt(req.query.first? req.query.first as string: "50");
     let skip = parseInt(req.query.skip? req.query.skip as string: "0");
@@ -134,8 +136,8 @@ router.get('/getAddressActivityTest', async (req: Request, res: Response) => {
     if (first > 100) first = 100;
 
     if (!address) {
-        res.send({ error: true, message: "Missing address parameter" })
-        return;
+        next(ApiError.badRequest("Missing address parameter"))
+        return
     }
 
     let { crossUserOps } = await AddressActivityQuery({
@@ -161,7 +163,7 @@ router.get('/getLatestTransactions', async (req: Request, res: Response) => {
 });
 
 
-router.get('/getBlockActivity', async (req: Request, res: Response) => {
+router.get('/getBlockActivity', async (req: Request, res: Response, next: NextFunction) => {
     const block = parseInt(req.query.block as string);
     let first = parseInt(req.query.first? req.query.first as string: "50");
     let skip = parseInt(req.query.skip? req.query.skip as string: "0");
@@ -169,7 +171,7 @@ router.get('/getBlockActivity', async (req: Request, res: Response) => {
     if (first > 100) first = 100;
 
     if (isNaN(block)) {
-        res.send({ error: true, message: "Missing block parameter" })
+        next(ApiError.badRequest("Missing block parameter"))
         return;
     }
 
@@ -184,10 +186,10 @@ router.get('/getBlockActivity', async (req: Request, res: Response) => {
     res.send(decodedCrossUserOps);
 });
 
-router.get('/getUserOpInfo', async (req: Request, res: Response) => {
+router.get('/getUserOpInfo', async (req: Request, res: Response, next: NextFunction) => {
     const userOpHash = req.query.userOpHash as string;
     if (!userOpHash) {
-        res.send({ error: true, message: "Missing userOpHash parameter" })
+        next(ApiError.badRequest("Missing userOpHash parameter"))
         return;
     }
     const { crossUserOps } = await UserOpQuery({
@@ -203,7 +205,7 @@ router.get('/getUserOpInfo', async (req: Request, res: Response) => {
     }
 })
 
-router.get('/getPaymasterActivity', async (req: Request, res: Response) => {
+router.get('/getPaymasterActivity', async (req: Request, res: Response, next: NextFunction) => {
     const address = req.query.address as string;
     let first = parseInt(req.query.first? req.query.first as string: "50");
     let skip = parseInt(req.query.skip? req.query.skip as string: "0");
@@ -211,7 +213,7 @@ router.get('/getPaymasterActivity', async (req: Request, res: Response) => {
     if (first > 100) first = 100;
 
     if (!address) {
-        res.send({ error: true, message: "Missing address parameter" })
+        next(ApiError.badRequest("Missing address parameter"))
         return;
     }
 
@@ -226,7 +228,7 @@ router.get('/getPaymasterActivity', async (req: Request, res: Response) => {
         let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
         res.send(decodedCrossUserOps);
     } else {
-        res.send({error:true , message:"Paymaster not found"})
+        next(ApiError.badRequest("Paymaster not found"))
     }
 })
 
