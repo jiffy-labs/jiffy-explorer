@@ -63,6 +63,7 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
     let populatedCrossUserOps: PopulatedCrossUserOp[] = []
     for (let userOpIdx in crossUserOps) {
         let crossUserOp = crossUserOps[userOpIdx]
+        console.log(crossUserOp)
         let decodedCallData = getCalldata(crossUserOp.network, crossUserOp.input, crossUserOp.sender, crossUserOp.nonce)
         let populatedUserOp: PopulatedCrossUserOp = {
             paymaster: crossUserOp.paymaster,
@@ -138,7 +139,7 @@ router.get('/getTargetActivity', async (req: Request, res: Response, next: NextF
     if (first > 100) first = 100;
 
     if (!target) {
-        next(ApiError.badRequest("Missing address param"))
+        next(ApiError.badRequest("Missing target param"))
         return;
     }
 
@@ -150,7 +151,7 @@ router.get('/getTargetActivity', async (req: Request, res: Response, next: NextF
     });
 
     let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
-    res.send(decodedCrossUserOps);
+    res.send(crossUserOps);
 });
 
 router.get('/getBeneficiaryActivity', async (req: Request, res: Response, next: NextFunction) => {
@@ -161,7 +162,7 @@ router.get('/getBeneficiaryActivity', async (req: Request, res: Response, next: 
     if (first > 100) first = 100;
 
     if (!beneficiary) {
-        next(ApiError.badRequest("Missing address param"))
+        next(ApiError.badRequest("Missing beneficiary param"))
         return;
     }
 
@@ -184,7 +185,7 @@ router.get('/getFactoryAccounts', async (req: Request, res: Response, next: Next
     if (first > 100) first = 100;
 
     if (!factory) {
-        next(ApiError.badRequest("Missing address param"))
+        next(ApiError.badRequest("Missing factory param"))
         return;
     }
 
@@ -195,8 +196,7 @@ router.get('/getFactoryAccounts', async (req: Request, res: Response, next: Next
         indexerNames: indexers
     });
 
-    let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
-    res.send(decodedCrossUserOps);
+    res.send(crossUserOps);
 });
 
 router.get('/getLatestAccounts', async (req: Request, res: Response, next: NextFunction) => {
@@ -211,8 +211,7 @@ router.get('/getLatestAccounts', async (req: Request, res: Response, next: NextF
         indexerNames: indexers
     });
 
-    let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
-    res.send(decodedCrossUserOps);
+    res.send(crossUserOps);
 });
 
 router.get('/getAddressActivityTest', async (req: Request, res: Response, next: NextFunction) => {
