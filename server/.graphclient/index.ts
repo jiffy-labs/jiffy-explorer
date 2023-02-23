@@ -44,49 +44,131 @@ export type Scalars = {
 };
 
 export type Query = {
-  transfer?: Maybe<Transfer>;
-  transfers: Array<Transfer>;
-  staking?: Maybe<Staking>;
-  stakings: Array<Staking>;
+  accountDeployed?: Maybe<AccountDeployed>;
+  accountDeployeds: Array<AccountDeployed>;
+  deposited?: Maybe<Deposited>;
+  depositeds: Array<Deposited>;
+  signatureAggregatorChanged?: Maybe<SignatureAggregatorChanged>;
+  signatureAggregatorChangeds: Array<SignatureAggregatorChanged>;
+  stakeLocked?: Maybe<StakeLocked>;
+  stakeLockeds: Array<StakeLocked>;
+  stakeUnlocked?: Maybe<StakeUnlocked>;
+  stakeUnlockeds: Array<StakeUnlocked>;
+  stakeWithdrawn?: Maybe<StakeWithdrawn>;
+  stakeWithdrawns: Array<StakeWithdrawn>;
   userOp?: Maybe<UserOp>;
   userOps: Array<UserOp>;
+  withdrawn?: Maybe<Withdrawn>;
+  withdrawns: Array<Withdrawn>;
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
   crossUserOps: Array<UserOp>;
 };
 
 
-export type QuerytransferArgs = {
+export type QueryaccountDeployedArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QuerytransfersArgs = {
+export type QueryaccountDeployedsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Transfer_orderBy>;
+  orderBy?: InputMaybe<AccountDeployed_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Transfer_filter>;
+  where?: InputMaybe<AccountDeployed_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QuerystakingArgs = {
+export type QuerydepositedArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QuerystakingsArgs = {
+export type QuerydepositedsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Staking_orderBy>;
+  orderBy?: InputMaybe<Deposited_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Staking_filter>;
+  where?: InputMaybe<Deposited_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerysignatureAggregatorChangedArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerysignatureAggregatorChangedsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<SignatureAggregatorChanged_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<SignatureAggregatorChanged_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerystakeLockedArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerystakeLockedsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<StakeLocked_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<StakeLocked_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerystakeUnlockedArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerystakeUnlockedsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<StakeUnlocked_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<StakeUnlocked_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerystakeWithdrawnArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerystakeWithdrawnsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<StakeWithdrawn_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<StakeWithdrawn_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -110,6 +192,24 @@ export type QueryuserOpsArgs = {
 };
 
 
+export type QuerywithdrawnArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QuerywithdrawnsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Withdrawn_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Withdrawn_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
 export type Query_metaArgs = {
   block?: InputMaybe<Block_height>;
 };
@@ -125,48 +225,130 @@ export type QuerycrossUserOpsArgs = {
 };
 
 export type Subscription = {
-  transfer?: Maybe<Transfer>;
-  transfers: Array<Transfer>;
-  staking?: Maybe<Staking>;
-  stakings: Array<Staking>;
+  accountDeployed?: Maybe<AccountDeployed>;
+  accountDeployeds: Array<AccountDeployed>;
+  deposited?: Maybe<Deposited>;
+  depositeds: Array<Deposited>;
+  signatureAggregatorChanged?: Maybe<SignatureAggregatorChanged>;
+  signatureAggregatorChangeds: Array<SignatureAggregatorChanged>;
+  stakeLocked?: Maybe<StakeLocked>;
+  stakeLockeds: Array<StakeLocked>;
+  stakeUnlocked?: Maybe<StakeUnlocked>;
+  stakeUnlockeds: Array<StakeUnlocked>;
+  stakeWithdrawn?: Maybe<StakeWithdrawn>;
+  stakeWithdrawns: Array<StakeWithdrawn>;
   userOp?: Maybe<UserOp>;
   userOps: Array<UserOp>;
+  withdrawn?: Maybe<Withdrawn>;
+  withdrawns: Array<Withdrawn>;
   /** Access to subgraph metadata */
   _meta?: Maybe<_Meta_>;
 };
 
 
-export type SubscriptiontransferArgs = {
+export type SubscriptionaccountDeployedArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptiontransfersArgs = {
+export type SubscriptionaccountDeployedsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Transfer_orderBy>;
+  orderBy?: InputMaybe<AccountDeployed_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Transfer_filter>;
+  where?: InputMaybe<AccountDeployed_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptionstakingArgs = {
+export type SubscriptiondepositedArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptionstakingsArgs = {
+export type SubscriptiondepositedsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Staking_orderBy>;
+  orderBy?: InputMaybe<Deposited_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Staking_filter>;
+  where?: InputMaybe<Deposited_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionsignatureAggregatorChangedArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionsignatureAggregatorChangedsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<SignatureAggregatorChanged_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<SignatureAggregatorChanged_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionstakeLockedArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionstakeLockedsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<StakeLocked_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<StakeLocked_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionstakeUnlockedArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionstakeUnlockedsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<StakeUnlocked_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<StakeUnlocked_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionstakeWithdrawnArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionstakeWithdrawnsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<StakeWithdrawn_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<StakeWithdrawn_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -190,9 +372,131 @@ export type SubscriptionuserOpsArgs = {
 };
 
 
+export type SubscriptionwithdrawnArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionwithdrawnsArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Withdrawn_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Withdrawn_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
 export type Subscription_metaArgs = {
   block?: InputMaybe<Block_height>;
 };
+
+export type AccountDeployed = {
+  id: Scalars['Bytes'];
+  userOpHash: Scalars['Bytes'];
+  sender: Scalars['Bytes'];
+  factory: Scalars['Bytes'];
+  paymaster: Scalars['Bytes'];
+  blockNumber: Scalars['BigInt'];
+  blockTimestamp: Scalars['BigInt'];
+  transactionHash: Scalars['Bytes'];
+};
+
+export type AccountDeployed_filter = {
+  id?: InputMaybe<Scalars['Bytes']>;
+  id_not?: InputMaybe<Scalars['Bytes']>;
+  id_gt?: InputMaybe<Scalars['Bytes']>;
+  id_lt?: InputMaybe<Scalars['Bytes']>;
+  id_gte?: InputMaybe<Scalars['Bytes']>;
+  id_lte?: InputMaybe<Scalars['Bytes']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_contains?: InputMaybe<Scalars['Bytes']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_gt?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_lt?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_gte?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_lte?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  sender?: InputMaybe<Scalars['Bytes']>;
+  sender_not?: InputMaybe<Scalars['Bytes']>;
+  sender_gt?: InputMaybe<Scalars['Bytes']>;
+  sender_lt?: InputMaybe<Scalars['Bytes']>;
+  sender_gte?: InputMaybe<Scalars['Bytes']>;
+  sender_lte?: InputMaybe<Scalars['Bytes']>;
+  sender_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sender_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sender_contains?: InputMaybe<Scalars['Bytes']>;
+  sender_not_contains?: InputMaybe<Scalars['Bytes']>;
+  factory?: InputMaybe<Scalars['Bytes']>;
+  factory_not?: InputMaybe<Scalars['Bytes']>;
+  factory_gt?: InputMaybe<Scalars['Bytes']>;
+  factory_lt?: InputMaybe<Scalars['Bytes']>;
+  factory_gte?: InputMaybe<Scalars['Bytes']>;
+  factory_lte?: InputMaybe<Scalars['Bytes']>;
+  factory_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  factory_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  factory_contains?: InputMaybe<Scalars['Bytes']>;
+  factory_not_contains?: InputMaybe<Scalars['Bytes']>;
+  paymaster?: InputMaybe<Scalars['Bytes']>;
+  paymaster_not?: InputMaybe<Scalars['Bytes']>;
+  paymaster_gt?: InputMaybe<Scalars['Bytes']>;
+  paymaster_lt?: InputMaybe<Scalars['Bytes']>;
+  paymaster_gte?: InputMaybe<Scalars['Bytes']>;
+  paymaster_lte?: InputMaybe<Scalars['Bytes']>;
+  paymaster_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  paymaster_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  paymaster_contains?: InputMaybe<Scalars['Bytes']>;
+  paymaster_not_contains?: InputMaybe<Scalars['Bytes']>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  transactionHash?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<AccountDeployed_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<AccountDeployed_filter>>>;
+};
+
+export type AccountDeployed_orderBy =
+  | 'id'
+  | 'userOpHash'
+  | 'sender'
+  | 'factory'
+  | 'paymaster'
+  | 'blockNumber'
+  | 'blockTimestamp'
+  | 'transactionHash';
 
 export type BlockChangedFilter = {
   number_gte: Scalars['Int'];
@@ -204,162 +508,412 @@ export type Block_height = {
   number_gte?: InputMaybe<Scalars['Int']>;
 };
 
+export type Deposited = {
+  id: Scalars['Bytes'];
+  account: Scalars['Bytes'];
+  totalDeposit: Scalars['BigInt'];
+  blockNumber: Scalars['BigInt'];
+  blockTimestamp: Scalars['BigInt'];
+  transactionHash: Scalars['Bytes'];
+};
+
+export type Deposited_filter = {
+  id?: InputMaybe<Scalars['Bytes']>;
+  id_not?: InputMaybe<Scalars['Bytes']>;
+  id_gt?: InputMaybe<Scalars['Bytes']>;
+  id_lt?: InputMaybe<Scalars['Bytes']>;
+  id_gte?: InputMaybe<Scalars['Bytes']>;
+  id_lte?: InputMaybe<Scalars['Bytes']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_contains?: InputMaybe<Scalars['Bytes']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']>;
+  account?: InputMaybe<Scalars['Bytes']>;
+  account_not?: InputMaybe<Scalars['Bytes']>;
+  account_gt?: InputMaybe<Scalars['Bytes']>;
+  account_lt?: InputMaybe<Scalars['Bytes']>;
+  account_gte?: InputMaybe<Scalars['Bytes']>;
+  account_lte?: InputMaybe<Scalars['Bytes']>;
+  account_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_contains?: InputMaybe<Scalars['Bytes']>;
+  account_not_contains?: InputMaybe<Scalars['Bytes']>;
+  totalDeposit?: InputMaybe<Scalars['BigInt']>;
+  totalDeposit_not?: InputMaybe<Scalars['BigInt']>;
+  totalDeposit_gt?: InputMaybe<Scalars['BigInt']>;
+  totalDeposit_lt?: InputMaybe<Scalars['BigInt']>;
+  totalDeposit_gte?: InputMaybe<Scalars['BigInt']>;
+  totalDeposit_lte?: InputMaybe<Scalars['BigInt']>;
+  totalDeposit_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  totalDeposit_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  transactionHash?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Deposited_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Deposited_filter>>>;
+};
+
+export type Deposited_orderBy =
+  | 'id'
+  | 'account'
+  | 'totalDeposit'
+  | 'blockNumber'
+  | 'blockTimestamp'
+  | 'transactionHash';
+
 /** Defines the order direction, either ascending or descending */
 export type OrderDirection =
   | 'asc'
   | 'desc';
 
-export type Staking = {
-  id: Scalars['ID'];
-  userOpHash?: Maybe<Scalars['Bytes']>;
-  type?: Maybe<Scalars['String']>;
-  requestFrom?: Maybe<Scalars['Bytes']>;
-  to?: Maybe<Scalars['Bytes']>;
-  value?: Maybe<Scalars['BigInt']>;
+export type SignatureAggregatorChanged = {
+  id: Scalars['Bytes'];
+  aggregator: Scalars['Bytes'];
+  blockNumber: Scalars['BigInt'];
+  blockTimestamp: Scalars['BigInt'];
+  transactionHash: Scalars['Bytes'];
 };
 
-export type Staking_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  userOpHash?: InputMaybe<Scalars['Bytes']>;
-  userOpHash_not?: InputMaybe<Scalars['Bytes']>;
-  userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
-  userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  type?: InputMaybe<Scalars['String']>;
-  type_not?: InputMaybe<Scalars['String']>;
-  type_gt?: InputMaybe<Scalars['String']>;
-  type_lt?: InputMaybe<Scalars['String']>;
-  type_gte?: InputMaybe<Scalars['String']>;
-  type_lte?: InputMaybe<Scalars['String']>;
-  type_in?: InputMaybe<Array<Scalars['String']>>;
-  type_not_in?: InputMaybe<Array<Scalars['String']>>;
-  type_contains?: InputMaybe<Scalars['String']>;
-  type_contains_nocase?: InputMaybe<Scalars['String']>;
-  type_not_contains?: InputMaybe<Scalars['String']>;
-  type_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  type_starts_with?: InputMaybe<Scalars['String']>;
-  type_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  type_not_starts_with?: InputMaybe<Scalars['String']>;
-  type_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  type_ends_with?: InputMaybe<Scalars['String']>;
-  type_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  type_not_ends_with?: InputMaybe<Scalars['String']>;
-  type_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  requestFrom?: InputMaybe<Scalars['Bytes']>;
-  requestFrom_not?: InputMaybe<Scalars['Bytes']>;
-  requestFrom_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestFrom_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  requestFrom_contains?: InputMaybe<Scalars['Bytes']>;
-  requestFrom_not_contains?: InputMaybe<Scalars['Bytes']>;
-  to?: InputMaybe<Scalars['Bytes']>;
-  to_not?: InputMaybe<Scalars['Bytes']>;
-  to_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  to_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  to_contains?: InputMaybe<Scalars['Bytes']>;
-  to_not_contains?: InputMaybe<Scalars['Bytes']>;
-  value?: InputMaybe<Scalars['BigInt']>;
-  value_not?: InputMaybe<Scalars['BigInt']>;
-  value_gt?: InputMaybe<Scalars['BigInt']>;
-  value_lt?: InputMaybe<Scalars['BigInt']>;
-  value_gte?: InputMaybe<Scalars['BigInt']>;
-  value_lte?: InputMaybe<Scalars['BigInt']>;
-  value_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  value_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+export type SignatureAggregatorChanged_filter = {
+  id?: InputMaybe<Scalars['Bytes']>;
+  id_not?: InputMaybe<Scalars['Bytes']>;
+  id_gt?: InputMaybe<Scalars['Bytes']>;
+  id_lt?: InputMaybe<Scalars['Bytes']>;
+  id_gte?: InputMaybe<Scalars['Bytes']>;
+  id_lte?: InputMaybe<Scalars['Bytes']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_contains?: InputMaybe<Scalars['Bytes']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']>;
+  aggregator?: InputMaybe<Scalars['Bytes']>;
+  aggregator_not?: InputMaybe<Scalars['Bytes']>;
+  aggregator_gt?: InputMaybe<Scalars['Bytes']>;
+  aggregator_lt?: InputMaybe<Scalars['Bytes']>;
+  aggregator_gte?: InputMaybe<Scalars['Bytes']>;
+  aggregator_lte?: InputMaybe<Scalars['Bytes']>;
+  aggregator_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  aggregator_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  aggregator_contains?: InputMaybe<Scalars['Bytes']>;
+  aggregator_not_contains?: InputMaybe<Scalars['Bytes']>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  transactionHash?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<SignatureAggregatorChanged_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<SignatureAggregatorChanged_filter>>>;
 };
 
-export type Staking_orderBy =
+export type SignatureAggregatorChanged_orderBy =
   | 'id'
-  | 'userOpHash'
-  | 'type'
-  | 'requestFrom'
-  | 'to'
-  | 'value';
+  | 'aggregator'
+  | 'blockNumber'
+  | 'blockTimestamp'
+  | 'transactionHash';
 
-export type Transfer = {
-  id: Scalars['ID'];
-  txHash?: Maybe<Scalars['Bytes']>;
-  type?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['BigInt']>;
-  to?: Maybe<Scalars['Bytes']>;
-  from?: Maybe<Scalars['Bytes']>;
+export type StakeLocked = {
+  id: Scalars['Bytes'];
+  account: Scalars['Bytes'];
+  totalStaked: Scalars['BigInt'];
+  unstakeDelaySec: Scalars['BigInt'];
+  blockNumber: Scalars['BigInt'];
+  blockTimestamp: Scalars['BigInt'];
+  transactionHash: Scalars['Bytes'];
 };
 
-export type Transfer_filter = {
-  id?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  txHash?: InputMaybe<Scalars['Bytes']>;
-  txHash_not?: InputMaybe<Scalars['Bytes']>;
-  txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  type?: InputMaybe<Scalars['String']>;
-  type_not?: InputMaybe<Scalars['String']>;
-  type_gt?: InputMaybe<Scalars['String']>;
-  type_lt?: InputMaybe<Scalars['String']>;
-  type_gte?: InputMaybe<Scalars['String']>;
-  type_lte?: InputMaybe<Scalars['String']>;
-  type_in?: InputMaybe<Array<Scalars['String']>>;
-  type_not_in?: InputMaybe<Array<Scalars['String']>>;
-  type_contains?: InputMaybe<Scalars['String']>;
-  type_contains_nocase?: InputMaybe<Scalars['String']>;
-  type_not_contains?: InputMaybe<Scalars['String']>;
-  type_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  type_starts_with?: InputMaybe<Scalars['String']>;
-  type_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  type_not_starts_with?: InputMaybe<Scalars['String']>;
-  type_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  type_ends_with?: InputMaybe<Scalars['String']>;
-  type_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  type_not_ends_with?: InputMaybe<Scalars['String']>;
-  type_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  value?: InputMaybe<Scalars['BigInt']>;
-  value_not?: InputMaybe<Scalars['BigInt']>;
-  value_gt?: InputMaybe<Scalars['BigInt']>;
-  value_lt?: InputMaybe<Scalars['BigInt']>;
-  value_gte?: InputMaybe<Scalars['BigInt']>;
-  value_lte?: InputMaybe<Scalars['BigInt']>;
-  value_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  value_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  to?: InputMaybe<Scalars['Bytes']>;
-  to_not?: InputMaybe<Scalars['Bytes']>;
-  to_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  to_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  to_contains?: InputMaybe<Scalars['Bytes']>;
-  to_not_contains?: InputMaybe<Scalars['Bytes']>;
-  from?: InputMaybe<Scalars['Bytes']>;
-  from_not?: InputMaybe<Scalars['Bytes']>;
-  from_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  from_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  from_contains?: InputMaybe<Scalars['Bytes']>;
-  from_not_contains?: InputMaybe<Scalars['Bytes']>;
+export type StakeLocked_filter = {
+  id?: InputMaybe<Scalars['Bytes']>;
+  id_not?: InputMaybe<Scalars['Bytes']>;
+  id_gt?: InputMaybe<Scalars['Bytes']>;
+  id_lt?: InputMaybe<Scalars['Bytes']>;
+  id_gte?: InputMaybe<Scalars['Bytes']>;
+  id_lte?: InputMaybe<Scalars['Bytes']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_contains?: InputMaybe<Scalars['Bytes']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']>;
+  account?: InputMaybe<Scalars['Bytes']>;
+  account_not?: InputMaybe<Scalars['Bytes']>;
+  account_gt?: InputMaybe<Scalars['Bytes']>;
+  account_lt?: InputMaybe<Scalars['Bytes']>;
+  account_gte?: InputMaybe<Scalars['Bytes']>;
+  account_lte?: InputMaybe<Scalars['Bytes']>;
+  account_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_contains?: InputMaybe<Scalars['Bytes']>;
+  account_not_contains?: InputMaybe<Scalars['Bytes']>;
+  totalStaked?: InputMaybe<Scalars['BigInt']>;
+  totalStaked_not?: InputMaybe<Scalars['BigInt']>;
+  totalStaked_gt?: InputMaybe<Scalars['BigInt']>;
+  totalStaked_lt?: InputMaybe<Scalars['BigInt']>;
+  totalStaked_gte?: InputMaybe<Scalars['BigInt']>;
+  totalStaked_lte?: InputMaybe<Scalars['BigInt']>;
+  totalStaked_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  totalStaked_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  unstakeDelaySec?: InputMaybe<Scalars['BigInt']>;
+  unstakeDelaySec_not?: InputMaybe<Scalars['BigInt']>;
+  unstakeDelaySec_gt?: InputMaybe<Scalars['BigInt']>;
+  unstakeDelaySec_lt?: InputMaybe<Scalars['BigInt']>;
+  unstakeDelaySec_gte?: InputMaybe<Scalars['BigInt']>;
+  unstakeDelaySec_lte?: InputMaybe<Scalars['BigInt']>;
+  unstakeDelaySec_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  unstakeDelaySec_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  transactionHash?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<StakeLocked_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<StakeLocked_filter>>>;
 };
 
-export type Transfer_orderBy =
+export type StakeLocked_orderBy =
   | 'id'
-  | 'txHash'
-  | 'type'
-  | 'value'
-  | 'to'
-  | 'from';
+  | 'account'
+  | 'totalStaked'
+  | 'unstakeDelaySec'
+  | 'blockNumber'
+  | 'blockTimestamp'
+  | 'transactionHash';
+
+export type StakeUnlocked = {
+  id: Scalars['Bytes'];
+  account: Scalars['Bytes'];
+  withdrawTime: Scalars['BigInt'];
+  blockNumber: Scalars['BigInt'];
+  blockTimestamp: Scalars['BigInt'];
+  transactionHash: Scalars['Bytes'];
+};
+
+export type StakeUnlocked_filter = {
+  id?: InputMaybe<Scalars['Bytes']>;
+  id_not?: InputMaybe<Scalars['Bytes']>;
+  id_gt?: InputMaybe<Scalars['Bytes']>;
+  id_lt?: InputMaybe<Scalars['Bytes']>;
+  id_gte?: InputMaybe<Scalars['Bytes']>;
+  id_lte?: InputMaybe<Scalars['Bytes']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_contains?: InputMaybe<Scalars['Bytes']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']>;
+  account?: InputMaybe<Scalars['Bytes']>;
+  account_not?: InputMaybe<Scalars['Bytes']>;
+  account_gt?: InputMaybe<Scalars['Bytes']>;
+  account_lt?: InputMaybe<Scalars['Bytes']>;
+  account_gte?: InputMaybe<Scalars['Bytes']>;
+  account_lte?: InputMaybe<Scalars['Bytes']>;
+  account_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_contains?: InputMaybe<Scalars['Bytes']>;
+  account_not_contains?: InputMaybe<Scalars['Bytes']>;
+  withdrawTime?: InputMaybe<Scalars['BigInt']>;
+  withdrawTime_not?: InputMaybe<Scalars['BigInt']>;
+  withdrawTime_gt?: InputMaybe<Scalars['BigInt']>;
+  withdrawTime_lt?: InputMaybe<Scalars['BigInt']>;
+  withdrawTime_gte?: InputMaybe<Scalars['BigInt']>;
+  withdrawTime_lte?: InputMaybe<Scalars['BigInt']>;
+  withdrawTime_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  withdrawTime_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  transactionHash?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<StakeUnlocked_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<StakeUnlocked_filter>>>;
+};
+
+export type StakeUnlocked_orderBy =
+  | 'id'
+  | 'account'
+  | 'withdrawTime'
+  | 'blockNumber'
+  | 'blockTimestamp'
+  | 'transactionHash';
+
+export type StakeWithdrawn = {
+  id: Scalars['Bytes'];
+  account: Scalars['Bytes'];
+  withdrawAddress: Scalars['Bytes'];
+  amount: Scalars['BigInt'];
+  blockNumber: Scalars['BigInt'];
+  blockTimestamp: Scalars['BigInt'];
+  transactionHash: Scalars['Bytes'];
+};
+
+export type StakeWithdrawn_filter = {
+  id?: InputMaybe<Scalars['Bytes']>;
+  id_not?: InputMaybe<Scalars['Bytes']>;
+  id_gt?: InputMaybe<Scalars['Bytes']>;
+  id_lt?: InputMaybe<Scalars['Bytes']>;
+  id_gte?: InputMaybe<Scalars['Bytes']>;
+  id_lte?: InputMaybe<Scalars['Bytes']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_contains?: InputMaybe<Scalars['Bytes']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']>;
+  account?: InputMaybe<Scalars['Bytes']>;
+  account_not?: InputMaybe<Scalars['Bytes']>;
+  account_gt?: InputMaybe<Scalars['Bytes']>;
+  account_lt?: InputMaybe<Scalars['Bytes']>;
+  account_gte?: InputMaybe<Scalars['Bytes']>;
+  account_lte?: InputMaybe<Scalars['Bytes']>;
+  account_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_contains?: InputMaybe<Scalars['Bytes']>;
+  account_not_contains?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_not?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_gte?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_lte?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  withdrawAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  withdrawAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
+  amount?: InputMaybe<Scalars['BigInt']>;
+  amount_not?: InputMaybe<Scalars['BigInt']>;
+  amount_gt?: InputMaybe<Scalars['BigInt']>;
+  amount_lt?: InputMaybe<Scalars['BigInt']>;
+  amount_gte?: InputMaybe<Scalars['BigInt']>;
+  amount_lte?: InputMaybe<Scalars['BigInt']>;
+  amount_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  amount_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  transactionHash?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<StakeWithdrawn_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<StakeWithdrawn_filter>>>;
+};
+
+export type StakeWithdrawn_orderBy =
+  | 'id'
+  | 'account'
+  | 'withdrawAddress'
+  | 'amount'
+  | 'blockNumber'
+  | 'blockTimestamp'
+  | 'transactionHash';
 
 export type UserOp = {
   id: Scalars['ID'];
@@ -377,6 +931,10 @@ export type UserOp = {
   blockNumber?: Maybe<Scalars['BigInt']>;
   network?: Maybe<Scalars['String']>;
   input?: Maybe<Scalars['Bytes']>;
+  target?: Maybe<Scalars['Bytes']>;
+  callData?: Maybe<Scalars['Bytes']>;
+  beneficiary?: Maybe<Scalars['Bytes']>;
+  factory?: Maybe<Scalars['Bytes']>;
   indexerName?: Maybe<Scalars['String']>;
 };
 
@@ -391,24 +949,40 @@ export type UserOp_filter = {
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
   transactionHash?: InputMaybe<Scalars['Bytes']>;
   transactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lte?: InputMaybe<Scalars['Bytes']>;
   transactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
   transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
   transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   userOpHash?: InputMaybe<Scalars['Bytes']>;
   userOpHash_not?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_gt?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_lt?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_gte?: InputMaybe<Scalars['Bytes']>;
+  userOpHash_lte?: InputMaybe<Scalars['Bytes']>;
   userOpHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
   userOpHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   userOpHash_contains?: InputMaybe<Scalars['Bytes']>;
   userOpHash_not_contains?: InputMaybe<Scalars['Bytes']>;
   sender?: InputMaybe<Scalars['Bytes']>;
   sender_not?: InputMaybe<Scalars['Bytes']>;
+  sender_gt?: InputMaybe<Scalars['Bytes']>;
+  sender_lt?: InputMaybe<Scalars['Bytes']>;
+  sender_gte?: InputMaybe<Scalars['Bytes']>;
+  sender_lte?: InputMaybe<Scalars['Bytes']>;
   sender_in?: InputMaybe<Array<Scalars['Bytes']>>;
   sender_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   sender_contains?: InputMaybe<Scalars['Bytes']>;
   sender_not_contains?: InputMaybe<Scalars['Bytes']>;
   paymaster?: InputMaybe<Scalars['Bytes']>;
   paymaster_not?: InputMaybe<Scalars['Bytes']>;
+  paymaster_gt?: InputMaybe<Scalars['Bytes']>;
+  paymaster_lt?: InputMaybe<Scalars['Bytes']>;
+  paymaster_gte?: InputMaybe<Scalars['Bytes']>;
+  paymaster_lte?: InputMaybe<Scalars['Bytes']>;
   paymaster_in?: InputMaybe<Array<Scalars['Bytes']>>;
   paymaster_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   paymaster_contains?: InputMaybe<Scalars['Bytes']>;
@@ -451,6 +1025,10 @@ export type UserOp_filter = {
   success_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   revertReason?: InputMaybe<Scalars['Bytes']>;
   revertReason_not?: InputMaybe<Scalars['Bytes']>;
+  revertReason_gt?: InputMaybe<Scalars['Bytes']>;
+  revertReason_lt?: InputMaybe<Scalars['Bytes']>;
+  revertReason_gte?: InputMaybe<Scalars['Bytes']>;
+  revertReason_lte?: InputMaybe<Scalars['Bytes']>;
   revertReason_in?: InputMaybe<Array<Scalars['Bytes']>>;
   revertReason_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   revertReason_contains?: InputMaybe<Scalars['Bytes']>;
@@ -493,12 +1071,58 @@ export type UserOp_filter = {
   network_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
   input?: InputMaybe<Scalars['Bytes']>;
   input_not?: InputMaybe<Scalars['Bytes']>;
+  input_gt?: InputMaybe<Scalars['Bytes']>;
+  input_lt?: InputMaybe<Scalars['Bytes']>;
+  input_gte?: InputMaybe<Scalars['Bytes']>;
+  input_lte?: InputMaybe<Scalars['Bytes']>;
   input_in?: InputMaybe<Array<Scalars['Bytes']>>;
   input_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   input_contains?: InputMaybe<Scalars['Bytes']>;
   input_not_contains?: InputMaybe<Scalars['Bytes']>;
+  target?: InputMaybe<Scalars['Bytes']>;
+  target_not?: InputMaybe<Scalars['Bytes']>;
+  target_gt?: InputMaybe<Scalars['Bytes']>;
+  target_lt?: InputMaybe<Scalars['Bytes']>;
+  target_gte?: InputMaybe<Scalars['Bytes']>;
+  target_lte?: InputMaybe<Scalars['Bytes']>;
+  target_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  target_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  target_contains?: InputMaybe<Scalars['Bytes']>;
+  target_not_contains?: InputMaybe<Scalars['Bytes']>;
+  callData?: InputMaybe<Scalars['Bytes']>;
+  callData_not?: InputMaybe<Scalars['Bytes']>;
+  callData_gt?: InputMaybe<Scalars['Bytes']>;
+  callData_lt?: InputMaybe<Scalars['Bytes']>;
+  callData_gte?: InputMaybe<Scalars['Bytes']>;
+  callData_lte?: InputMaybe<Scalars['Bytes']>;
+  callData_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  callData_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  callData_contains?: InputMaybe<Scalars['Bytes']>;
+  callData_not_contains?: InputMaybe<Scalars['Bytes']>;
+  beneficiary?: InputMaybe<Scalars['Bytes']>;
+  beneficiary_not?: InputMaybe<Scalars['Bytes']>;
+  beneficiary_gt?: InputMaybe<Scalars['Bytes']>;
+  beneficiary_lt?: InputMaybe<Scalars['Bytes']>;
+  beneficiary_gte?: InputMaybe<Scalars['Bytes']>;
+  beneficiary_lte?: InputMaybe<Scalars['Bytes']>;
+  beneficiary_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  beneficiary_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  beneficiary_contains?: InputMaybe<Scalars['Bytes']>;
+  beneficiary_not_contains?: InputMaybe<Scalars['Bytes']>;
+  factory?: InputMaybe<Scalars['Bytes']>;
+  factory_not?: InputMaybe<Scalars['Bytes']>;
+  factory_gt?: InputMaybe<Scalars['Bytes']>;
+  factory_lt?: InputMaybe<Scalars['Bytes']>;
+  factory_gte?: InputMaybe<Scalars['Bytes']>;
+  factory_lte?: InputMaybe<Scalars['Bytes']>;
+  factory_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  factory_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  factory_contains?: InputMaybe<Scalars['Bytes']>;
+  factory_not_contains?: InputMaybe<Scalars['Bytes']>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<UserOp_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<UserOp_filter>>>;
 };
 
 export type UserOp_orderBy =
@@ -516,7 +1140,101 @@ export type UserOp_orderBy =
   | 'blockTime'
   | 'blockNumber'
   | 'network'
-  | 'input';
+  | 'input'
+  | 'target'
+  | 'callData'
+  | 'beneficiary'
+  | 'factory';
+
+export type Withdrawn = {
+  id: Scalars['Bytes'];
+  account: Scalars['Bytes'];
+  withdrawAddress: Scalars['Bytes'];
+  amount: Scalars['BigInt'];
+  blockNumber: Scalars['BigInt'];
+  blockTimestamp: Scalars['BigInt'];
+  transactionHash: Scalars['Bytes'];
+};
+
+export type Withdrawn_filter = {
+  id?: InputMaybe<Scalars['Bytes']>;
+  id_not?: InputMaybe<Scalars['Bytes']>;
+  id_gt?: InputMaybe<Scalars['Bytes']>;
+  id_lt?: InputMaybe<Scalars['Bytes']>;
+  id_gte?: InputMaybe<Scalars['Bytes']>;
+  id_lte?: InputMaybe<Scalars['Bytes']>;
+  id_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id_contains?: InputMaybe<Scalars['Bytes']>;
+  id_not_contains?: InputMaybe<Scalars['Bytes']>;
+  account?: InputMaybe<Scalars['Bytes']>;
+  account_not?: InputMaybe<Scalars['Bytes']>;
+  account_gt?: InputMaybe<Scalars['Bytes']>;
+  account_lt?: InputMaybe<Scalars['Bytes']>;
+  account_gte?: InputMaybe<Scalars['Bytes']>;
+  account_lte?: InputMaybe<Scalars['Bytes']>;
+  account_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  account_contains?: InputMaybe<Scalars['Bytes']>;
+  account_not_contains?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_not?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_gt?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_lt?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_gte?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_lte?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  withdrawAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  withdrawAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  withdrawAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
+  amount?: InputMaybe<Scalars['BigInt']>;
+  amount_not?: InputMaybe<Scalars['BigInt']>;
+  amount_gt?: InputMaybe<Scalars['BigInt']>;
+  amount_lt?: InputMaybe<Scalars['BigInt']>;
+  amount_gte?: InputMaybe<Scalars['BigInt']>;
+  amount_lte?: InputMaybe<Scalars['BigInt']>;
+  amount_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  amount_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_not?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lt?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_gte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_lte?: InputMaybe<Scalars['BigInt']>;
+  blockNumber_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockNumber_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_not?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lt?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_gte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_lte?: InputMaybe<Scalars['BigInt']>;
+  blockTimestamp_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  blockTimestamp_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  transactionHash?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lt?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_gte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_lte?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHash_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Withdrawn_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Withdrawn_filter>>>;
+};
+
+export type Withdrawn_orderBy =
+  | 'id'
+  | 'account'
+  | 'withdrawAddress'
+  | 'amount'
+  | 'blockNumber'
+  | 'blockTimestamp'
+  | 'transactionHash';
 
 export type _Block_ = {
   /** The hash of the block */
@@ -635,26 +1353,41 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>;
   Subscription: ResolverTypeWrapper<{}>;
+  AccountDeployed: ResolverTypeWrapper<AccountDeployed>;
+  AccountDeployed_filter: AccountDeployed_filter;
+  AccountDeployed_orderBy: AccountDeployed_orderBy;
   BigDecimal: ResolverTypeWrapper<Scalars['BigDecimal']>;
   BigInt: ResolverTypeWrapper<Scalars['BigInt']>;
   BlockChangedFilter: BlockChangedFilter;
   Block_height: Block_height;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Bytes: ResolverTypeWrapper<Scalars['Bytes']>;
+  Deposited: ResolverTypeWrapper<Deposited>;
+  Deposited_filter: Deposited_filter;
+  Deposited_orderBy: Deposited_orderBy;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   OrderDirection: OrderDirection;
-  Staking: ResolverTypeWrapper<Staking>;
-  Staking_filter: Staking_filter;
-  Staking_orderBy: Staking_orderBy;
+  SignatureAggregatorChanged: ResolverTypeWrapper<SignatureAggregatorChanged>;
+  SignatureAggregatorChanged_filter: SignatureAggregatorChanged_filter;
+  SignatureAggregatorChanged_orderBy: SignatureAggregatorChanged_orderBy;
+  StakeLocked: ResolverTypeWrapper<StakeLocked>;
+  StakeLocked_filter: StakeLocked_filter;
+  StakeLocked_orderBy: StakeLocked_orderBy;
+  StakeUnlocked: ResolverTypeWrapper<StakeUnlocked>;
+  StakeUnlocked_filter: StakeUnlocked_filter;
+  StakeUnlocked_orderBy: StakeUnlocked_orderBy;
+  StakeWithdrawn: ResolverTypeWrapper<StakeWithdrawn>;
+  StakeWithdrawn_filter: StakeWithdrawn_filter;
+  StakeWithdrawn_orderBy: StakeWithdrawn_orderBy;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Transfer: ResolverTypeWrapper<Transfer>;
-  Transfer_filter: Transfer_filter;
-  Transfer_orderBy: Transfer_orderBy;
   UserOp: ResolverTypeWrapper<UserOp>;
   UserOp_filter: UserOp_filter;
   UserOp_orderBy: UserOp_orderBy;
+  Withdrawn: ResolverTypeWrapper<Withdrawn>;
+  Withdrawn_filter: Withdrawn_filter;
+  Withdrawn_orderBy: Withdrawn_orderBy;
   _Block_: ResolverTypeWrapper<_Block_>;
   _Meta_: ResolverTypeWrapper<_Meta_>;
   _SubgraphErrorPolicy_: _SubgraphErrorPolicy_;
@@ -664,22 +1397,32 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Query: {};
   Subscription: {};
+  AccountDeployed: AccountDeployed;
+  AccountDeployed_filter: AccountDeployed_filter;
   BigDecimal: Scalars['BigDecimal'];
   BigInt: Scalars['BigInt'];
   BlockChangedFilter: BlockChangedFilter;
   Block_height: Block_height;
   Boolean: Scalars['Boolean'];
   Bytes: Scalars['Bytes'];
+  Deposited: Deposited;
+  Deposited_filter: Deposited_filter;
   Float: Scalars['Float'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
-  Staking: Staking;
-  Staking_filter: Staking_filter;
+  SignatureAggregatorChanged: SignatureAggregatorChanged;
+  SignatureAggregatorChanged_filter: SignatureAggregatorChanged_filter;
+  StakeLocked: StakeLocked;
+  StakeLocked_filter: StakeLocked_filter;
+  StakeUnlocked: StakeUnlocked;
+  StakeUnlocked_filter: StakeUnlocked_filter;
+  StakeWithdrawn: StakeWithdrawn;
+  StakeWithdrawn_filter: StakeWithdrawn_filter;
   String: Scalars['String'];
-  Transfer: Transfer;
-  Transfer_filter: Transfer_filter;
   UserOp: UserOp;
   UserOp_filter: UserOp_filter;
+  Withdrawn: Withdrawn;
+  Withdrawn_filter: Withdrawn_filter;
   _Block_: _Block_;
   _Meta_: _Meta_;
 }>;
@@ -701,24 +1444,56 @@ export type derivedFromDirectiveArgs = {
 export type derivedFromDirectiveResolver<Result, Parent, ContextType = MeshContext & { indexerName: string }, Args = derivedFromDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
 export type QueryResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
-  transfer?: Resolver<Maybe<ResolversTypes['Transfer']>, ParentType, ContextType, RequireFields<QuerytransferArgs, 'id' | 'subgraphError'>>;
-  transfers?: Resolver<Array<ResolversTypes['Transfer']>, ParentType, ContextType, RequireFields<QuerytransfersArgs, 'skip' | 'first' | 'subgraphError'>>;
-  staking?: Resolver<Maybe<ResolversTypes['Staking']>, ParentType, ContextType, RequireFields<QuerystakingArgs, 'id' | 'subgraphError'>>;
-  stakings?: Resolver<Array<ResolversTypes['Staking']>, ParentType, ContextType, RequireFields<QuerystakingsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  accountDeployed?: Resolver<Maybe<ResolversTypes['AccountDeployed']>, ParentType, ContextType, RequireFields<QueryaccountDeployedArgs, 'id' | 'subgraphError'>>;
+  accountDeployeds?: Resolver<Array<ResolversTypes['AccountDeployed']>, ParentType, ContextType, RequireFields<QueryaccountDeployedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  deposited?: Resolver<Maybe<ResolversTypes['Deposited']>, ParentType, ContextType, RequireFields<QuerydepositedArgs, 'id' | 'subgraphError'>>;
+  depositeds?: Resolver<Array<ResolversTypes['Deposited']>, ParentType, ContextType, RequireFields<QuerydepositedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  signatureAggregatorChanged?: Resolver<Maybe<ResolversTypes['SignatureAggregatorChanged']>, ParentType, ContextType, RequireFields<QuerysignatureAggregatorChangedArgs, 'id' | 'subgraphError'>>;
+  signatureAggregatorChangeds?: Resolver<Array<ResolversTypes['SignatureAggregatorChanged']>, ParentType, ContextType, RequireFields<QuerysignatureAggregatorChangedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  stakeLocked?: Resolver<Maybe<ResolversTypes['StakeLocked']>, ParentType, ContextType, RequireFields<QuerystakeLockedArgs, 'id' | 'subgraphError'>>;
+  stakeLockeds?: Resolver<Array<ResolversTypes['StakeLocked']>, ParentType, ContextType, RequireFields<QuerystakeLockedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  stakeUnlocked?: Resolver<Maybe<ResolversTypes['StakeUnlocked']>, ParentType, ContextType, RequireFields<QuerystakeUnlockedArgs, 'id' | 'subgraphError'>>;
+  stakeUnlockeds?: Resolver<Array<ResolversTypes['StakeUnlocked']>, ParentType, ContextType, RequireFields<QuerystakeUnlockedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  stakeWithdrawn?: Resolver<Maybe<ResolversTypes['StakeWithdrawn']>, ParentType, ContextType, RequireFields<QuerystakeWithdrawnArgs, 'id' | 'subgraphError'>>;
+  stakeWithdrawns?: Resolver<Array<ResolversTypes['StakeWithdrawn']>, ParentType, ContextType, RequireFields<QuerystakeWithdrawnsArgs, 'skip' | 'first' | 'subgraphError'>>;
   userOp?: Resolver<Maybe<ResolversTypes['UserOp']>, ParentType, ContextType, RequireFields<QueryuserOpArgs, 'id' | 'subgraphError'>>;
   userOps?: Resolver<Array<ResolversTypes['UserOp']>, ParentType, ContextType, RequireFields<QueryuserOpsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  withdrawn?: Resolver<Maybe<ResolversTypes['Withdrawn']>, ParentType, ContextType, RequireFields<QuerywithdrawnArgs, 'id' | 'subgraphError'>>;
+  withdrawns?: Resolver<Array<ResolversTypes['Withdrawn']>, ParentType, ContextType, RequireFields<QuerywithdrawnsArgs, 'skip' | 'first' | 'subgraphError'>>;
   _meta?: Resolver<Maybe<ResolversTypes['_Meta_']>, ParentType, ContextType, Partial<Query_metaArgs>>;
   crossUserOps?: Resolver<Array<ResolversTypes['UserOp']>, ParentType, ContextType, RequireFields<QuerycrossUserOpsArgs, 'skip' | 'first' | 'indexerNames'>>;
 }>;
 
 export type SubscriptionResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
-  transfer?: SubscriptionResolver<Maybe<ResolversTypes['Transfer']>, "transfer", ParentType, ContextType, RequireFields<SubscriptiontransferArgs, 'id' | 'subgraphError'>>;
-  transfers?: SubscriptionResolver<Array<ResolversTypes['Transfer']>, "transfers", ParentType, ContextType, RequireFields<SubscriptiontransfersArgs, 'skip' | 'first' | 'subgraphError'>>;
-  staking?: SubscriptionResolver<Maybe<ResolversTypes['Staking']>, "staking", ParentType, ContextType, RequireFields<SubscriptionstakingArgs, 'id' | 'subgraphError'>>;
-  stakings?: SubscriptionResolver<Array<ResolversTypes['Staking']>, "stakings", ParentType, ContextType, RequireFields<SubscriptionstakingsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  accountDeployed?: SubscriptionResolver<Maybe<ResolversTypes['AccountDeployed']>, "accountDeployed", ParentType, ContextType, RequireFields<SubscriptionaccountDeployedArgs, 'id' | 'subgraphError'>>;
+  accountDeployeds?: SubscriptionResolver<Array<ResolversTypes['AccountDeployed']>, "accountDeployeds", ParentType, ContextType, RequireFields<SubscriptionaccountDeployedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  deposited?: SubscriptionResolver<Maybe<ResolversTypes['Deposited']>, "deposited", ParentType, ContextType, RequireFields<SubscriptiondepositedArgs, 'id' | 'subgraphError'>>;
+  depositeds?: SubscriptionResolver<Array<ResolversTypes['Deposited']>, "depositeds", ParentType, ContextType, RequireFields<SubscriptiondepositedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  signatureAggregatorChanged?: SubscriptionResolver<Maybe<ResolversTypes['SignatureAggregatorChanged']>, "signatureAggregatorChanged", ParentType, ContextType, RequireFields<SubscriptionsignatureAggregatorChangedArgs, 'id' | 'subgraphError'>>;
+  signatureAggregatorChangeds?: SubscriptionResolver<Array<ResolversTypes['SignatureAggregatorChanged']>, "signatureAggregatorChangeds", ParentType, ContextType, RequireFields<SubscriptionsignatureAggregatorChangedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  stakeLocked?: SubscriptionResolver<Maybe<ResolversTypes['StakeLocked']>, "stakeLocked", ParentType, ContextType, RequireFields<SubscriptionstakeLockedArgs, 'id' | 'subgraphError'>>;
+  stakeLockeds?: SubscriptionResolver<Array<ResolversTypes['StakeLocked']>, "stakeLockeds", ParentType, ContextType, RequireFields<SubscriptionstakeLockedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  stakeUnlocked?: SubscriptionResolver<Maybe<ResolversTypes['StakeUnlocked']>, "stakeUnlocked", ParentType, ContextType, RequireFields<SubscriptionstakeUnlockedArgs, 'id' | 'subgraphError'>>;
+  stakeUnlockeds?: SubscriptionResolver<Array<ResolversTypes['StakeUnlocked']>, "stakeUnlockeds", ParentType, ContextType, RequireFields<SubscriptionstakeUnlockedsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  stakeWithdrawn?: SubscriptionResolver<Maybe<ResolversTypes['StakeWithdrawn']>, "stakeWithdrawn", ParentType, ContextType, RequireFields<SubscriptionstakeWithdrawnArgs, 'id' | 'subgraphError'>>;
+  stakeWithdrawns?: SubscriptionResolver<Array<ResolversTypes['StakeWithdrawn']>, "stakeWithdrawns", ParentType, ContextType, RequireFields<SubscriptionstakeWithdrawnsArgs, 'skip' | 'first' | 'subgraphError'>>;
   userOp?: SubscriptionResolver<Maybe<ResolversTypes['UserOp']>, "userOp", ParentType, ContextType, RequireFields<SubscriptionuserOpArgs, 'id' | 'subgraphError'>>;
   userOps?: SubscriptionResolver<Array<ResolversTypes['UserOp']>, "userOps", ParentType, ContextType, RequireFields<SubscriptionuserOpsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  withdrawn?: SubscriptionResolver<Maybe<ResolversTypes['Withdrawn']>, "withdrawn", ParentType, ContextType, RequireFields<SubscriptionwithdrawnArgs, 'id' | 'subgraphError'>>;
+  withdrawns?: SubscriptionResolver<Array<ResolversTypes['Withdrawn']>, "withdrawns", ParentType, ContextType, RequireFields<SubscriptionwithdrawnsArgs, 'skip' | 'first' | 'subgraphError'>>;
   _meta?: SubscriptionResolver<Maybe<ResolversTypes['_Meta_']>, "_meta", ParentType, ContextType, Partial<Subscription_metaArgs>>;
+}>;
+
+export type AccountDeployedResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['AccountDeployed'] = ResolversParentTypes['AccountDeployed']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  userOpHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  sender?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  factory?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  paymaster?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  transactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
 export interface BigDecimalScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['BigDecimal'], any> {
@@ -733,23 +1508,54 @@ export interface BytesScalarConfig extends GraphQLScalarTypeConfig<ResolversType
   name: 'Bytes';
 }
 
-export type StakingResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Staking'] = ResolversParentTypes['Staking']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  userOpHash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  requestFrom?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
-  to?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
-  value?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
+export type DepositedResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Deposited'] = ResolversParentTypes['Deposited']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  totalDeposit?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  transactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type TransferResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Transfer'] = ResolversParentTypes['Transfer']> = ResolversObject<{
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  txHash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
-  type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  value?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
-  to?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
-  from?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+export type SignatureAggregatorChangedResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['SignatureAggregatorChanged'] = ResolversParentTypes['SignatureAggregatorChanged']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  aggregator?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  transactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type StakeLockedResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['StakeLocked'] = ResolversParentTypes['StakeLocked']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  totalStaked?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  unstakeDelaySec?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  transactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type StakeUnlockedResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['StakeUnlocked'] = ResolversParentTypes['StakeUnlocked']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  withdrawTime?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  transactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type StakeWithdrawnResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['StakeWithdrawn'] = ResolversParentTypes['StakeWithdrawn']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  withdrawAddress?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  amount?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  transactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -769,7 +1575,22 @@ export type UserOpResolvers<ContextType = MeshContext & { indexerName: string },
   blockNumber?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
   network?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   input?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  target?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  callData?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  beneficiary?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  factory?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
   indexerName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type WithdrawnResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Withdrawn'] = ResolversParentTypes['Withdrawn']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  account?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  withdrawAddress?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  amount?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
+  transactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -790,12 +1611,17 @@ export type _Meta_Resolvers<ContextType = MeshContext & { indexerName: string },
 export type Resolvers<ContextType = MeshContext & { indexerName: string }> = ResolversObject<{
   Query?: QueryResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
+  AccountDeployed?: AccountDeployedResolvers<ContextType>;
   BigDecimal?: GraphQLScalarType;
   BigInt?: GraphQLScalarType;
   Bytes?: GraphQLScalarType;
-  Staking?: StakingResolvers<ContextType>;
-  Transfer?: TransferResolvers<ContextType>;
+  Deposited?: DepositedResolvers<ContextType>;
+  SignatureAggregatorChanged?: SignatureAggregatorChangedResolvers<ContextType>;
+  StakeLocked?: StakeLockedResolvers<ContextType>;
+  StakeUnlocked?: StakeUnlockedResolvers<ContextType>;
+  StakeWithdrawn?: StakeWithdrawnResolvers<ContextType>;
   UserOp?: UserOpResolvers<ContextType>;
+  Withdrawn?: WithdrawnResolvers<ContextType>;
   _Block_?: _Block_Resolvers<ContextType>;
   _Meta_?: _Meta_Resolvers<ContextType>;
 }>;
@@ -850,7 +1676,7 @@ const additionalEnvelopPlugins: MeshPlugin<any>[] = [];
 const userOpIndexerTransforms = [];
 const userOpIndexerHandler = new GraphqlHandler({
               name: "userOpIndexer",
-              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/lazycoder1/{context.indexerName:aa-subgraphs-test}"},
+              config: {"endpoint":"https://api.thegraph.com/subgraphs/name/lazycoder1/{context.indexerName:georli-jiffy-scan}"},
               baseDir,
               cache,
               pubsub,
@@ -894,11 +1720,29 @@ const merger = new(BareMerger as any)({
         },
         location: 'AddressActivityQueryDocument.graphql'
       },{
+        document: BeneficiaryActivityQueryDocument,
+        get rawSDL() {
+          return printWithCache(BeneficiaryActivityQueryDocument);
+        },
+        location: 'BeneficiaryActivityQueryDocument.graphql'
+      },{
         document: BlockNumberQueryDocument,
         get rawSDL() {
           return printWithCache(BlockNumberQueryDocument);
         },
         location: 'BlockNumberQueryDocument.graphql'
+      },{
+        document: GetFactoryAccountsDocument,
+        get rawSDL() {
+          return printWithCache(GetFactoryAccountsDocument);
+        },
+        location: 'GetFactoryAccountsDocument.graphql'
+      },{
+        document: GetLatestAccountsDocument,
+        get rawSDL() {
+          return printWithCache(GetLatestAccountsDocument);
+        },
+        location: 'GetLatestAccountsDocument.graphql'
       },{
         document: LatestTransactionQueryDocument,
         get rawSDL() {
@@ -911,6 +1755,12 @@ const merger = new(BareMerger as any)({
           return printWithCache(PaymasterActivityQueryDocument);
         },
         location: 'PaymasterActivityQueryDocument.graphql'
+      },{
+        document: TargetQueryDocument,
+        get rawSDL() {
+          return printWithCache(TargetQueryDocument);
+        },
+        location: 'TargetQueryDocument.graphql'
       },{
         document: UserOpQueryDocument,
         get rawSDL() {
@@ -963,7 +1813,17 @@ export type AddressActivityQueryQueryVariables = Exact<{
 }>;
 
 
-export type AddressActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+export type AddressActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input' | 'target' | 'beneficiary' | 'factory'>> };
+
+export type BeneficiaryActivityQueryQueryVariables = Exact<{
+  beneficiaryAddress?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type BeneficiaryActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input' | 'target' | 'beneficiary' | 'factory'>> };
 
 export type BlockNumberQueryQueryVariables = Exact<{
   blockNumber?: InputMaybe<Scalars['BigInt']>;
@@ -973,7 +1833,26 @@ export type BlockNumberQueryQueryVariables = Exact<{
 }>;
 
 
-export type BlockNumberQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+export type BlockNumberQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input' | 'target' | 'beneficiary' | 'factory'>> };
+
+export type GetFactoryAccountsQueryVariables = Exact<{
+  factoryAddress?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type GetFactoryAccountsQuery = { crossUserOps: Array<Pick<UserOp, 'factory' | 'sender' | 'blockTime' | 'blockNumber' | 'actualGasUsed' | 'actualGasCost' | 'nonce'>> };
+
+export type GetLatestAccountsQueryVariables = Exact<{
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type GetLatestAccountsQuery = { crossUserOps: Array<Pick<UserOp, 'factory' | 'sender' | 'blockTime' | 'blockNumber' | 'actualGasUsed' | 'actualGasCost' | 'nonce'>> };
 
 export type LatestTransactionQueryQueryVariables = Exact<{
   senderAddress?: InputMaybe<Scalars['Bytes']>;
@@ -983,7 +1862,7 @@ export type LatestTransactionQueryQueryVariables = Exact<{
 }>;
 
 
-export type LatestTransactionQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+export type LatestTransactionQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input' | 'target' | 'beneficiary' | 'factory'>> };
 
 export type PaymasterActivityQueryQueryVariables = Exact<{
   paymasterAddress?: InputMaybe<Scalars['Bytes']>;
@@ -993,7 +1872,17 @@ export type PaymasterActivityQueryQueryVariables = Exact<{
 }>;
 
 
-export type PaymasterActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+export type PaymasterActivityQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input' | 'target' | 'beneficiary' | 'factory'>> };
+
+export type TargetQueryQueryVariables = Exact<{
+  targetAddress?: InputMaybe<Scalars['Bytes']>;
+  first?: InputMaybe<Scalars['Int']>;
+  skip?: InputMaybe<Scalars['Int']>;
+  indexerNames: Array<Scalars['String']> | Scalars['String'];
+}>;
+
+
+export type TargetQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input' | 'target' | 'beneficiary' | 'factory'>> };
 
 export type UserOpQueryQueryVariables = Exact<{
   userOpHash?: InputMaybe<Scalars['Bytes']>;
@@ -1001,7 +1890,7 @@ export type UserOpQueryQueryVariables = Exact<{
 }>;
 
 
-export type UserOpQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input'>> };
+export type UserOpQueryQuery = { crossUserOps: Array<Pick<UserOp, 'paymaster' | 'nonce' | 'transactionHash' | 'success' | 'sender' | 'revertReason' | 'userOpHash' | 'actualGasCost' | 'actualGasPrice' | 'actualGasUsed' | 'blockTime' | 'blockNumber' | 'network' | 'input' | 'target' | 'beneficiary' | 'factory'>> };
 
 
 export const AddressActivityQueryDocument = gql`
@@ -1028,9 +1917,42 @@ export const AddressActivityQueryDocument = gql`
     blockNumber
     network
     input
+    target
+    beneficiary
+    factory
   }
 }
     ` as unknown as DocumentNode<AddressActivityQueryQuery, AddressActivityQueryQueryVariables>;
+export const BeneficiaryActivityQueryDocument = gql`
+    query BeneficiaryActivityQuery($beneficiaryAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
+  crossUserOps(
+    first: $first
+    skip: $skip
+    where: {beneficiary: $beneficiaryAddress}
+    orderBy: blockTime
+    orderDirection: desc
+    indexerNames: $indexerNames
+  ) {
+    paymaster
+    nonce
+    transactionHash
+    success
+    sender
+    revertReason
+    userOpHash
+    actualGasCost
+    actualGasPrice
+    actualGasUsed
+    blockTime
+    blockNumber
+    network
+    input
+    target
+    beneficiary
+    factory
+  }
+}
+    ` as unknown as DocumentNode<BeneficiaryActivityQueryQuery, BeneficiaryActivityQueryQueryVariables>;
 export const BlockNumberQueryDocument = gql`
     query BlockNumberQuery($blockNumber: BigInt, $first: Int, $skip: Int, $indexerNames: [String!]!) {
   crossUserOps(
@@ -1053,9 +1975,52 @@ export const BlockNumberQueryDocument = gql`
     blockNumber
     network
     input
+    target
+    beneficiary
+    factory
   }
 }
     ` as unknown as DocumentNode<BlockNumberQueryQuery, BlockNumberQueryQueryVariables>;
+export const GetFactoryAccountsDocument = gql`
+    query GetFactoryAccounts($factoryAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
+  crossUserOps(
+    first: $first
+    skip: $skip
+    where: {factory: $factoryAddress}
+    orderBy: blockTime
+    orderDirection: desc
+    indexerNames: $indexerNames
+  ) {
+    factory
+    sender
+    blockTime
+    blockNumber
+    actualGasUsed
+    actualGasCost
+    nonce
+  }
+}
+    ` as unknown as DocumentNode<GetFactoryAccountsQuery, GetFactoryAccountsQueryVariables>;
+export const GetLatestAccountsDocument = gql`
+    query GetLatestAccounts($first: Int, $skip: Int, $indexerNames: [String!]!) {
+  crossUserOps(
+    first: $first
+    skip: $skip
+    where: {factory_not: ""}
+    orderBy: blockTime
+    orderDirection: desc
+    indexerNames: $indexerNames
+  ) {
+    factory
+    sender
+    blockTime
+    blockNumber
+    actualGasUsed
+    actualGasCost
+    nonce
+  }
+}
+    ` as unknown as DocumentNode<GetLatestAccountsQuery, GetLatestAccountsQueryVariables>;
 export const LatestTransactionQueryDocument = gql`
     query LatestTransactionQuery($senderAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
   crossUserOps(
@@ -1079,6 +2044,9 @@ export const LatestTransactionQueryDocument = gql`
     blockNumber
     network
     input
+    target
+    beneficiary
+    factory
   }
 }
     ` as unknown as DocumentNode<LatestTransactionQueryQuery, LatestTransactionQueryQueryVariables>;
@@ -1106,9 +2074,42 @@ export const PaymasterActivityQueryDocument = gql`
     blockNumber
     network
     input
+    target
+    beneficiary
+    factory
   }
 }
     ` as unknown as DocumentNode<PaymasterActivityQueryQuery, PaymasterActivityQueryQueryVariables>;
+export const TargetQueryDocument = gql`
+    query TargetQuery($targetAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
+  crossUserOps(
+    first: $first
+    skip: $skip
+    where: {target: $targetAddress}
+    orderBy: blockTime
+    orderDirection: desc
+    indexerNames: $indexerNames
+  ) {
+    paymaster
+    nonce
+    transactionHash
+    success
+    sender
+    revertReason
+    userOpHash
+    actualGasCost
+    actualGasPrice
+    actualGasUsed
+    blockTime
+    blockNumber
+    network
+    input
+    target
+    beneficiary
+    factory
+  }
+}
+    ` as unknown as DocumentNode<TargetQueryQuery, TargetQueryQueryVariables>;
 export const UserOpQueryDocument = gql`
     query UserOpQuery($userOpHash: Bytes, $indexerNames: [String!]!) {
   crossUserOps(
@@ -1130,9 +2131,16 @@ export const UserOpQueryDocument = gql`
     blockNumber
     network
     input
+    target
+    beneficiary
+    factory
   }
 }
     ` as unknown as DocumentNode<UserOpQueryQuery, UserOpQueryQueryVariables>;
+
+
+
+
 
 
 
@@ -1145,14 +2153,26 @@ export function getSdk<C, E>(requester: Requester<C, E>) {
     AddressActivityQuery(variables: AddressActivityQueryQueryVariables, options?: C): Promise<AddressActivityQueryQuery> {
       return requester<AddressActivityQueryQuery, AddressActivityQueryQueryVariables>(AddressActivityQueryDocument, variables, options) as Promise<AddressActivityQueryQuery>;
     },
+    BeneficiaryActivityQuery(variables: BeneficiaryActivityQueryQueryVariables, options?: C): Promise<BeneficiaryActivityQueryQuery> {
+      return requester<BeneficiaryActivityQueryQuery, BeneficiaryActivityQueryQueryVariables>(BeneficiaryActivityQueryDocument, variables, options) as Promise<BeneficiaryActivityQueryQuery>;
+    },
     BlockNumberQuery(variables: BlockNumberQueryQueryVariables, options?: C): Promise<BlockNumberQueryQuery> {
       return requester<BlockNumberQueryQuery, BlockNumberQueryQueryVariables>(BlockNumberQueryDocument, variables, options) as Promise<BlockNumberQueryQuery>;
+    },
+    GetFactoryAccounts(variables: GetFactoryAccountsQueryVariables, options?: C): Promise<GetFactoryAccountsQuery> {
+      return requester<GetFactoryAccountsQuery, GetFactoryAccountsQueryVariables>(GetFactoryAccountsDocument, variables, options) as Promise<GetFactoryAccountsQuery>;
+    },
+    GetLatestAccounts(variables: GetLatestAccountsQueryVariables, options?: C): Promise<GetLatestAccountsQuery> {
+      return requester<GetLatestAccountsQuery, GetLatestAccountsQueryVariables>(GetLatestAccountsDocument, variables, options) as Promise<GetLatestAccountsQuery>;
     },
     LatestTransactionQuery(variables: LatestTransactionQueryQueryVariables, options?: C): Promise<LatestTransactionQueryQuery> {
       return requester<LatestTransactionQueryQuery, LatestTransactionQueryQueryVariables>(LatestTransactionQueryDocument, variables, options) as Promise<LatestTransactionQueryQuery>;
     },
     PaymasterActivityQuery(variables: PaymasterActivityQueryQueryVariables, options?: C): Promise<PaymasterActivityQueryQuery> {
       return requester<PaymasterActivityQueryQuery, PaymasterActivityQueryQueryVariables>(PaymasterActivityQueryDocument, variables, options) as Promise<PaymasterActivityQueryQuery>;
+    },
+    TargetQuery(variables: TargetQueryQueryVariables, options?: C): Promise<TargetQueryQuery> {
+      return requester<TargetQueryQuery, TargetQueryQueryVariables>(TargetQueryDocument, variables, options) as Promise<TargetQueryQuery>;
     },
     UserOpQuery(variables: UserOpQueryQueryVariables, options?: C): Promise<UserOpQueryQuery> {
       return requester<UserOpQueryQuery, UserOpQueryQueryVariables>(UserOpQueryDocument, variables, options) as Promise<UserOpQueryQuery>;

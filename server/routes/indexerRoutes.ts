@@ -1,11 +1,9 @@
 import express, { Router, Request, Response, NextFunction } from 'express';
 import { getBuiltGraphSDK, UserOp } from '../.graphclient';
-import { ethers, BigNumber } from "ethers";
-import { findSourceMap } from 'module';
+import { ethers } from "ethers";
 import { Result } from 'ethers/lib/utils';
 import { decodeInputData } from '../utils/decoder';
 import ApiError from "../error/ApiError";
-import { nextTick } from 'process';
 interface PopulatedCrossUserOp {
     paymaster: string
     nonce: string
@@ -23,11 +21,13 @@ interface PopulatedCrossUserOp {
     target: string
     value: string
     callData: string
+    beneficiary: string
+    factory: string
 }
 
 const router: Router = express.Router();
-const { AddressActivityQuery, BlockNumberQuery, UserOpQuery, PaymasterActivityQuery, LatestTransactionQuery  } = getBuiltGraphSDK();
-const indexers: string[] = ["mumbai-aa-indexer", "aa-subgraphs-test"]
+const { AddressActivityQuery, BlockNumberQuery, UserOpQuery, PaymasterActivityQuery, LatestTransactionQuery, TargetQuery, BeneficiaryActivityQuery, GetLatestAccounts, GetFactoryAccounts } = getBuiltGraphSDK();
+const indexers: string[] = ["optimism-goerli-jiffy-scan", "georli-jiffy-scan"]
 let abiCoder = new ethers.utils.AbiCoder()
 let userOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)[]", "address"]
 let candideUserOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)[]", "address"]
@@ -59,7 +59,7 @@ const getCalldata = (network: String, calldata: String, sender: String, nonce: S
 
 
 
-const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" | "nonce" | "transactionHash" | "success" | "sender" | "revertReason" | "userOpHash" | "actualGasCost" | "actualGasPrice" | "blockTime" | "blockNumber" | "network" | "input">[]): PopulatedCrossUserOp[] => {
+const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" | "nonce" | "transactionHash" | "success" | "sender" | "revertReason" | "userOpHash" | "actualGasCost" | "actualGasPrice" | "blockTime" | "blockNumber" | "network" | "input" | "factory" | "beneficiary" | "target">[]): PopulatedCrossUserOp[] => {
     let populatedCrossUserOps: PopulatedCrossUserOp[] = []
     for (let userOpIdx in crossUserOps) {
         let crossUserOp = crossUserOps[userOpIdx]
@@ -78,7 +78,9 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
             blockNumber: crossUserOp.blockNumber,
             network: crossUserOp.network,
             input: crossUserOp.input,
-            target: decodedCallData != null ? decodedCallData[0] : "" ,
+            target: crossUserOp.target,
+            beneficiary: crossUserOp.beneficiary,
+            factory: crossUserOp.factory,
             value: decodedCallData != null ? decodedCallData[1].toString() : "",
             callData: decodedCallData != null ? decodedCallData[2] : ""
         }
@@ -119,6 +121,91 @@ router.get('/getAddressActivity', async (req: Request, res: Response, next: Next
 
     let { crossUserOps } = await AddressActivityQuery({
         senderAddress: address,
+        first: first,
+        skip: skip,
+        indexerNames: indexers
+    });
+
+    let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
+    res.send(decodedCrossUserOps);
+});
+
+router.get('/getTargetActivity', async (req: Request, res: Response, next: NextFunction) => {
+    const target = req.query.target as string;
+    let first = parseInt(req.query.first? req.query.first as string: "50");
+    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
+    
+    if (first > 100) first = 100;
+
+    if (!target) {
+        next(ApiError.badRequest("Missing address param"))
+        return;
+    }
+
+    let { crossUserOps } = await TargetQuery({
+        targetAddress: target,
+        first: first,
+        skip: skip,
+        indexerNames: indexers
+    });
+
+    let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
+    res.send(decodedCrossUserOps);
+});
+
+router.get('/getBeneficiaryActivity', async (req: Request, res: Response, next: NextFunction) => {
+    const beneficiary = req.query.beneficiary as string;
+    let first = parseInt(req.query.first? req.query.first as string: "50");
+    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
+    
+    if (first > 100) first = 100;
+
+    if (!beneficiary) {
+        next(ApiError.badRequest("Missing address param"))
+        return;
+    }
+
+    let { crossUserOps } = await BeneficiaryActivityQuery({
+        beneficiaryAddress: beneficiary,
+        first: first,
+        skip: skip,
+        indexerNames: indexers
+    });
+
+    let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
+    res.send(decodedCrossUserOps);
+});
+
+router.get('/getFactoryAccounts', async (req: Request, res: Response, next: NextFunction) => {
+    const factory = req.query.factory as string;
+    let first = parseInt(req.query.first? req.query.first as string: "50");
+    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
+    
+    if (first > 100) first = 100;
+
+    if (!factory) {
+        next(ApiError.badRequest("Missing address param"))
+        return;
+    }
+
+    let { crossUserOps } = await GetFactoryAccounts({
+        factoryAddress: factory,
+        first: first,
+        skip: skip,
+        indexerNames: indexers
+    });
+
+    let decodedCrossUserOps = populateCrossUserOpsWithTarget(crossUserOps)
+    res.send(decodedCrossUserOps);
+});
+
+router.get('/getLatestAccounts', async (req: Request, res: Response, next: NextFunction) => {
+    let first = parseInt(req.query.first? req.query.first as string: "50");
+    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
+    
+    if (first > 100) first = 100;
+
+    let { crossUserOps } = await GetLatestAccounts({
         first: first,
         skip: skip,
         indexerNames: indexers

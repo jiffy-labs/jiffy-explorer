@@ -14,5 +14,8 @@ query AddressActivityQuery($senderAddress: Bytes, $first: Int, $skip: Int, $inde
             blockNumber
             network
             input
+            target
+            beneficiary
+            factory
         }
     }

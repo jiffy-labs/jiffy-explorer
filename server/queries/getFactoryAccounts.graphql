@@ -1,0 +1,11 @@
+query GetFactoryAccounts($factoryAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
+  crossUserOps(first: $first, skip: $skip, where: {factory: $factoryAddress}, orderBy: blockTime, orderDirection: desc, indexerNames:$indexerNames) {
+    factory
+    sender
+    blockTime
+    blockNumber
+    actualGasUsed
+    actualGasCost
+    nonce
+  }
+}

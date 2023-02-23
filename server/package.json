@@ -8,6 +8,7 @@
     "build": "npx tsc && cd client && npm install --force && npm run build",
     "quick-build": "cd client && npm run build",
     "graph-build": "graphclient build",
+    "graph-rebuild": "graphclient rebuild",
     "start": "node dist/index.js",
     "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/server.js\""
   },
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/lazycoder1/jiffy-explorer#readme",
   "dependencies": {
+    "@elastic/elasticsearch": "^8.6.0",
     "@typechain/ethers-v5": "^10.2.0",
     "axios": "^1.2.2",
     "concurrently": "^7.6.0",
@@ -29,6 +31,8 @@
     "ethereum-input-data-decoder": "^0.4.2",
     "ethers": "^5.7.2",
     "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "express-openid-connect": "^2.12.0",
     "graphql": "^16.6.0",
     "winston-aws-cloudwatch": "^3.0.0"
   },

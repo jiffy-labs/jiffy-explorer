@@ -11,5 +11,8 @@ query SenderAddressQuery($senderAddress: Bytes) {
             actualGasPrice
             blockTime
             blockNumber
+            target
+            beneficiary
+            factory
         }
     }

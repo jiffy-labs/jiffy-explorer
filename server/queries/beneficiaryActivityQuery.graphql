@@ -1,5 +1,5 @@
-query PaymasterActivityQuery($paymasterAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
-        crossUserOps(first: $first, skip: $skip, where: { paymaster: $paymasterAddress }, orderBy: blockTime, orderDirection: desc, indexerNames:$indexerNames) {
+query BeneficiaryActivityQuery($beneficiaryAddress: Bytes, $first: Int, $skip: Int, $indexerNames: [String!]!) {
+        crossUserOps(first: $first, skip: $skip, where: { beneficiary: $beneficiaryAddress }, orderBy: blockTime, orderDirection: desc, indexerNames:$indexerNames) {
             paymaster
             nonce
             transactionHash

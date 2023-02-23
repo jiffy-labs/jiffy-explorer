@@ -2,7 +2,7 @@ sources:
   - name: userOpIndexer
     handler:
       graphql:
-        endpoint: https://api.thegraph.com/subgraphs/name/lazycoder1/{context.indexerName:aa-subgraphs-test}
+        endpoint: https://api.thegraph.com/subgraphs/name/lazycoder1/{context.indexerName:georli-jiffy-scan}
   # - name: mumbaiIndex
   #   handler:
   #     graphql:
@@ -32,6 +32,10 @@ documents:
   - ./queries/addressActivityQuery.graphql
   - ./queries/paymasterActivityQuery.graphql
   - ./queries/latestTransactions.graphql
+  - ./queries/beneficiaryActivityQuery.graphql
+  - ./queries/targetQuery.graphql
+  - ./queries/getFactoryAccounts.graphql
+  - ./queries/getLatestAccounts.graphql
 
   
 

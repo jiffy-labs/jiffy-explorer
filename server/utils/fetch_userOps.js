@@ -17,7 +17,6 @@ var data = {
             actualGasPrice
             blockTime
             blockNumber
-            network
             input
         }
     }`,
