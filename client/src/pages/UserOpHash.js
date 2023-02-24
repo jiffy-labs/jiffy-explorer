@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { ethers, BigNumber } from "ethers";
 // import decodeInputData from "../utils/test";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import { getSymbol, getReadableGasFee } from "../common/utils";
 
 import {
     Container,
@@ -247,8 +248,7 @@ const UserOpHash = () => {
                                         <ListItemText
                                             sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
                                         >
-                                            {(parseInt(userOp.actualGasCost) / 10 ** 18).toFixed(5).toString()}{" "}
-                                            {" " + userOp.network == "georli" ? "ETH" : "MATIC"}
+                                            {getReadableGasFee(userOp.actualGasCost, userOp.network)}
                                         </ListItemText>
                                     </ListItem>
                                 )}
@@ -277,6 +277,34 @@ const UserOpHash = () => {
                                             sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
                                         >
                                             {userOp.paymaster}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {userOp.paymaster && (
+                                    <ListItem disablePadding key="beneficiary">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>BENEFICIARY</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.beneficiary}
+                                        </ListItemText>
+                                    </ListItem>
+                                )}
+                                {(userOp.factory && userOp.factory != "0x") && (
+                                    <ListItem disablePadding key="factory">
+                                        <ListItemIcon>
+                                            <HelpOutlineIcon size="small" />
+                                        </ListItemIcon>
+                                        <ListItemText sx={{ width: "25%", wordWrap: "break-word" }}>FACTORY</ListItemText>
+                                        <ListItemText>:</ListItemText>
+                                        <ListItemText
+                                            sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
+                                        >
+                                            {userOp.factory}
                                         </ListItemText>
                                     </ListItem>
                                 )}
