@@ -19,6 +19,8 @@ import {
     IconButton,
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { getReadableGasFee } from "../common/utils";
+
 
 // 66 characters - request ID
 // 42 characters - address
@@ -70,7 +72,7 @@ const convertGraphDataToRows = (data) => {
                 </CopyButtonDiv>
             ),
             blockNumber: userOp.blockNumber,
-            gasCost: (userOp.actualGasCost / 10 ** 18).toFixed(5).toString() + " ETH",
+            gasCost: getReadableGasFee(userOp.actualGasCost, userOp.network),
             status: userOp.success ? "SUCCESS" : "REVERT",
             network: userOp.network,
             target: (

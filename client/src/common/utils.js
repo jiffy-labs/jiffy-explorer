@@ -9,6 +9,7 @@ export function getSymbol(network) {
 }
 
 export function getReadableGasFee(gasFee, network) {
+    console.log(gasFee, network)
     gasFee = parseInt(gasFee)
     console.log(gasFee)
     if (gasFee > 10**13) {

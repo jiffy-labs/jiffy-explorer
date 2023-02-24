@@ -8,6 +8,8 @@ import { Container, Table, TableBody, TableCell, TableContainer, TableHead, Tabl
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { styled } from "@mui/material/styles";
 import TransactionTable from "../components/TransactionTable";
+import { getReadableGasFee } from "../common/utils";
+
 
 const columns = [
     { dataField: "userOpHash", text: "HASH" },
@@ -57,7 +59,7 @@ const convertGraphDataToRows = (data) => {
                 </CopyButtonDiv>
             ),
             blockNumber: userOp.blockNumber,
-            gasCost: (userOp.actualGasCost / 10 ** 18).toFixed(5).toString() + " ETH",
+            gasCost: getReadableGasFee(userOp.actualGasCost, userOp.network),
             status: userOp.success ? "SUCCESS" : "REVERT",
             network: userOp.network,
             target: (
