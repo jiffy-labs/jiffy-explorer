@@ -23,17 +23,23 @@ const SearchBar = ({ noButton }) => {
         if (searchTerm.length == 42) {
             // This is an address
             fetch("/api/v0/getPaymasterActivity?address=" + searchTerm).then((res) =>
-                res.json().then((userOps) => {
-                    if (userOps.error) {
-                        navigate("/address/" + searchTerm);
-                        return
-                    }
-                    if (userOps.length == 0) {
+                {
+                    if (res.status == 400) {
                         navigate("/address/" + searchTerm);
                         return;
                     }
-                    navigate("/paymaster/" + searchTerm);
-                })
+                    res.json().then((userOps) => {
+                        if (userOps.error) {
+                            navigate("/address/" + searchTerm);
+                            return
+                        }
+                        if (userOps.length == 0) {
+                            navigate("/address/" + searchTerm);
+                            return;
+                        }
+                        navigate("/paymaster/" + searchTerm);
+                    })
+                }
             );
         } else if (searchTerm.length == 66) {
             // This is request ID
