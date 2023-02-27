@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { getReadableGasFee } from "../common/utils";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 
 
 
@@ -97,7 +97,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        ReactGA.pageview(window.location.pathname);
+        ReactGA.send({ hitType: "pageview", page: window.location.pathname });
         setLoading(true);
         fetch("/api/v0/getLatestTransactions").then((res) =>
             res.json().then((userOps) => {
