@@ -98,7 +98,25 @@ function NavBar({ page }) {
                                         style={{ textDecoration: "none", color: "white" }}
                                         href="https://documenter.getpostman.com/view/21318108/2s8YzZPJsr"
                                     >
-                                        <Typography textAlign="center">Docs</Typography>
+                                        <Typography textAlign="center">API DOCS</Typography>
+                                    </a>
+                                    <a
+                                        target="_blank"
+                                        style={{ textDecoration: "none", color: "white" }}
+                                        href="https://rb.gy/oqwqsy"
+                                    >
+                                        <Button key="docs" sx={{ my: 2, color: "white", display: "block" }}>
+                                            PRD link
+                                        </Button>
+                                    </a>
+                                    <a
+                                        target="_blank"
+                                        style={{ textDecoration: "none", color: "white" }}
+                                        href="https://twitter.com/JiffyScan"
+                                    >
+                                        <Button key="docs" sx={{ my: 2, color: "white", display: "block" }}>
+                                            TWITTER
+                                        </Button>
                                     </a>
                                 </MenuItem>
                             </Menu>
@@ -131,6 +149,24 @@ function NavBar({ page }) {
                             >
                                 <Button key="docs" sx={{ my: 2, color: "white", display: "block" }}>
                                     API docs
+                                </Button>
+                            </a>
+                            <a
+                                target="_blank"
+                                style={{ textDecoration: "none", color: "white" }}
+                                href="https://rb.gy/oqwqsy"
+                            >
+                                <Button key="docs" sx={{ my: 2, color: "white", display: "block" }}>
+                                    PRD link
+                                </Button>
+                            </a>
+                            <a
+                                target="_blank"
+                                style={{ textDecoration: "none", color: "white" }}
+                                href="https://twitter.com/JiffyScan"
+                            >
+                                <Button key="docs" sx={{ my: 2, color: "white", display: "block" }}>
+                                    TWITTER
                                 </Button>
                             </a>
                         </Box>
