@@ -11,8 +11,8 @@ import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.m
 import { ThemeProvider, CssBaseline, createTheme, Paper } from "@mui/material";
 import ReactGA from "react-ga";
 
-const TRACKING_ID = "G-XN6PVRG14Z"
-ReactGA.initialize(TRACKING_ID);
+const MEASUREMENT_ID = "G-XN6PVRG14Z"
+ReactGA.initialize(MEASUREMENT_ID);
 
 
 const theme = createTheme({
