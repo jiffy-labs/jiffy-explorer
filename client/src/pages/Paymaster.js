@@ -71,7 +71,7 @@ const convertGraphDataToRows = (data) => {
                     </IconButton>
                 </CopyButtonDiv>
             ),
-            gasCost:getReadableGasFee(userOp.gasCost, userOp.network),
+            gasCost: getReadableGasFee(userOp.actualGasCost, userOp.network),
             blockNumber: userOp.blockNumber,
             status: userOp.success ? "SUCCESS" : "REVERT",
             network: userOp.network,
