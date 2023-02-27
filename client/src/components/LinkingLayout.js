@@ -19,7 +19,7 @@ const LinkLayout = ({ children }) => (
     <Flex mt="50px" pl="120px" pr="120px" pt="20px" pb="25px" bg="#f4f4f4">
       <Box>
         <Heading as="h1" textAlign="center" fontSize="7xl" color="#502eb4">
-          <Link href="/">ji<span>ƒƒ</span>yscan</Link>
+          <Link href="/">Jiffy Scan</Link>
         </Heading>
         <Text fontSize="xs" textAlign="center" mt="5px" color="#502eb4">
         account abstracted transactions explorer for{" "}

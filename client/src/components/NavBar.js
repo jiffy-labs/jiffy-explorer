@@ -106,7 +106,7 @@ function NavBar({ page }) {
                                         href="https://rb.gy/oqwqsy"
                                     >
                                         <Button key="docs" sx={{ my: 2, color: "white", display: "block" }}>
-                                            PRD link
+                                            ROADMAP
                                         </Button>
                                     </a>
                                     <a
@@ -157,7 +157,7 @@ function NavBar({ page }) {
                                 href="https://rb.gy/oqwqsy"
                             >
                                 <Button key="docs" sx={{ my: 2, color: "white", display: "block" }}>
-                                    PRD link
+                                    ROADMAP
                                 </Button>
                             </a>
                             <a

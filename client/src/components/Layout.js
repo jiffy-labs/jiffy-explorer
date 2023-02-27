@@ -15,7 +15,7 @@ const Layout = () => (
     <div>
         <Container maxWidth="md" sx={{ marginTop: "50px", backgroundColor: "background.paper", padding: "spacing(8, 0, 6)" }}>
             <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
-                ji<span>ƒƒ</span>y-scan
+                Jiffy Scan
             </Typography>
             <Typography sx={{ marginBottom: "50px" }} variant="h5" align="center" color="textSecondary" paragraph>
                 User Op explorer for <a target="_blank" href="https://eips.ethereum.org/EIPS/eip-4337">EIP-4337</a>
