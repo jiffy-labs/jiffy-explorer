@@ -9,6 +9,11 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import "react-bootstrap-table2-paginator/dist/react-bootstrap-table2-paginator.min.css";
 // import { createTheme, ThemeProvider} from '@mui/material/styles';
 import { ThemeProvider, CssBaseline, createTheme, Paper } from "@mui/material";
+import ReactGA from "react-ga";
+
+const TRACKING_ID = "G-XN6PVRG14Z"
+ReactGA.initialize(TRACKING_ID);
+
 
 const theme = createTheme({
     palette: {

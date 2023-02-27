@@ -9,6 +9,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { styled } from "@mui/material/styles";
 import TransactionTable from "../components/TransactionTable";
 import { getReadableGasFee } from "../common/utils";
+import ReactGA from "react-ga";
 
 
 const columns = [
@@ -91,6 +92,7 @@ const Block = () => {
                 setLoading(false);
             })
         );
+        ReactGA.pageview(window.location.pathname);
     }, []);
 
     useEffect(() => {

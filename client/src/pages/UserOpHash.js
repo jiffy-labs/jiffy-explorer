@@ -25,6 +25,8 @@ import {
     ListItemText,
 } from "@mui/material";
 import NavBar from "../components/NavBar";
+import ReactGA from "react-ga";
+
 
 const UNISWAP_ROUTER = "68b3465833fb72a70ecdf485e0e4c7bd8665fc45";
 const UNITOKEN = "1f9840a85d5af5bf1d1762f925bdaddc4201f984";
@@ -78,6 +80,7 @@ const UserOpHash = () => {
     const [uniswapDeets, setUniswapDeets] = useState({ transaction: false });
 
     useEffect(() => {
+        ReactGA.pageview(window.location.pathname);
         setLoading(true);
         fetch("/api/v0/getUserOpInfo?userOpHash=" + userOpHash).then((res) =>
             res.json().then((userOp) => {

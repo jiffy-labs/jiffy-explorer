@@ -22,6 +22,8 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { styled } from "@mui/material/styles";
 import TransactionTable from "../components/TransactionTable";
 import { getReadableGasFee } from "../common/utils";
+import ReactGA from "react-ga";
+
 
 
 const columns = [
@@ -101,6 +103,7 @@ const Address = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        ReactGA.pageview(window.location.pathname);
         setLoading(true);
         fetch("/api/v0/getPaymasterActivity?address=" + address).then((res) =>
             res.json().then((userOps) => {

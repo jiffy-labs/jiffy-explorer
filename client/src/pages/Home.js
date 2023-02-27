@@ -20,6 +20,8 @@ import {
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { getReadableGasFee } from "../common/utils";
+import ReactGA from "react-ga";
+
 
 
 // 66 characters - request ID
@@ -95,6 +97,7 @@ const Home = () => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        ReactGA.pageview(window.location.pathname);
         setLoading(true);
         fetch("/api/v0/getLatestTransactions").then((res) =>
             res.json().then((userOps) => {
