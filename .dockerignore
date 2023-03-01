@@ -15,4 +15,7 @@ node_modules
 .gitignore# Elastic Beanstalk Files
 .elasticbeanstalk/*
 .git
+.gitignore# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.git
 .gitignore
