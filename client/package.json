@@ -60,7 +60,6 @@
     ]
   },
   "devDependencies": {
-    "@graphprotocol/client-cli": "^2.2.15",
     "assert": "^2.0.0",
     "cross-env": "^7.0.3",
     "crypto-browserify": "^3.12.0",
