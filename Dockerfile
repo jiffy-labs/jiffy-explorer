@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 RUN npm install --force
 
-ENV NODE_OPTIONS=--max-old-space-size=8192
+ENV NODE_OPTIONS=--max-old-space-size=16384
 
 RUN npm run build
 
