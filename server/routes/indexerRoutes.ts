@@ -27,28 +27,28 @@ interface PopulatedCrossUserOp {
 
 const router: Router = express.Router();
 const { AddressActivityQuery, BlockNumberQuery, UserOpQuery, PaymasterActivityQuery, LatestTransactionQuery, TargetQuery, BeneficiaryActivityQuery, GetLatestAccounts, GetFactoryAccounts } = getBuiltGraphSDK();
-const indexers: string[] = ["matic-jiffy-scan","optimism-goerli-jiffy-scan", "georli-jiffy-scan"]
+const indexers: string[] = ["matic-jiffy-scan", "optimism-goerli-jiffy-scan", "georli-jiffy-scan"]
 let abiCoder = new ethers.utils.AbiCoder()
 let userOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)[]", "address"]
 let candideUserOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)[]", "address"]
-let calldataParams = ["address","uint256","bytes"]
+let calldataParams = ["address", "uint256", "bytes"]
 
 const getCalldata = (network: String, calldata: String, sender: String, nonce: String): Result => {
     let decodedInput = abiCoder.decode(userOpsParams, "0x" + calldata.slice(10))
     try {
         let userOp = decodedInput[0][0]
-    } catch(err) {
+    } catch (err) {
         // TODO: find out a better way to detect its from candide wallet
         decodedInput = abiCoder.decode(candideUserOpsParams, "0x" + calldata.slice(10))
-        if (decodedInput == null) return ["","",""]
+        if (decodedInput == null) return ["", "", ""]
     }
-    
+
     for (let userOpIdx in decodedInput[0]) {
         let userOp = decodedInput[0][userOpIdx]
         if (sender.toLowerCase() == userOp[0].toLowerCase() && nonce.toString() == userOp[1].toString()) {
-            try{
-                let callDataDecoded = abiCoder.decode(calldataParams, "0x"+userOp[3].slice(10))
-                if (callDataDecoded == null) return ["","",""]
+            try {
+                let callDataDecoded = abiCoder.decode(calldataParams, "0x" + userOp[3].slice(10))
+                if (callDataDecoded == null) return ["", "", ""]
                 return callDataDecoded;
             } catch {
                 return null
@@ -92,16 +92,16 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
 
 router.get('/decodeTransaction', async (req: Request, res: Response, next: NextFunction) => {
     const inputData = req.query.inputData as string;
-    const value = req.query.value as string; 
+    const value = req.query.value as string;
     const contractAddress = req.query.contractAddress as string;
     const network = req.query.network as string;
-    
+
     if (!inputData || !value || !contractAddress || !network) {
         next(ApiError.badRequest("Missing input params"))
     }
 
     if (inputData == "0x") {
-        {}
+        { }
     }
     const decodedInputData = await decodeInputData(inputData, value, contractAddress, network);
     res.send(decodedInputData);
@@ -110,9 +110,9 @@ router.get('/decodeTransaction', async (req: Request, res: Response, next: NextF
 
 router.get('/getAddressActivity', async (req: Request, res: Response, next: NextFunction) => {
     const address = req.query.address as string;
-    let first = parseInt(req.query.first? req.query.first as string: "50");
-    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
-    
+    let first = parseInt(req.query.first ? req.query.first as string : "50");
+    let skip = parseInt(req.query.skip ? req.query.skip as string : "0");
+
     if (first > 100) first = 100;
 
     if (!address) {
@@ -133,9 +133,9 @@ router.get('/getAddressActivity', async (req: Request, res: Response, next: Next
 
 router.get('/getTargetActivity', async (req: Request, res: Response, next: NextFunction) => {
     const target = req.query.target as string;
-    let first = parseInt(req.query.first? req.query.first as string: "50");
-    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
-    
+    let first = parseInt(req.query.first ? req.query.first as string : "50");
+    let skip = parseInt(req.query.skip ? req.query.skip as string : "0");
+
     if (first > 100) first = 100;
 
     if (!target) {
@@ -156,9 +156,9 @@ router.get('/getTargetActivity', async (req: Request, res: Response, next: NextF
 
 router.get('/getBeneficiaryActivity', async (req: Request, res: Response, next: NextFunction) => {
     const beneficiary = req.query.beneficiary as string;
-    let first = parseInt(req.query.first? req.query.first as string: "50");
-    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
-    
+    let first = parseInt(req.query.first ? req.query.first as string : "50");
+    let skip = parseInt(req.query.skip ? req.query.skip as string : "0");
+
     if (first > 100) first = 100;
 
     if (!beneficiary) {
@@ -179,9 +179,9 @@ router.get('/getBeneficiaryActivity', async (req: Request, res: Response, next: 
 
 router.get('/getFactoryAccounts', async (req: Request, res: Response, next: NextFunction) => {
     const factory = req.query.factory as string;
-    let first = parseInt(req.query.first? req.query.first as string: "50");
-    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
-    
+    let first = parseInt(req.query.first ? req.query.first as string : "50");
+    let skip = parseInt(req.query.skip ? req.query.skip as string : "0");
+
     if (first > 100) first = 100;
 
     if (!factory) {
@@ -200,9 +200,9 @@ router.get('/getFactoryAccounts', async (req: Request, res: Response, next: Next
 });
 
 router.get('/getLatestAccounts', async (req: Request, res: Response, next: NextFunction) => {
-    let first = parseInt(req.query.first? req.query.first as string: "50");
-    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
-    
+    let first = parseInt(req.query.first ? req.query.first as string : "50");
+    let skip = parseInt(req.query.skip ? req.query.skip as string : "0");
+
     if (first > 100) first = 100;
 
     let { crossUserOps } = await GetLatestAccounts({
@@ -216,9 +216,9 @@ router.get('/getLatestAccounts', async (req: Request, res: Response, next: NextF
 
 router.get('/getAddressActivityTest', async (req: Request, res: Response, next: NextFunction) => {
     const address = req.query.address as string;
-    let first = parseInt(req.query.first? req.query.first as string: "50");
-    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
-    
+    let first = parseInt(req.query.first ? req.query.first as string : "50");
+    let skip = parseInt(req.query.skip ? req.query.skip as string : "0");
+
     if (first > 100) first = 100;
 
     if (!address) {
@@ -251,9 +251,9 @@ router.get('/getLatestTransactions', async (req: Request, res: Response) => {
 
 router.get('/getBlockActivity', async (req: Request, res: Response, next: NextFunction) => {
     const block = parseInt(req.query.block as string);
-    let first = parseInt(req.query.first? req.query.first as string: "50");
-    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
-    
+    let first = parseInt(req.query.first ? req.query.first as string : "50");
+    let skip = parseInt(req.query.skip ? req.query.skip as string : "0");
+
     if (first > 100) first = 100;
 
     if (isNaN(block)) {
@@ -293,9 +293,9 @@ router.get('/getUserOpInfo', async (req: Request, res: Response, next: NextFunct
 
 router.get('/getPaymasterActivity', async (req: Request, res: Response, next: NextFunction) => {
     const address = req.query.address as string;
-    let first = parseInt(req.query.first? req.query.first as string: "50");
-    let skip = parseInt(req.query.skip? req.query.skip as string: "0");
-    
+    let first = parseInt(req.query.first ? req.query.first as string : "50");
+    let skip = parseInt(req.query.skip ? req.query.skip as string : "0");
+
     if (first > 100) first = 100;
 
     if (!address) {
