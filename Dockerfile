@@ -1,4 +1,4 @@
-FROM node:17.8.0
+FROM node:18.14.1
 
 # set working directory
 WORKDIR /app
