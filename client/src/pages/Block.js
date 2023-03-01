@@ -1,6 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery, gql } from "@apollo/client";
 import { ethers, BigNumber } from "ethers";
 import NavBar from "../components/NavBar";
 import moment from "moment";
