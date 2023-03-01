@@ -283,7 +283,7 @@ const UserOpHash = () => {
                                         </ListItemText>
                                     </ListItem>
                                 )}
-                                {userOp.paymaster && (
+                                {userOp.network && (
                                     <ListItem disablePadding key="paymaster">
                                         <ListItemIcon>
                                             <HelpOutlineIcon size="small" />
