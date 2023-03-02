@@ -56,6 +56,10 @@ export type Query = {
   stakeUnlockeds: Array<StakeUnlocked>;
   stakeWithdrawn?: Maybe<StakeWithdrawn>;
   stakeWithdrawns: Array<StakeWithdrawn>;
+  evmaddress?: Maybe<EVMAddress>;
+  evmaddresses: Array<EVMAddress>;
+  hash?: Maybe<Hash>;
+  hashes: Array<Hash>;
   userOp?: Maybe<UserOp>;
   userOps: Array<UserOp>;
   withdrawn?: Maybe<Withdrawn>;
@@ -174,6 +178,42 @@ export type QuerystakeWithdrawnsArgs = {
 };
 
 
+export type QueryevmaddressArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryevmaddressesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<EVMAddress_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<EVMAddress_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryhashArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryhashesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Hash_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Hash_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
 export type QueryuserOpArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
@@ -237,6 +277,10 @@ export type Subscription = {
   stakeUnlockeds: Array<StakeUnlocked>;
   stakeWithdrawn?: Maybe<StakeWithdrawn>;
   stakeWithdrawns: Array<StakeWithdrawn>;
+  evmaddress?: Maybe<EVMAddress>;
+  evmaddresses: Array<EVMAddress>;
+  hash?: Maybe<Hash>;
+  hashes: Array<Hash>;
   userOp?: Maybe<UserOp>;
   userOps: Array<UserOp>;
   withdrawn?: Maybe<Withdrawn>;
@@ -349,6 +393,42 @@ export type SubscriptionstakeWithdrawnsArgs = {
   orderBy?: InputMaybe<StakeWithdrawn_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   where?: InputMaybe<StakeWithdrawn_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionevmaddressArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionevmaddressesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<EVMAddress_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<EVMAddress_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionhashArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionhashesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Hash_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Hash_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -498,6 +578,12 @@ export type AccountDeployed_orderBy =
   | 'blockTimestamp'
   | 'transactionHash';
 
+export type AddressType =
+  | 'WALLET'
+  | 'PAYMASTER'
+  | 'FACTORY'
+  | 'BENEFICIARY';
+
 export type BlockChangedFilter = {
   number_gte: Scalars['Int'];
 };
@@ -585,6 +671,90 @@ export type Deposited_orderBy =
   | 'blockNumber'
   | 'blockTimestamp'
   | 'transactionHash';
+
+export type EVMAddress = {
+  id: Scalars['ID'];
+  address?: Maybe<Scalars['Bytes']>;
+  Addresstype?: Maybe<AddressType>;
+};
+
+export type EVMAddress_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  address?: InputMaybe<Scalars['Bytes']>;
+  address_not?: InputMaybe<Scalars['Bytes']>;
+  address_gt?: InputMaybe<Scalars['Bytes']>;
+  address_lt?: InputMaybe<Scalars['Bytes']>;
+  address_gte?: InputMaybe<Scalars['Bytes']>;
+  address_lte?: InputMaybe<Scalars['Bytes']>;
+  address_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  address_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  address_contains?: InputMaybe<Scalars['Bytes']>;
+  address_not_contains?: InputMaybe<Scalars['Bytes']>;
+  Addresstype?: InputMaybe<AddressType>;
+  Addresstype_not?: InputMaybe<AddressType>;
+  Addresstype_in?: InputMaybe<Array<AddressType>>;
+  Addresstype_not_in?: InputMaybe<Array<AddressType>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<EVMAddress_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<EVMAddress_filter>>>;
+};
+
+export type EVMAddress_orderBy =
+  | 'id'
+  | 'address'
+  | 'Addresstype';
+
+export type Hash = {
+  id: Scalars['ID'];
+  hash?: Maybe<Scalars['Bytes']>;
+  HashType?: Maybe<HashType>;
+};
+
+export type HashType =
+  | 'USER_OP_HASH'
+  | 'TRANSACTION_HASH';
+
+export type Hash_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  hash?: InputMaybe<Scalars['Bytes']>;
+  hash_not?: InputMaybe<Scalars['Bytes']>;
+  hash_gt?: InputMaybe<Scalars['Bytes']>;
+  hash_lt?: InputMaybe<Scalars['Bytes']>;
+  hash_gte?: InputMaybe<Scalars['Bytes']>;
+  hash_lte?: InputMaybe<Scalars['Bytes']>;
+  hash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  hash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  hash_contains?: InputMaybe<Scalars['Bytes']>;
+  hash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  HashType?: InputMaybe<HashType>;
+  HashType_not?: InputMaybe<HashType>;
+  HashType_in?: InputMaybe<Array<HashType>>;
+  HashType_not_in?: InputMaybe<Array<HashType>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Hash_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Hash_filter>>>;
+};
+
+export type Hash_orderBy =
+  | 'id'
+  | 'hash'
+  | 'HashType';
 
 /** Defines the order direction, either ascending or descending */
 export type OrderDirection =
@@ -1356,6 +1526,7 @@ export type ResolversTypes = ResolversObject<{
   AccountDeployed: ResolverTypeWrapper<AccountDeployed>;
   AccountDeployed_filter: AccountDeployed_filter;
   AccountDeployed_orderBy: AccountDeployed_orderBy;
+  AddressType: AddressType;
   BigDecimal: ResolverTypeWrapper<Scalars['BigDecimal']>;
   BigInt: ResolverTypeWrapper<Scalars['BigInt']>;
   BlockChangedFilter: BlockChangedFilter;
@@ -1365,7 +1536,14 @@ export type ResolversTypes = ResolversObject<{
   Deposited: ResolverTypeWrapper<Deposited>;
   Deposited_filter: Deposited_filter;
   Deposited_orderBy: Deposited_orderBy;
+  EVMAddress: ResolverTypeWrapper<EVMAddress>;
+  EVMAddress_filter: EVMAddress_filter;
+  EVMAddress_orderBy: EVMAddress_orderBy;
   Float: ResolverTypeWrapper<Scalars['Float']>;
+  Hash: ResolverTypeWrapper<Hash>;
+  HashType: HashType;
+  Hash_filter: Hash_filter;
+  Hash_orderBy: Hash_orderBy;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
   OrderDirection: OrderDirection;
@@ -1407,7 +1585,11 @@ export type ResolversParentTypes = ResolversObject<{
   Bytes: Scalars['Bytes'];
   Deposited: Deposited;
   Deposited_filter: Deposited_filter;
+  EVMAddress: EVMAddress;
+  EVMAddress_filter: EVMAddress_filter;
   Float: Scalars['Float'];
+  Hash: Hash;
+  Hash_filter: Hash_filter;
   ID: Scalars['ID'];
   Int: Scalars['Int'];
   SignatureAggregatorChanged: SignatureAggregatorChanged;
@@ -1456,6 +1638,10 @@ export type QueryResolvers<ContextType = MeshContext & { indexerName: string }, 
   stakeUnlockeds?: Resolver<Array<ResolversTypes['StakeUnlocked']>, ParentType, ContextType, RequireFields<QuerystakeUnlockedsArgs, 'skip' | 'first' | 'subgraphError'>>;
   stakeWithdrawn?: Resolver<Maybe<ResolversTypes['StakeWithdrawn']>, ParentType, ContextType, RequireFields<QuerystakeWithdrawnArgs, 'id' | 'subgraphError'>>;
   stakeWithdrawns?: Resolver<Array<ResolversTypes['StakeWithdrawn']>, ParentType, ContextType, RequireFields<QuerystakeWithdrawnsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  evmaddress?: Resolver<Maybe<ResolversTypes['EVMAddress']>, ParentType, ContextType, RequireFields<QueryevmaddressArgs, 'id' | 'subgraphError'>>;
+  evmaddresses?: Resolver<Array<ResolversTypes['EVMAddress']>, ParentType, ContextType, RequireFields<QueryevmaddressesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  hash?: Resolver<Maybe<ResolversTypes['Hash']>, ParentType, ContextType, RequireFields<QueryhashArgs, 'id' | 'subgraphError'>>;
+  hashes?: Resolver<Array<ResolversTypes['Hash']>, ParentType, ContextType, RequireFields<QueryhashesArgs, 'skip' | 'first' | 'subgraphError'>>;
   userOp?: Resolver<Maybe<ResolversTypes['UserOp']>, ParentType, ContextType, RequireFields<QueryuserOpArgs, 'id' | 'subgraphError'>>;
   userOps?: Resolver<Array<ResolversTypes['UserOp']>, ParentType, ContextType, RequireFields<QueryuserOpsArgs, 'skip' | 'first' | 'subgraphError'>>;
   withdrawn?: Resolver<Maybe<ResolversTypes['Withdrawn']>, ParentType, ContextType, RequireFields<QuerywithdrawnArgs, 'id' | 'subgraphError'>>;
@@ -1477,6 +1663,10 @@ export type SubscriptionResolvers<ContextType = MeshContext & { indexerName: str
   stakeUnlockeds?: SubscriptionResolver<Array<ResolversTypes['StakeUnlocked']>, "stakeUnlockeds", ParentType, ContextType, RequireFields<SubscriptionstakeUnlockedsArgs, 'skip' | 'first' | 'subgraphError'>>;
   stakeWithdrawn?: SubscriptionResolver<Maybe<ResolversTypes['StakeWithdrawn']>, "stakeWithdrawn", ParentType, ContextType, RequireFields<SubscriptionstakeWithdrawnArgs, 'id' | 'subgraphError'>>;
   stakeWithdrawns?: SubscriptionResolver<Array<ResolversTypes['StakeWithdrawn']>, "stakeWithdrawns", ParentType, ContextType, RequireFields<SubscriptionstakeWithdrawnsArgs, 'skip' | 'first' | 'subgraphError'>>;
+  evmaddress?: SubscriptionResolver<Maybe<ResolversTypes['EVMAddress']>, "evmaddress", ParentType, ContextType, RequireFields<SubscriptionevmaddressArgs, 'id' | 'subgraphError'>>;
+  evmaddresses?: SubscriptionResolver<Array<ResolversTypes['EVMAddress']>, "evmaddresses", ParentType, ContextType, RequireFields<SubscriptionevmaddressesArgs, 'skip' | 'first' | 'subgraphError'>>;
+  hash?: SubscriptionResolver<Maybe<ResolversTypes['Hash']>, "hash", ParentType, ContextType, RequireFields<SubscriptionhashArgs, 'id' | 'subgraphError'>>;
+  hashes?: SubscriptionResolver<Array<ResolversTypes['Hash']>, "hashes", ParentType, ContextType, RequireFields<SubscriptionhashesArgs, 'skip' | 'first' | 'subgraphError'>>;
   userOp?: SubscriptionResolver<Maybe<ResolversTypes['UserOp']>, "userOp", ParentType, ContextType, RequireFields<SubscriptionuserOpArgs, 'id' | 'subgraphError'>>;
   userOps?: SubscriptionResolver<Array<ResolversTypes['UserOp']>, "userOps", ParentType, ContextType, RequireFields<SubscriptionuserOpsArgs, 'skip' | 'first' | 'subgraphError'>>;
   withdrawn?: SubscriptionResolver<Maybe<ResolversTypes['Withdrawn']>, "withdrawn", ParentType, ContextType, RequireFields<SubscriptionwithdrawnArgs, 'id' | 'subgraphError'>>;
@@ -1515,6 +1705,20 @@ export type DepositedResolvers<ContextType = MeshContext & { indexerName: string
   blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   blockTimestamp?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
   transactionHash?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type EVMAddressResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['EVMAddress'] = ResolversParentTypes['EVMAddress']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  address?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  Addresstype?: Resolver<Maybe<ResolversTypes['AddressType']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+}>;
+
+export type HashResolvers<ContextType = MeshContext & { indexerName: string }, ParentType extends ResolversParentTypes['Hash'] = ResolversParentTypes['Hash']> = ResolversObject<{
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  hash?: Resolver<Maybe<ResolversTypes['Bytes']>, ParentType, ContextType>;
+  HashType?: Resolver<Maybe<ResolversTypes['HashType']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
@@ -1616,6 +1820,8 @@ export type Resolvers<ContextType = MeshContext & { indexerName: string }> = Res
   BigInt?: GraphQLScalarType;
   Bytes?: GraphQLScalarType;
   Deposited?: DepositedResolvers<ContextType>;
+  EVMAddress?: EVMAddressResolvers<ContextType>;
+  Hash?: HashResolvers<ContextType>;
   SignatureAggregatorChanged?: SignatureAggregatorChangedResolvers<ContextType>;
   StakeLocked?: StakeLockedResolvers<ContextType>;
   StakeUnlocked?: StakeUnlockedResolvers<ContextType>;
@@ -1774,8 +1980,8 @@ const merger = new(BareMerger as any)({
   };
 }
 
-export function createBuiltMeshHTTPHandler<TServerContext = {}>(): MeshHTTPHandler<TServerContext> {
-  return createMeshHTTPHandler<TServerContext>({
+export function createBuiltMeshHTTPHandler(): MeshHTTPHandler<MeshContext> {
+  return createMeshHTTPHandler<MeshContext>({
     baseDir,
     getBuiltMesh: getBuiltGraphClient,
     rawServeConfig: undefined,

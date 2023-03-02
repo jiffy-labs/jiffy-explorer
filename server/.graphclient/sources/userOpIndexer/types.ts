@@ -125,6 +125,12 @@ export type AccountDeployed_orderBy =
   | 'blockTimestamp'
   | 'transactionHash';
 
+export type AddressType =
+  | 'WALLET'
+  | 'PAYMASTER'
+  | 'FACTORY'
+  | 'BENEFICIARY';
+
 export type BlockChangedFilter = {
   number_gte: Scalars['Int'];
 };
@@ -213,6 +219,90 @@ export type Deposited_orderBy =
   | 'blockTimestamp'
   | 'transactionHash';
 
+export type EVMAddress = {
+  id: Scalars['ID'];
+  address?: Maybe<Scalars['Bytes']>;
+  Addresstype?: Maybe<AddressType>;
+};
+
+export type EVMAddress_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  address?: InputMaybe<Scalars['Bytes']>;
+  address_not?: InputMaybe<Scalars['Bytes']>;
+  address_gt?: InputMaybe<Scalars['Bytes']>;
+  address_lt?: InputMaybe<Scalars['Bytes']>;
+  address_gte?: InputMaybe<Scalars['Bytes']>;
+  address_lte?: InputMaybe<Scalars['Bytes']>;
+  address_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  address_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  address_contains?: InputMaybe<Scalars['Bytes']>;
+  address_not_contains?: InputMaybe<Scalars['Bytes']>;
+  Addresstype?: InputMaybe<AddressType>;
+  Addresstype_not?: InputMaybe<AddressType>;
+  Addresstype_in?: InputMaybe<Array<AddressType>>;
+  Addresstype_not_in?: InputMaybe<Array<AddressType>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<EVMAddress_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<EVMAddress_filter>>>;
+};
+
+export type EVMAddress_orderBy =
+  | 'id'
+  | 'address'
+  | 'Addresstype';
+
+export type Hash = {
+  id: Scalars['ID'];
+  hash?: Maybe<Scalars['Bytes']>;
+  HashType?: Maybe<HashType>;
+};
+
+export type HashType =
+  | 'USER_OP_HASH'
+  | 'TRANSACTION_HASH';
+
+export type Hash_filter = {
+  id?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  hash?: InputMaybe<Scalars['Bytes']>;
+  hash_not?: InputMaybe<Scalars['Bytes']>;
+  hash_gt?: InputMaybe<Scalars['Bytes']>;
+  hash_lt?: InputMaybe<Scalars['Bytes']>;
+  hash_gte?: InputMaybe<Scalars['Bytes']>;
+  hash_lte?: InputMaybe<Scalars['Bytes']>;
+  hash_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  hash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  hash_contains?: InputMaybe<Scalars['Bytes']>;
+  hash_not_contains?: InputMaybe<Scalars['Bytes']>;
+  HashType?: InputMaybe<HashType>;
+  HashType_not?: InputMaybe<HashType>;
+  HashType_in?: InputMaybe<Array<HashType>>;
+  HashType_not_in?: InputMaybe<Array<HashType>>;
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  and?: InputMaybe<Array<InputMaybe<Hash_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Hash_filter>>>;
+};
+
+export type Hash_orderBy =
+  | 'id'
+  | 'hash'
+  | 'HashType';
+
 /** Defines the order direction, either ascending or descending */
 export type OrderDirection =
   | 'asc'
@@ -231,6 +321,10 @@ export type Query = {
   stakeUnlockeds: Array<StakeUnlocked>;
   stakeWithdrawn?: Maybe<StakeWithdrawn>;
   stakeWithdrawns: Array<StakeWithdrawn>;
+  evmaddress?: Maybe<EVMAddress>;
+  evmaddresses: Array<EVMAddress>;
+  hash?: Maybe<Hash>;
+  hashes: Array<Hash>;
   userOp?: Maybe<UserOp>;
   userOps: Array<UserOp>;
   withdrawn?: Maybe<Withdrawn>;
@@ -343,6 +437,42 @@ export type QuerystakeWithdrawnsArgs = {
   orderBy?: InputMaybe<StakeWithdrawn_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   where?: InputMaybe<StakeWithdrawn_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryevmaddressArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryevmaddressesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<EVMAddress_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<EVMAddress_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryhashArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryhashesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Hash_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Hash_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -725,6 +855,10 @@ export type Subscription = {
   stakeUnlockeds: Array<StakeUnlocked>;
   stakeWithdrawn?: Maybe<StakeWithdrawn>;
   stakeWithdrawns: Array<StakeWithdrawn>;
+  evmaddress?: Maybe<EVMAddress>;
+  evmaddresses: Array<EVMAddress>;
+  hash?: Maybe<Hash>;
+  hashes: Array<Hash>;
   userOp?: Maybe<UserOp>;
   userOps: Array<UserOp>;
   withdrawn?: Maybe<Withdrawn>;
@@ -837,6 +971,42 @@ export type SubscriptionstakeWithdrawnsArgs = {
   orderBy?: InputMaybe<StakeWithdrawn_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
   where?: InputMaybe<StakeWithdrawn_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionevmaddressArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionevmaddressesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<EVMAddress_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<EVMAddress_filter>;
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionhashArgs = {
+  id: Scalars['ID'];
+  block?: InputMaybe<Block_height>;
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionhashesArgs = {
+  skip?: InputMaybe<Scalars['Int']>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Hash_orderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  where?: InputMaybe<Hash_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -1259,6 +1429,14 @@ export type _SubgraphErrorPolicy_ =
   /** null **/
   stakeWithdrawns: InContextSdkMethod<Query['stakeWithdrawns'], QuerystakeWithdrawnsArgs, MeshContext>,
   /** null **/
+  evmaddress: InContextSdkMethod<Query['evmaddress'], QueryevmaddressArgs, MeshContext>,
+  /** null **/
+  evmaddresses: InContextSdkMethod<Query['evmaddresses'], QueryevmaddressesArgs, MeshContext>,
+  /** null **/
+  hash: InContextSdkMethod<Query['hash'], QueryhashArgs, MeshContext>,
+  /** null **/
+  hashes: InContextSdkMethod<Query['hashes'], QueryhashesArgs, MeshContext>,
+  /** null **/
   userOp: InContextSdkMethod<Query['userOp'], QueryuserOpArgs, MeshContext>,
   /** null **/
   userOps: InContextSdkMethod<Query['userOps'], QueryuserOpsArgs, MeshContext>,
@@ -1299,6 +1477,14 @@ export type _SubgraphErrorPolicy_ =
   stakeWithdrawn: InContextSdkMethod<Subscription['stakeWithdrawn'], SubscriptionstakeWithdrawnArgs, MeshContext>,
   /** null **/
   stakeWithdrawns: InContextSdkMethod<Subscription['stakeWithdrawns'], SubscriptionstakeWithdrawnsArgs, MeshContext>,
+  /** null **/
+  evmaddress: InContextSdkMethod<Subscription['evmaddress'], SubscriptionevmaddressArgs, MeshContext>,
+  /** null **/
+  evmaddresses: InContextSdkMethod<Subscription['evmaddresses'], SubscriptionevmaddressesArgs, MeshContext>,
+  /** null **/
+  hash: InContextSdkMethod<Subscription['hash'], SubscriptionhashArgs, MeshContext>,
+  /** null **/
+  hashes: InContextSdkMethod<Subscription['hashes'], SubscriptionhashesArgs, MeshContext>,
   /** null **/
   userOp: InContextSdkMethod<Subscription['userOp'], SubscriptionuserOpArgs, MeshContext>,
   /** null **/
