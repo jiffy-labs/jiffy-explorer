@@ -27,6 +27,7 @@ function TransactionTable({ rows, columns, tableAlign, tableTitle }) {
             setCount(rows.length/10)
     },[rows])
 
+
     return (
         <TableContainer component={Paper}>
             <Typography variant="h6" align={tableAlign}>
