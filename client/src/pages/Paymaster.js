@@ -78,8 +78,8 @@ const convertGraphDataToRows = (data) => {
             status: userOp.success ? "SUCCESS" : "REVERT",
             network: userOp.network,
             target: (
-                <CopyButtonDiv>{}
-                    {(userOp.target != null) ?? userOp.target.slice(0, 10) + "..."}
+                <CopyButtonDiv>
+                    {(userOp.target != null) && userOp.target.slice(0, 10) + "..."}
                     <IconButton onClick={() => handleCopy(userOp.target || "")}>
                         <ContentCopyIcon size="small" />
                     </IconButton>
