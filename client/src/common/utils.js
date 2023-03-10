@@ -4,7 +4,7 @@ export function getSymbol(network) {
     else if (network == "mumbai") return "MATIC"
     else if (network == "optimism-goerli") return "OPT"
     else if (network == "optimism-goerli") return "OPT"
-    else if (network == "polygon") return "MATIC"
+    else if (network == "matic") return "MATIC"
     else return "ETH";
 }
 
