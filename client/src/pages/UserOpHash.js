@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ethers, BigNumber } from "ethers";
 // import decodeInputData from "../utils/test";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
-import { getSymbol, getReadableGasFee } from "../common/utils";
+import { getSymbol, getReadableGasFee, updateNetwork } from "../common/utils";
 
 import {
     Container,
@@ -293,7 +293,7 @@ const UserOpHash = () => {
                                         <ListItemText
                                             sx={{ width: "60%", wordWrap: "break-word", borderBottom: "1px solid rgb(235, 235, 235)" }}
                                         >
-                                            {userOp.network}
+                                            {updateNetwork(userOp.network)}
                                         </ListItemText>
                                     </ListItem>
                                 )}

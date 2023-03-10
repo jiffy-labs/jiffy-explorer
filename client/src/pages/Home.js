@@ -19,7 +19,7 @@ import {
     IconButton,
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import { getReadableGasFee } from "../common/utils";
+import { getReadableGasFee, updateNetwork } from "../common/utils";
 import ReactGA from "react-ga4";
 
 
@@ -76,7 +76,7 @@ const convertGraphDataToRows = (data) => {
             blockNumber: userOp.blockNumber,
             gasCost: getReadableGasFee(userOp.actualGasCost, userOp.network),
             status: userOp.success ? "SUCCESS" : "REVERT",
-            network: userOp.network,
+            network: updateNetwork(userOp.network),
             target: (
                 <CopyButtonDiv>
                     {(userOp.target != null) && userOp.target.slice(0, 10) + "..."}

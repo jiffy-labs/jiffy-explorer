@@ -21,7 +21,7 @@ import {
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { styled } from "@mui/material/styles";
 import TransactionTable from "../components/TransactionTable";
-import { getReadableGasFee } from "../common/utils";
+import { getReadableGasFee, updateNetwork} from "../common/utils";
 import ReactGA from "react-ga4";
 
 const columns = [
@@ -74,7 +74,7 @@ const convertGraphDataToRows = (data) => {
             gasCost: getReadableGasFee(userOp.actualGasCost, userOp.network),
             blockNumber: userOp.blockNumber,
             status: userOp.success ? "SUCCESS" : "REVERT",
-            network: userOp.network,
+            network: updateNetwork(userOp.network),
             target: (
                 <CopyButtonDiv>{}
                     {(userOp.target != null) && userOp.target.slice(0, 10) + "..."}

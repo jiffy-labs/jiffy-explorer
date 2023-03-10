@@ -8,6 +8,11 @@ export function getSymbol(network) {
     else return "ETH";
 }
 
+export function updateNetwork(network) {
+    if (network == "mainnet") return "ETH-mainnet" 
+    else return network;
+}
+
 export function getReadableGasFee(gasFee, network) {
     console.log(gasFee, network)
     gasFee = parseInt(gasFee)
