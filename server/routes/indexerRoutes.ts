@@ -102,6 +102,7 @@ router.get('/decodeTransaction', async (req: Request, res: Response, next: NextF
 
     if (!inputData || !value || !contractAddress || !network) {
         next(ApiError.badRequest("Missing input params"))
+        return;
     }
 
     if (inputData == "0x") {
