@@ -63,7 +63,12 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
     let populatedCrossUserOps: PopulatedCrossUserOp[] = []
     for (let userOpIdx in crossUserOps) {
         let crossUserOp = crossUserOps[userOpIdx]
-        let decodedCallData = getCalldata(crossUserOp.network, crossUserOp.input, crossUserOp.sender, crossUserOp.nonce)
+        let decodedCallData;
+        try{
+            decodedCallData = getCalldata(crossUserOp.network, crossUserOp.input, crossUserOp.sender, crossUserOp.nonce)
+        } catch(err) {
+            decodedCallData = null
+        }
         let populatedUserOp: PopulatedCrossUserOp = {
             paymaster: crossUserOp.paymaster,
             nonce: crossUserOp.nonce,
