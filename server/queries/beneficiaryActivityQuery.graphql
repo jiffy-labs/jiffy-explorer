@@ -8,7 +8,6 @@ query BeneficiaryActivityQuery($beneficiaryAddress: Bytes, $first: Int, $skip: I
             revertReason
             userOpHash
             actualGasCost
-            actualGasPrice
             actualGasUsed
             blockTime
             blockNumber

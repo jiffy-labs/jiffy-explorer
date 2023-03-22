@@ -8,7 +8,6 @@ query PaymasterActivityQuery($paymasterAddress: Bytes, $first: Int, $skip: Int, 
             revertReason
             userOpHash
             actualGasCost
-            actualGasPrice
             actualGasUsed
             blockTime
             blockNumber

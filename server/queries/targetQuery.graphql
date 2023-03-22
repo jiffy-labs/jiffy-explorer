@@ -8,7 +8,6 @@ query TargetQuery($targetAddress: Bytes, $first: Int, $skip: Int, $indexerNames:
             revertReason
             userOpHash
             actualGasCost
-            actualGasPrice
             actualGasUsed
             blockTime
             blockNumber

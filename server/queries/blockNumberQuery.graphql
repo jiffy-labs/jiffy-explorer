@@ -8,7 +8,6 @@ query BlockNumberQuery($blockNumber: BigInt, $first: Int, $skip: Int, $indexerNa
             revertReason
             userOpHash
             actualGasCost
-            actualGasPrice
             actualGasUsed
             blockTime
             blockNumber

@@ -8,7 +8,6 @@ query UserOpQuery($userOpHash: Bytes, $indexerNames: [String!]!) {
             revertReason
             userOpHash
             actualGasCost
-            actualGasPrice
             actualGasUsed
             blockTime
             blockNumber

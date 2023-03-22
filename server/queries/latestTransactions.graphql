@@ -8,7 +8,6 @@ query LatestTransactionQuery($senderAddress: Bytes, $first: Int, $skip: Int, $in
             revertReason
             userOpHash
             actualGasCost
-            actualGasPrice
             actualGasUsed
             blockTime
             blockNumber

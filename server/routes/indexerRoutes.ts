@@ -13,7 +13,6 @@ interface PopulatedCrossUserOp {
     revertReason: string
     userOpHash: string
     actualGasCost: string
-    actualGasPrice: string
     blockTime: string
     blockNumber: string
     network: string
@@ -78,7 +77,6 @@ const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" |
             revertReason: crossUserOp.revertReason,
             userOpHash: crossUserOp.userOpHash,
             actualGasCost: crossUserOp.actualGasCost,
-            actualGasPrice: crossUserOp.actualGasPrice,
             blockTime: crossUserOp.blockTime,
             blockNumber: crossUserOp.blockNumber,
             network: crossUserOp.network,

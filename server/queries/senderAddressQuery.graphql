@@ -8,7 +8,6 @@ query SenderAddressQuery($senderAddress: Bytes) {
             revertReason
             userOpHash
             actualGasCost
-            actualGasPrice
             blockTime
             blockNumber
             target
