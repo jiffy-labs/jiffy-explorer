@@ -14,7 +14,6 @@ var data = {
             revertReason
             userOpHash
             actualGasCost
-            actualGasPrice
             blockTime
             blockNumber
             input

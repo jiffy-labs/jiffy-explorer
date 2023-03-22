@@ -58,7 +58,7 @@ const getCalldata = (network: String, calldata: String, sender: String, nonce: S
 
 
 
-const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" | "nonce" | "transactionHash" | "success" | "sender" | "revertReason" | "userOpHash" | "actualGasCost" | "actualGasPrice" | "blockTime" | "blockNumber" | "network" | "input" | "factory" | "beneficiary" | "target">[]): PopulatedCrossUserOp[] => {
+const populateCrossUserOpsWithTarget = (crossUserOps: Pick<UserOp, "paymaster" | "nonce" | "transactionHash" | "success" | "sender" | "revertReason" | "userOpHash" | "actualGasCost"  | "blockTime" | "blockNumber" | "network" | "input" | "factory" | "beneficiary" | "target">[]): PopulatedCrossUserOp[] => {
     let populatedCrossUserOps: PopulatedCrossUserOp[] = []
     for (let userOpIdx in crossUserOps) {
         let crossUserOp = crossUserOps[userOpIdx]
