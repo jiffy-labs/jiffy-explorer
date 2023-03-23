@@ -26,7 +26,7 @@ interface PopulatedCrossUserOp {
 
 const router: Router = express.Router();
 const { AddressActivityQuery, BlockNumberQuery, UserOpQuery, PaymasterActivityQuery, LatestTransactionQuery, TargetQuery, BeneficiaryActivityQuery, GetLatestAccounts, GetFactoryAccounts } = getBuiltGraphSDK();
-const indexers: string[] = ["mainnet-jiffy-scan", "matic-jiffy-scan" , "optimism-goerli-jiffy-scan", "georli-jiffy-scan"]
+const indexers: string[] = ["mainnet-jiffy-scan", "matic-jiffy-scan" , "optimism-goerli-jiffy-scan", "georli-jiffy-scan", "mumbai-aa-indexer"]
 let abiCoder = new ethers.utils.AbiCoder()
 let userOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,bytes,bytes)[]", "address"]
 let candideUserOpsParams = ["tuple(address,uint256,bytes,bytes,uint256,uint256,uint256,uint256,uint256,address,bytes,bytes)[]", "address"]

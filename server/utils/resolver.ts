@@ -3,7 +3,7 @@ import { Resolvers, MeshContext } from '../.graphclient'
 export const resolvers: Resolvers = {
     UserOp: {
         // chainName can exist already in root as we pass it in the other resolver
-        indexerName: (root: any, args: any, context: any, info: any) => root.indexerName || context.indexerName || 'optimism-goerli-jiffy-scan' || "matic-jiffy-scan" || "mainnet-jiffy-scan", // The value we provide in the config
+        indexerName: (root: any, args: any, context: any, info: any) => root.indexerName || context.indexerName || 'optimism-goerli-jiffy-scan' || "matic-jiffy-scan" || "mainnet-jiffy-scan" || "mumbai-aa-indexer", // The value we provide in the config
     },
     Query: {
         crossUserOps: async (root: any, args: any, context: any, info: any) =>
