@@ -9,6 +9,12 @@ import { getUsersOperationDetails } from "./utils/nodeQueries";
 import indexerRoutes from './routes/indexerRoutes';
 import apiErrorHandler from "./error/api-error-handler";
 import ApiError from "./error/ApiError";
+import cors from "cors";
+
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -30,6 +36,7 @@ const georliProvider = new ethers.providers.InfuraProvider(
 app.use(express.static(path.join(__dirname, "../../client", "build")));
 app.use(express.static("public"));
 app.use(bodyParser.json())
+app.use(cors(corsOptions))
 
 //configure routes
 app.use('/api/v0', indexerRoutes);
@@ -41,7 +48,7 @@ interface TransactionInputsQuery {
     nonce?: string
 }
 
-type TransactionInputsRequestHandler =  Request<TransactionInputsQuery>
+type TransactionInputsRequestHandler = Request<TransactionInputsQuery>
 
 app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res: Response, next: NextFunction) => {
     const queryParams = req?.query;
@@ -52,7 +59,7 @@ app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res
     let userOp;
     try {
         if (network && transactionHash && sender && nonce) {
-            userOp = await getUsersOperationDetails(transactionHash, sender, nonce, (network == "goerli") ? georliProvider: mumbaiProvider, userOpInter) 
+            userOp = await getUsersOperationDetails(transactionHash, sender, nonce, (network == "goerli") ? georliProvider : mumbaiProvider, userOpInter)
         } else {
             next(ApiError.badRequest("One or more fields are empty. Please send network, txHash, sender and nonce"))
             return;
@@ -62,12 +69,12 @@ app.get("/getTransactionInput", async (req: TransactionInputsRequestHandler, res
         next(ApiError.badRequest("Some error occurred"))
         return;
     }
-    
+
     res.send(userOp);
 })
 
 app.use((req, res, next) => {
-    res.sendFile(path.join(__dirname, "../../client", "build", "index.html"), { root: "../../"});
+    res.sendFile(path.join(__dirname, "../../client", "build", "index.html"), { root: "../../" });
 });
 
 app.use(apiErrorHandler)
