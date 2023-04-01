@@ -17,12 +17,14 @@ import {
     Box,
     Paper,
     IconButton,
+    Link,
+    Button,
 } from "@mui/material";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import CloseIcon from "@mui/icons-material/Close";
 import { getReadableGasFee, updateNetwork } from "../common/utils";
 import ReactGA from "react-ga4";
-
-
+import Snackbar, { SnackbarOrigin } from "@mui/material/Snackbar";
 
 // 66 characters - request ID
 // 42 characters - address
@@ -79,7 +81,7 @@ const convertGraphDataToRows = (data) => {
             network: updateNetwork(userOp.network),
             target: (
                 <CopyButtonDiv>
-                    {(userOp.target != null) && userOp.target.slice(0, 10) + "..."}
+                    {userOp.target != null && userOp.target.slice(0, 10) + "..."}
                     <IconButton onClick={() => handleCopy(userOp.target || "")}>
                         <ContentCopyIcon size="small" />
                     </IconButton>
@@ -95,6 +97,27 @@ const Home = () => {
     const [data, setData] = useState([]);
     const [rows, setRows] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [toastOpen, setToastOpen] = useState(true);
+
+    const handleClose = () => {
+        setToastOpen(false);
+    };
+
+    const action = (
+        <>
+            <Typography variant="body2">
+                New Website being developed! You can access&nbsp;
+                <Link size="small" aria-label="close" color="inherit" href="https://app.jiffyscan.xyz/">
+                    it here
+                </Link>
+                <br />
+            </Typography>
+            <br />
+            <Button onClick={handleClose} color="inherit">
+                <CloseIcon fontSize="small" />
+            </Button>
+        </>
+    );
 
     useEffect(() => {
         ReactGA.send({ hitType: "pageview", page: window.location.pathname });
@@ -122,9 +145,15 @@ const Home = () => {
                 <Container alignItems="center">
                     <Paper elevation={2} square="false" alignItems="center" sx={{ display: "contents" }}>
                         <Container variant="md" sx={{ width: "80%", backgroundColor: "white", padding: "50px", marginTop: "50px" }}>
-                            <TransactionTable rows={rows} columns={columns} tableAlign="center" tableTitle="Latest Transactions"/>
+                            <TransactionTable rows={rows} columns={columns} tableAlign="center" tableTitle="Latest Transactions" />
                         </Container>
                     </Paper>
+                    <Snackbar
+                        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                        open={toastOpen}
+                        action={action}
+                        key="bottom-center"
+                    />
                 </Container>
             </main>
         </>
